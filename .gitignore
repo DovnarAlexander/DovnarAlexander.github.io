@@ -6,8 +6,5 @@
 .env
 *.sh
 *.py
-requirements.txt
-# Virtualenv
-venv
 # Temp
 index.html.j2

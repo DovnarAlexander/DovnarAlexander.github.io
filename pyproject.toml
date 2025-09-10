@@ -1,0 +1,21 @@
+# Managed by uv
+[project]
+name = "personal-github-page"
+version = "0.1.0"
+description = "Static personal site generator for Alexander Dovnar"
+readme = "README.md"
+authors = [{ name = "Alexander Dovnar" }]
+requires-python = ">=3.12"
+dependencies = [
+  "jinja2>=3.1.2",
+  "minify-html>=0.15.0",
+  "python-youtube>=0.9.4",
+]
+
+[tool.uv]
+managed = true
+package = false
+
+[build-system]
+requires = ["hatchling>=1.18.0"]
+build-backend = "hatchling.build"
