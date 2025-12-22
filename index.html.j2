@@ -142,7 +142,7 @@
                     <a href="https://www.youtube.com/embed/{{ id }}" class="lightbox mfp-iframe" title="{{ info["title"] }}"></a>
                             </div>
                   <i class="fas fa-video"></i>
-                  <h4 class="name" style="width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ info["title"] }}</h4>
+                  <h4 class="name">{{ info["title"] }}</h4>
                   <span class="category">{{ group_name }}</span>
                           </figure>
               {% endfor %}
@@ -155,7 +155,7 @@
                               <a href="https://www.youtube.com/embed/{{ id }}" class="lightbox mfp-iframe" title="{{ info["title"] }}"></a>
                             </div>
                             <i class="fas fa-video"></i>
-                            <h4 class="name" style="width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ info["title"] }}</h4>
+                            <h4 class="name">{{ info["title"] }}</h4>
                             <span class="category">YouTube Videos</span>
                           </figure>
                           {% endfor %}
@@ -189,8 +189,8 @@
   </div><!-- /.page -->
 
   <!-- Scripts -->
-  <script src="js/jquery.min.js"></script>
-  <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
 
   <!-- Custom Script for Filtering -->
   <script>
@@ -204,6 +204,19 @@
       var $items = $videoGrid.find('.item');
 
       console.log('Found', $items.length, 'video items');
+
+      // Ensure all items are visible on page load
+      $items.css({'display': 'block', 'opacity': '1'});
+      console.log('All items initialized as visible');
+
+      // Debug: Check if items are actually visible
+      $items.each(function(index) {
+        var $item = $(this);
+        var display = $item.css('display');
+        var opacity = $item.css('opacity');
+        var visibility = $item.css('visibility');
+        console.log('Item ' + index + ':', {display: display, opacity: opacity, visibility: visibility});
+      });
 
       // Filter button handlers
       $('.portfolio-filters a').on('click', function(e) {
