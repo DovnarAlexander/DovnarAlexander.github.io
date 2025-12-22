@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Alex Dovnar - DevOps & Cloud Architect</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <meta name="description" content="Alex Dovnar - DevOps and Cloud Architect with 10+ years of experience in AWS, Kubernetes, Terraform, and CI/CD" />
+  <meta name="keywords" content="devops, cloud, aws, kubernetes, terraform, architect, engineer" />
+    <link rel="shortcut icon" href="favicon.ico">
+
+  <!-- Styles -->
+    <link rel="stylesheet" href="css/reset.css" type="text/css">
+    <link rel="stylesheet" href="css/bootstrap-grid.min.css" type="text/css">
+    <link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
+  <link rel="stylesheet" href="css/terminal-theme.css" type="text/css">
+  <link rel="stylesheet" href="fonts/fontawesome-free/css/all.min.css" type="text/css">
+  </head>
+
+  <body>
+  <!-- Top Navigation -->
+  <nav class="top-nav">
+    <a href="#home" class="nav-logo">alex-dovnar</a>
+
+    <ul class="nav-menu">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#blog">Blog</a></li>
+      <li><a href="#videos">Videos</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+
+    <div class="nav-cv-button">
+      <a href="uploads/DevOps - CV - EN.pdf" class="btn-cv" target="_blank">CV EN</a>
+      <a href="uploads/DevOps - CV - RU.pdf" class="btn-cv" target="_blank">CV RU</a>
+    </div>
+  </nav>
+
+  <!-- Main Page Content -->
+    <div class="page">
+      <div class="page-content">
+
+        <!-- Floating Highlights Block -->
+        <aside class="floating-highlights fade-in">
+          <div class="section-header">
+            <span class="terminal-prompt">$ cat highlights.md</span>
+          </div>
+          <div class="md-section">
+            {{ highlights_html | safe }}
+          </div>
+        </aside>
+
+        <!-- Main Content Wrapper -->
+        <div class="main-content">
+
+      <!-- Hero Section -->
+      <section id="home" class="hero-section">
+        <div class="hero-content fade-in">
+          <div class="hero-prompt">&gt; whoami</div>
+          <h1 class="hero-title">Alex Dovnar<span class="hero-cursor"></span></h1>
+          <p class="hero-subtitle">DevOps & Cloud Architect</p>
+
+          <div class="hero-buttons">
+            <a href="uploads/DevOps - CV - EN.pdf" class="hero-btn hero-btn-primary" target="_blank">Download CV (EN)</a>
+            <a href="uploads/DevOps - CV - RU.pdf" class="hero-btn" target="_blank">Скачать Резюме (RU)</a>
+                        </div>
+
+          <div class="hero-social">
+            <a href="https://www.linkedin.com/in/aliaksandrdounar/" target="_blank" title="LinkedIn">
+              <i class="fab fa-linkedin-in"></i>
+                          </a>
+                        </div>
+                </div>
+              </section>
+
+      <!-- About Section -->
+      <section id="about" class="content-section fade-in">
+        <div class="section-header">
+          <span class="terminal-prompt">$ cat about_me.md</span>
+                          </div>
+        <div class="md-section">
+          {{ about_me_html | safe }}
+                          </div>
+      </section>
+
+      <!-- Skills Section -->
+      <section id="skills" class="content-section fade-in">
+        <div class="section-header">
+          <span class="terminal-prompt">$ echo $SKILLS</span>
+                          </div>
+        <div class="md-section">
+          {{ skills_html | safe }}
+                          </div>
+      </section>
+
+      <!-- Blog Section -->
+      <section id="blog" class="content-section fade-in">
+        <div class="section-header">
+          <span class="terminal-prompt">$ cat blog/* 2>/dev/null</span>
+                        </div>
+        <div class="blog-placeholder">
+          <p>Coming soon...</p>
+          <p style="color: var(--fg-secondary); font-size: 0.9rem; margin-top: 1rem;">
+            Stay tuned for articles about DevOps, Cloud Architecture, and Best Practices.
+          </p>
+                </div>
+              </section>
+
+      <!-- Videos Section -->
+      <section id="videos" class="content-section fade-in">
+        <div class="section-header">
+          <span class="terminal-prompt">$ youtube-dl --list-formats</span>
+                  </div>
+
+        <!-- Video Filters -->
+                        <ul class="portfolio-filters">
+                          <li class="active">
+            <a class="filter btn btn-sm btn-link" data-group="all">All</a>
+                          </li>
+          <li>
+            <a class="filter btn btn-sm btn-link" data-group="youtube-videos">YouTube Videos</a>
+                          </li>
+                          <li>
+            <a class="filter btn btn-sm btn-link" data-group="devops-kitchen">DevOps Kitchen Talks</a>
+          </li>
+                          <li>
+            <a class="filter btn btn-sm btn-link" data-group="public-talks">Public talks</a>
+                          </li>
+                        </ul>
+
+        <!-- Video Grid -->
+        <div class="portfolio-grid" id="video-grid">
+          {% set has_groups = has_groups if has_groups is defined else (youtube_groups is defined and youtube_groups) %}
+          {% if has_groups %}
+            {% for group_name, group_items in youtube_groups.items() if group_items %}
+              {% for id, info in group_items %}
+                {% set group_tag = 'devops-kitchen' if 'DevOps' in group_name else 'public-talks' %}
+                <figure class="item" data-groups='["all","youtube-videos","{{ group_tag }}"]'>
+                            <div class="portfolio-item-img">
+                    <img src="https://i1.ytimg.com/vi/{{ id }}/mqdefault.jpg" alt="{{ info["title"] }}" title="{{ info["title"] }}" />
+                    <a href="https://www.youtube.com/embed/{{ id }}" class="lightbox mfp-iframe" title="{{ info["title"] }}"></a>
+                            </div>
+                  <i class="fas fa-video"></i>
+                  <h4 class="name" style="width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ info["title"] }}</h4>
+                  <span class="category">{{ group_name }}</span>
+                          </figure>
+              {% endfor %}
+            {% endfor %}
+          {% else %}
+                          {% for id, info in youtube_links %}
+              <figure class="item" data-groups='["all","youtube-videos"]'>
+                            <div class="portfolio-item-img">
+                              <img src="https://i1.ytimg.com/vi/{{ id }}/mqdefault.jpg" alt="{{ info["title"] }}" title="{{ info["title"] }}" />
+                              <a href="https://www.youtube.com/embed/{{ id }}" class="lightbox mfp-iframe" title="{{ info["title"] }}"></a>
+                            </div>
+                            <i class="fas fa-video"></i>
+                            <h4 class="name" style="width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ info["title"] }}</h4>
+                            <span class="category">YouTube Videos</span>
+                          </figure>
+                          {% endfor %}
+          {% endif %}
+                </div>
+              </section>
+
+      <!-- Contact/Footer Section -->
+      <section id="contact" class="footer-section">
+        <div class="section-header" style="border-color: var(--accent-green);">
+          <span class="terminal-prompt">$ whois alex-dovnar.in</span>
+                  </div>
+        <div class="contact-info">
+          <div class="contact-item">
+            <strong>Email:</strong> <a href="mailto:alex@alex-dovnar.in">alex@alex-dovnar.in</a>
+                              </div>
+          <div class="contact-item">
+            <strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/aliaksandrdounar/" target="_blank">/in/aliaksandrdounar</a>
+                            </div>
+          <div class="contact-item">
+            <strong>Location:</strong> Worldwide (Remote)
+                            </div>
+          <div class="contact-item" style="margin-top: 2rem; color: var(--fg-secondary);">
+            © 2025 Alex Dovnar. All rights reserved.
+                          </div>
+                        </div>
+              </section>
+
+        </div><!-- /.main-content -->
+    </div><!-- /.page-content -->
+  </div><!-- /.page -->
+
+  <!-- Scripts -->
+  <script src="js/jquery.min.js"></script>
+  <script src="js/jquery.magnific-popup.min.js"></script>
+
+  <!-- Custom Script for Filtering -->
+  <script>
+    $(document).ready(function() {
+      console.log('jQuery loaded');
+
+      // Open all links in highlights in new tab
+      $('.floating-highlights a').attr('target', '_blank').attr('rel', 'noopener noreferrer');
+
+      var $videoGrid = $('#video-grid');
+      var $items = $videoGrid.find('.item');
+
+      console.log('Found', $items.length, 'video items');
+
+      // Filter button handlers
+      $('.portfolio-filters a').on('click', function(e) {
+        e.preventDefault();
+        console.log('Filter clicked!');
+
+        var $this = $(this);
+        var filterValue = $this.attr('data-group');
+        console.log('Filter value:', filterValue);
+
+        // Update active class
+        $('.portfolio-filters li').removeClass('active');
+        $this.parent().addClass('active');
+
+        // Filter items with simple jQuery
+        if (filterValue === 'all') {
+          console.log('Showing all items');
+          $items.fadeIn(300);
+        } else {
+          console.log('Filtering by:', filterValue);
+          $items.each(function() {
+            var $item = $(this);
+            var groups = $item.attr('data-groups');
+
+            if (groups && groups.indexOf(filterValue) !== -1) {
+              $item.fadeIn(300);
+            } else {
+              $item.fadeOut(300);
+            }
+          });
+        }
+      });
+
+      console.log('Filter handlers attached');
+
+      // Initialize Magnific Popup for videos
+      $('.lightbox').magnificPopup({
+        type: 'iframe',
+        mainClass: 'mfp-fade',
+        removalDelay: 160,
+        preloader: false,
+        fixedContentPos: false,
+        iframe: {
+          markup: '<div class="mfp-iframe-scaler">'+
+                    '<div class="mfp-close"></div>'+
+                    '<iframe class="mfp-iframe" frameborder="0" allowfullscreen></iframe>'+
+                  '</div>',
+          patterns: {
+            youtube: {
+              index: 'youtube.com/',
+              id: function(url) {
+                var m = url.match(/embed\/([^?]+)/);
+                if (!m || !m[1]) return null;
+                return m[1];
+              },
+              src: 'https://www.youtube.com/embed/%id%?autoplay=1'
+            }
+          },
+          srcAction: 'iframe_src'
+        }
+      });
+
+      // Smooth scroll for anchor links
+      $('a[href^="#"]').on('click', function(e) {
+        var target = $(this.getAttribute('href'));
+        if(target.length) {
+          e.preventDefault();
+          $('html, body').stop().animate({
+            scrollTop: target.offset().top - 70
+          }, 600);
+        }
+      });
+
+      // Intersection Observer for fade-in animations
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+
+      const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll('.fade-in').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+        observer.observe(el);
+      });
+    });
+  </script>
+  </body>
+</html>
