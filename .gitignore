@@ -2,9 +2,16 @@
 .vscode/
 .idea
 .DS_Store
+
 # Ignore local scripts
 .env
 *.sh
-*.py
-# Temp
-index.html.j2
+
+# Ignore generated/temp files
+index.html
+.youtube_cache.json
+
+# Python
+__pycache__/
+*.pyc
+.uv/

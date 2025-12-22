@@ -3,6 +3,8 @@ version: '3'
 vars:
   PYTHON: uv run python
   YOUTUBE_API_KEY: ${YOUTUBE_API_KEY}
+  CONTAINER_NAME: personal-github-page
+  PORT: 8080
 
 silent: true
 
@@ -30,3 +32,25 @@ tasks:
     desc: Remove generated artifacts
     cmds:
       - rm -f index.html
+
+  serve:
+    desc: Run site locally in Docker container (http://localhost:{{.PORT}})
+    cmds:
+      - task: render
+      - docker stop {{.CONTAINER_NAME}} 2>/dev/null || true
+      - docker rm {{.CONTAINER_NAME}} 2>/dev/null || true
+      - docker run --rm -d --name {{.CONTAINER_NAME}} --volume ".:/usr/local/apache2/htdocs:ro" -p {{.PORT}}:80 httpd:latest
+      - echo "Server running at http://localhost:{{.PORT}}"
+
+  serve-only:
+    desc: Run site locally without re-rendering (http://localhost:{{.PORT}})
+    cmds:
+      - docker stop {{.CONTAINER_NAME}} 2>/dev/null || true
+      - docker rm {{.CONTAINER_NAME}} 2>/dev/null || true
+      - docker run --rm -d --name {{.CONTAINER_NAME}} --volume ".:/usr/local/apache2/htdocs:ro" -p {{.PORT}}:80 httpd:latest
+      - echo "Server running at http://localhost:{{.PORT}}"
+
+  stop:
+    desc: Stop the local Docker container
+    cmds:
+      - docker stop {{.CONTAINER_NAME}} 2>/dev/null || true
