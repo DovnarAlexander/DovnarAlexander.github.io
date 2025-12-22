@@ -158,7 +158,80 @@ body {
   margin: 0 0 2rem 2rem;
   z-index: 900;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
-  transition: all 0.3s ease;
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: width, height, border-radius, padding;
+}
+
+.floating-highlights.collapsed {
+  width: 60px !important;
+  height: 60px !important;
+  min-height: 60px !important;
+  max-height: 60px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  cursor: pointer !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 0 0 2rem 2rem !important;
+  animation: pulse 2s infinite !important;
+}
+
+.floating-highlights.collapsed:hover {
+  transform: scale(1.1);
+  box-shadow: 0 10px 50px rgba(181, 189, 104, 0.5);
+}
+
+.floating-highlights.collapsed .highlights-content,
+.floating-highlights.collapsed .section-header,
+.floating-highlights.collapsed .md-section {
+  display: none !important;
+  opacity: 0 !important;
+}
+
+.floating-highlights.collapsed::before {
+  content: '✨';
+  font-size: 2rem;
+  display: block;
+  animation: none;
+}
+
+.floating-highlights.collapsed::after {
+  content: 'Certificates & Highlights';
+  position: absolute;
+  left: -10px;
+  transform: translateX(-100%);
+  background: rgba(40, 42, 46, 0.95);
+  color: var(--accent-green);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-family: 'JetBrains Mono', monospace;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  border: 1px solid var(--accent-green);
+}
+
+.floating-highlights.collapsed:hover::after {
+  opacity: 1;
+}
+
+.floating-highlights.expanded {
+  cursor: default;
+  animation: none;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+  }
+  50% {
+    box-shadow: 0 10px 40px rgba(181, 189, 104, 0.4);
+  }
 }
 
 .floating-highlights:hover {

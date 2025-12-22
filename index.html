@@ -42,12 +42,13 @@
       <div class="page-content">
 
         <!-- Floating Highlights Block -->
-        <aside class="floating-highlights fade-in">
-          <div class="section-header">
-            <span class="terminal-prompt">$ cat highlights.md</span>
-          </div>
-          <div class="md-section">
-            <h2>🏆 Certifications</h2>
+        <aside class="floating-highlights" id="highlights-block">
+          <div class="highlights-content">
+            <div class="section-header">
+              <span class="terminal-prompt">$ cat highlights.md</span>
+            </div>
+            <div class="md-section">
+              <h2>🏆 Certifications</h2>
 <ul>
 <li><a href="https://www.credly.com/earner/earned/badge/82027eb4-e4c8-4296-89f8-10673413da69"><strong>AWS Solutions Architect – Professional</strong> (2023 - 2026)</a></li>
 <li><a href="https://www.credly.com/earner/earned/badge/3cd25942-a894-4f31-87bc-308c6b930399"><strong>AWS Certified Security – Specialty</strong> (2022 - 2025)</a></li>
@@ -60,6 +61,7 @@
 <li><a href="https://builder.aws.com/community/@justdevops"><strong>AWS Community Builder</strong> (2023 - Present)</a></li>
 <li><a href="https://terragrunt.gruntwork.io/terragrunt-ambassador"><strong>Terragrunt Ambassador</strong> (2025 - Present)</a></li>
 </ul>
+            </div>
           </div>
         </aside>
 
@@ -762,7 +764,7 @@
             <strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/aliaksandrdounar/" target="_blank">/in/aliaksandrdounar</a>
                             </div>
           <div class="contact-item">
-            <strong>Location:</strong> Worldwide (Remote)
+            <strong>Location:</strong> Minsk, Belarus
                             </div>
           <div class="contact-item" style="margin-top: 2rem; color: var(--fg-secondary);">
             © 2025 Alex Dovnar. All rights reserved.
@@ -785,6 +787,117 @@
 
       // Open all links in highlights in new tab
       $('.floating-highlights a').attr('target', '_blank').attr('rel', 'noopener noreferrer');
+
+      // === Highlights Auto-Collapse with Intersection Observer ===
+      setTimeout(function() {
+        var highlightsEl = document.getElementById('highlights-block');
+        var aboutEl = document.getElementById('about');
+        var homeEl = document.getElementById('home');
+
+        if (!highlightsEl || !aboutEl || !homeEl) {
+          console.error('Required elements not found');
+          return;
+        }
+
+        var isCollapsed = false;
+
+        console.log('✓ Using Intersection Observer for auto-collapse');
+
+        function collapseHighlights() {
+          highlightsEl.style.cssText =
+            'float: none !important; ' +
+            'position: fixed !important; ' +
+            'top: 100px !important; ' +
+            'right: 2rem !important; ' +
+            'width: 60px !important; ' +
+            'height: 60px !important; ' +
+            'min-width: 60px !important; ' +
+            'max-width: 60px !important; ' +
+            'min-height: 60px !important; ' +
+            'max-height: 60px !important; ' +
+            'padding: 0 !important; ' +
+            'margin: 0 !important; ' +
+            'border-radius: 50% !important; ' +
+            'overflow: hidden !important; ' +
+            'display: flex !important; ' +
+            'align-items: center !important; ' +
+            'justify-content: center !important; ' +
+            'background: rgba(40, 42, 46, 0.98) !important; ' +
+            'border: 2px solid #b5bd68 !important; ' +
+            'z-index: 9999 !important; ' +
+            'cursor: pointer !important; ' +
+            'transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1) !important;';
+
+          var content = highlightsEl.querySelector('.highlights-content');
+          if (content) content.style.display = 'none';
+
+          if (!highlightsEl.querySelector('.collapse-emoji')) {
+            var emoji = document.createElement('div');
+            emoji.className = 'collapse-emoji';
+            emoji.innerHTML = '✨';
+            emoji.style.cssText = 'font-size: 2rem;';
+            highlightsEl.appendChild(emoji);
+          }
+
+          isCollapsed = true;
+          console.log('✓ Collapsed');
+        }
+
+        function expandHighlights() {
+          // Add transition before clearing styles for smooth animation
+          highlightsEl.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+
+          setTimeout(function() {
+            highlightsEl.style.cssText = '';
+
+            var content = highlightsEl.querySelector('.highlights-content');
+            if (content) content.style.display = '';
+
+            var emoji = highlightsEl.querySelector('.collapse-emoji');
+            if (emoji) emoji.remove();
+
+            isCollapsed = false;
+            console.log('✓ Expanded');
+          }, 10);
+        }
+
+        // Click to expand when collapsed
+        highlightsEl.addEventListener('click', function() {
+          if (isCollapsed) {
+            console.log('Click: expanding manually');
+            expandHighlights();
+          }
+        });
+
+        // Observer for About - collapse when About enters viewport
+        var aboutObserver = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting && !isCollapsed) {
+              console.log('>>> About section visible - COLLAPSING!');
+              collapseHighlights();
+            }
+          });
+        }, {
+          threshold: [0, 0.1],
+          rootMargin: '300px 0px 0px 0px' // Trigger 300px before element enters
+        });
+
+        // Observer for Home - expand only when back at top
+        var homeObserver = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting && isCollapsed) {
+              console.log('>>> Home section visible - EXPANDING!');
+              expandHighlights();
+            }
+          });
+        }, {
+          threshold: [0.5, 1.0] // Only when Home is mostly visible
+        });
+
+        aboutObserver.observe(aboutEl);
+        homeObserver.observe(homeEl);
+        console.log('✓ Observing About (collapse) and Home (expand) sections');
+      }, 500);
 
       var $videoGrid = $('#video-grid');
       var $items = $videoGrid.find('.item');

@@ -10,6 +10,7 @@
 # Ignore generated/temp files
 index.html
 .youtube_cache.json
+test_render.py
 
 # Python
 __pycache__/
