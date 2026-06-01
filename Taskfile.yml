@@ -4,6 +4,7 @@ vars:
   PYTHON: uv run python
   YOUTUBE_API_KEY: ${YOUTUBE_API_KEY}
   CONTAINER_NAME: personal-github-page
+  CV_IMAGE: dovnar-cv-builder
   PORT: 8080
 
 silent: true
@@ -27,6 +28,13 @@ tasks:
     desc: Build static site (alias to render)
     cmds:
       - task: render
+
+  build-cv:
+    desc: Build CV PDFs (EN + RU) from cv/ sources via WeasyPrint (Dockerized — no host deps)
+    cmds:
+      - docker build -q -t {{.CV_IMAGE}} -f cv/Dockerfile cv >/dev/null
+      - docker run --rm --volume "$PWD:/work" {{.CV_IMAGE}}
+      - echo "CV PDFs written to uploads/"
 
   clean:
     desc: Remove generated artifacts

@@ -11,6 +11,7 @@
 index.html
 .youtube_cache.json
 test_render.py
+cv/build/
 
 # Python
 __pycache__/

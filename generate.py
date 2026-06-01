@@ -87,6 +87,7 @@ templateFile.close()
 # Load Markdown content
 content_dir = os.getenv("CONTENT_DIR", "content")
 about_me_html = load_markdown(os.path.join(content_dir, "about_me.md"))
+experience_html = load_markdown(os.path.join(content_dir, "experience.md"))
 education_html = load_markdown(os.path.join(content_dir, "education.md"))
 skills_html = load_markdown(os.path.join(content_dir, "skills.md"))
 highlights_html = load_markdown(os.path.join(content_dir, "highlights.md"))
@@ -157,6 +158,7 @@ html = template.render(
     youtube_groups=youtube_groups,
     has_groups=has_groups,
     about_me_html=about_me_html,
+    experience_html=experience_html,
     education_html=education_html,
     skills_html=skills_html,
     highlights_html=highlights_html,
