@@ -42,5 +42,5 @@ The two résumé PDFs in `uploads/` are **generated**, not hand-edited. Sources 
 - `cv/Dockerfile` — pins WeasyPrint and Cyrillic-capable fonts so the build is reproducible.
 
 To update a CV: edit the relevant `cv/content/<lang>.md`, then run `task build-cv` (requires only
-**Docker** — no host Python/font setup). It rewrites `uploads/DevOps - CV - EN.pdf` and
+**Docker** — no host Python/font setup). It rewrites `uploads/DevOps-Alexander-Dovnar-EN.pdf` and
 `… RU.pdf`, which the site already links to. Debug HTML is written to `cv/build/` (git-ignored).
