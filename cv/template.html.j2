@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+  <meta charset="utf-8" />
+  <title>{{ name }} — {{ title }}</title>
+  <style>{{ css | safe }}</style>
+</head>
+<body>
+{%- set L = {
+  'en': {
+    'summary': 'Summary', 'skills': 'Skills', 'experience': 'Experience',
+    'certifications': 'Certifications', 'communities': 'Community & Public Activity',
+    'education': 'Education'
+  },
+  'ru': {
+    'summary': 'О себе', 'skills': 'Навыки', 'experience': 'Опыт',
+    'certifications': 'Сертификаты', 'communities': 'Публичная деятельность',
+    'education': 'Образование'
+  }
+} -%}
+{%- set labels = L[lang] -%}
+
+  <header class="cv-header">
+    <h1>{{ name }}</h1>
+    <p class="title">{{ title }}</p>
+    <p class="contact">
+      <a href="mailto:{{ email }}">{{ email }}</a>
+      <span class="sep">·</span> {{ linkedin }}
+      <span class="sep">·</span> {{ website }}
+      <span class="sep">·</span> {{ location }}
+    </p>
+  </header>
+
+  {% if summary %}
+  <section class="summary">
+    <h2>{{ labels.summary }}</h2>
+    <p>{{ summary }}</p>
+  </section>
+  {% endif %}
+
+  {% if skills %}
+  <section class="skills">
+    <h2>{{ labels.skills }}</h2>
+    <ul class="skills-list">
+      {% for s in skills %}<li><span class="skill-group">{{ s.group }}:</span> {{ s.detail }}</li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  <section class="experience">
+    <h2>{{ labels.experience }}</h2>
+    {{ body | safe }}
+  </section>
+
+  {% if certifications %}
+  <section class="certifications">
+    <h2>{{ labels.certifications }}</h2>
+    <ul>
+      {% for c in certifications %}<li>{{ c }}</li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  {% if communities %}
+  <section class="communities">
+    <h2>{{ labels.communities }}</h2>
+    <ul>
+      {% for c in communities %}<li>{{ c }}</li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  {% if education %}
+  <section class="education">
+    <h2>{{ labels.education }}</h2>
+    <ul>
+      {% for e in education %}<li>{{ e }}</li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+</body>
+</html>

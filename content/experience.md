@@ -1,33 +1,32 @@
 # Experience
 
-## TECH LEAD / SENIOR DEVOPS ENGINEER • NAVITEQ LTD • JAN 2022 – PRESENT
+## Tech Lead / Senior DevOps Engineer • Naviteq Ltd • Jan 2022 – Present
 
-•  Worked on 10+ client projects: full cycle from design to production.
-•  Designed and deployed AWS infrastructure: high availability, security, cost optimization (saved up to 40%).
-•  Built and standardized Terraform/Terragrunt templates and CI/CD pipelines.
-•  Managed Kubernetes clusters, wrote Helm charts, improved deployments.
-•  Set up monitoring and logging with Prometheus, Grafana, Loki, OpenSearch.
-•  Supported other engineers with code reviews, mentoring, and architecture help.
+- Delivered 10+ client projects end-to-end, from architecture design to production.
+- Architected and deployed highly available, secure AWS infrastructure with cost optimization (saved up to 40%).
+- Standardized reusable Terraform/Terragrunt templates and CI/CD pipelines across teams.
+- Operated Kubernetes clusters and authored Helm charts to streamline deployments.
+- Built monitoring and logging stacks with Prometheus, Grafana, Loki, and OpenSearch.
+- Mentored engineers through code reviews and architecture guidance.
 
-## SENIOR DEVOPS ENGINEER • ONESOIL • AUG 2021 – MAY 2022
+## Senior DevOps Engineer • OneSoil • Aug 2021 – May 2022 (consulting)
 
-•  Designed AWS multi-account architecture.
-•  Applied AWS best practices for security and scalability.
-•  Reduced costs by ~30% with no performance loss.
-•  Built Kubernetes platform for scalable deployments.
-•  Added monitoring with Prometheus and Grafana.
+- Designed a multi-account AWS architecture aligned to security and scalability best practices.
+- Reduced cloud costs by ~30% with no loss of performance.
+- Built a Kubernetes platform for scalable deployments.
+- Added observability with Prometheus and Grafana.
 
-## LEAD SYSTEM ENGINEER • EPAM SYSTEMS • APR 2016 – AUG 2021
+## Lead System Engineer • EPAM Systems • Apr 2016 – Aug 2021
 
-•  Grew from junior to lead engineer.
-•  Designed AWS infrastructure and automated it with Terraform and Ansible.
-•  Built and maintained CI/CD pipelines with GitLab CI and Jenkins.
-•  Worked as team lead / tech lead: assigned tasks, reviewed solutions.
-•  Migrated enterprise systems to the cloud (AWS, Azure).
-•  Took part in several international projects (fintech, retail).
+- Grew from junior to lead engineer over five years.
+- Designed AWS infrastructure and automated it with Terraform and Ansible.
+- Built and maintained CI/CD pipelines with GitLab CI and Jenkins.
+- Led the team as tech lead: planned work, assigned tasks, and reviewed solutions.
+- Migrated enterprise systems to the cloud (AWS, Azure).
+- Delivered several international projects across fintech and retail.
 
-## SENIOR NETWORK ENGINEER • RUE BELTELECOM • MAR 2011 – APR 2016
+## Senior Network Engineer • RUE Beltelecom • Mar 2011 – Apr 2016
 
-•  Supported clients consuming Internet, VoIP & IPTV services.
-•  Supported backbone network and corporate clients (VPN, Ethernet, SHDSL). 
-•  Automated network equipment maintenance with custom scripts.
+- Supported clients consuming Internet, VoIP, and IPTV services.
+- Maintained the backbone network and corporate clients (VPN, Ethernet, SHDSL).
+- Automated network equipment maintenance with custom scripts.

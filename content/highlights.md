@@ -10,6 +10,6 @@
 
 ## 🌟 Communities
 
-- [**DevOps Kitchen Talks co-host** (2019 - Present)](https://www.youtube.com/c/DevOpsKitchenTalks)
+- [**DevOps Kitchen Talks co-host** (2020 - Present)](https://www.youtube.com/c/DevOpsKitchenTalks) — 70+ episodes, 300k+ views
 - [**AWS Community Builder** (2023 - Present)](https://builder.aws.com/community/@justdevops)
 - [**Terragrunt Ambassador** (2025 - Present)](https://terragrunt.gruntwork.io/terragrunt-ambassador)

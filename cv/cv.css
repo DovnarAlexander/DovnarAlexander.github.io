@@ -1,0 +1,86 @@
+/* Single-column, ATS-friendly résumé stylesheet (WeasyPrint).
+   Real selectable text, standard section headers, no multi-column, no tables,
+   no text-as-image. Fonts resolved from the build image (Noto Sans → Cyrillic). */
+
+@page {
+  size: A4;
+  margin: 15mm 16mm 13mm 16mm;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  font-family: "Noto Sans", "DejaVu Sans", sans-serif;
+  font-size: 10.2pt;
+  line-height: 1.42;
+  color: #1f2328;
+}
+body { margin: 0; }
+
+a { color: inherit; text-decoration: none; }
+
+/* ---- Header ---- */
+.cv-header { margin-bottom: 6px; }
+.cv-header h1 {
+  margin: 0;
+  font-size: 22pt;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  color: #14181c;
+}
+.cv-header .title {
+  margin: 2px 0 5px;
+  font-size: 11.5pt;
+  font-weight: 600;
+  color: #0f5e8c;
+}
+.cv-header .contact {
+  margin: 0;
+  font-size: 9pt;
+  color: #5a6066;
+}
+.cv-header .contact .sep { color: #b9c1c8; padding: 0 3px; }
+
+/* ---- Sections ---- */
+section { margin-top: 11px; }
+h2 {
+  margin: 0 0 6px;
+  padding-bottom: 3px;
+  font-size: 10.3pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.1px;
+  color: #0f5e8c;
+  border-bottom: 1.1px solid #d4dde4;
+  break-after: avoid;
+}
+
+/* ---- Experience entries (from Markdown body) ---- */
+h3 {
+  margin: 9px 0 0;
+  font-size: 10.5pt;
+  font-weight: 700;
+  color: #14181c;
+  break-after: avoid;
+}
+h3 + p {                 /* the "*dates*" line directly under a role */
+  margin: 0 0 3px;
+  font-size: 8.8pt;
+  color: #6b7177;
+}
+h3 + p em { font-style: normal; }
+
+p { margin: 0 0 4px; }
+.summary p { text-align: justify; }
+
+ul { margin: 3px 0 6px; padding-left: 15px; }
+li { margin: 0 0 2px; }
+li::marker { color: #9aa4ac; }
+
+/* ---- Skills ---- */
+.skills-list { list-style: none; padding-left: 0; }
+.skills-list li { margin-bottom: 3px; }
+.skill-group { font-weight: 600; color: #14181c; }
+
+/* Keep tidy single-spaced compact lists in cert/community/education */
+.certifications ul, .communities ul, .education ul { margin-bottom: 0; }
