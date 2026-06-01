@@ -42,8 +42,8 @@ BUILD_DIR = CV_DIR / "build"
 
 # lang -> output filename (matches the links in index.html.j2)
 LANGS = {
-    "en": "DevOps - CV - EN.pdf",
-    "ru": "DevOps - CV - RU.pdf",
+    "en": "DevOps-Alexander-Dovnar-EN.pdf",
+    "ru": "DevOps-Alexander-Dovnar-RU.pdf",
 }
 
 FRONT_MATTER_RE = re.compile(r"^---\n(.*?)\n---\n(.*)$", re.DOTALL)
