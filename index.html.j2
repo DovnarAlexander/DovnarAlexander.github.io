@@ -50,7 +50,7 @@
         <a href="#experience" class="nav-item"><i class="fas fa-briefcase"></i>experience<span class="nav-count">4</span></a>
         <a href="#skills" class="nav-item"><i class="fas fa-layer-group"></i>skills</a>
         <a href="#education" class="nav-item"><i class="fas fa-graduation-cap"></i>education</a>
-        <a href="#blog" class="nav-item"><i class="fas fa-rss"></i>blog<span class="nav-count">0</span></a>
+        <a href="#blog" class="nav-item"><i class="fas fa-rss"></i>blog<span class="nav-count">{{ posts|length if posts else 0 }}</span></a>
         <a href="#videos" class="nav-item"><i class="fas fa-video"></i>talks<span class="nav-count">70+</span></a>
         <a href="#contact" class="nav-item"><i class="fas fa-envelope"></i>contact</a>
       </nav>
@@ -131,8 +131,23 @@
           <span class="prompt-cursor">$</span><span class="prompt-cmd">kubectl get</span><span class="prompt-res">posts</span><span class="prompt-flag">-A</span>
         </div>
         <div class="panel-body">
+          {% if posts %}
+          <ul class="post-list">
+            {% for post in posts %}
+            <li class="post-item">
+              <a href="{{ post.url }}" class="post-link">
+                <span class="post-title">{{ post.title }}</span>
+                {% if post.date_human %}<span class="post-date">{{ post.date_human }}</span>{% endif %}
+              </a>
+              {% if post.excerpt %}<p class="post-excerpt">{{ post.excerpt }}</p>{% endif %}
+              {% if post.tags %}<p class="post-tags">{% for tag in post.tags %}<span class="post-tag">#{{ tag }}</span> {% endfor %}</p>{% endif %}
+            </li>
+            {% endfor %}
+          </ul>
+          {% else %}
           <p class="empty-state">No resources found in default namespace.</p>
           <p class="mt-2 text-sm text-dim">Articles on DevOps, Cloud Architecture &amp; best practices — coming soon.</p>
+          {% endif %}
         </div>
       </section>
 

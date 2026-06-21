@@ -9,6 +9,8 @@
 
 # Ignore generated/temp files
 index.html
+/blog/
+_site/
 .youtube_cache.json
 test_render.py
 cv/build/
