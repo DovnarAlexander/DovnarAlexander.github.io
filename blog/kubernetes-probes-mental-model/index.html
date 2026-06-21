@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Kubernetes probes are a mental model, not a checklist — Alex Dovnar</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="What startup, readiness, and liveness each actually control — and why treating probes as three boxes to tick is how people take their own services down." />
+    <meta name="keywords" content="Kubernetes, DevOps, SRE, PlatformEngineering, CloudNative" />
+    <link rel="canonical" href="https://alex-dovnar.in/blog/kubernetes-probes-mental-model/" />
+    <link rel="shortcut icon" href="../../favicon.ico">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Kubernetes probes are a mental model, not a checklist" />
+    <meta property="og:description" content="What startup, readiness, and liveness each actually control — and why treating probes as three boxes to tick is how people take their own services down." />
+    <meta property="og:url" content="https://alex-dovnar.in/blog/kubernetes-probes-mental-model/" />
+    <meta name="twitter:card" content="summary" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../../css/tailwind.css" type="text/css">
+    <link rel="stylesheet" href="../../fonts/fontawesome-free/css/all.min.css" type="text/css">
+  </head>
+
+  <body class="min-h-dvh bg-bg font-sans text-fg">
+
+    <!-- Context Bar -->
+    <header class="ctx-bar">
+      <a href="../../" class="hidden font-mono text-base font-semibold text-k8s sm:inline">&gt; alex-dovnar</a>
+      <span class="ctx-pill"><span class="status-dot status-ok"></span>ctx:&nbsp;<b>prod</b></span>
+      <span class="ctx-pill hidden sm:flex">ns:&nbsp;<b>blog</b></span>
+      <nav class="ml-auto flex gap-2">
+        <a href="../../#blog" class="cv-btn">All posts</a>
+      </nav>
+    </header>
+
+    <main class="pt-12">
+      <article class="post-article">
+
+        <a href="../../#blog" class="post-back"><i class="fas fa-arrow-left"></i>back to posts</a>
+
+        <header class="post-header">
+          <div class="panel-head mt-4 rounded-t-xl">
+            <span class="prompt-cursor">$</span><span class="prompt-cmd">kubectl describe</span><span class="prompt-res">post/kubernetes-probes-mental-model</span>
+          </div>
+          <div class="mt-5">
+            <h1 class="post-h1">Kubernetes probes are a mental model, not a checklist</h1>
+            <div class="post-meta">
+              <span><i class="fas fa-calendar-day"></i>&nbsp;Jun 21, 2026</span>
+              <span>·&nbsp;Alex Dovnar</span>
+              <span>·&nbsp;#Kubernetes #DevOps #SRE #PlatformEngineering #CloudNative </span>
+            </div>
+          </div>
+        </header>
+
+        <div class="post-body">
+          <p>Every few months "What job interviews taught me about Kubernetes" climbs the Hacker News front page again. It's a good read, and the section that always gets the most replies is the one on probes — because that's where the gap between "I can deploy a pod" and "I understand how Kubernetes keeps it alive" is widest.</p>
+<p>I've sat on both sides of that interview. I've also cleaned up the production version of the same mistake. The pattern is identical: people treat <code>readinessProbe</code>, <code>livenessProbe</code>, and <code>startupProbe</code> as three boxes to tick, copy a snippet from a blog, and move on. Then Kubernetes does exactly what they told it to — and takes the service down on their behalf.</p>
+<p>This post is the mental model I wish more people carried into both the interview and the cluster.</p>
+<details class="deck-details">
+<summary><span class="deck-chevron">▸</span>The 60-second version — flip through the deck<span class="deck-hint">7 slides · swipe →</span></summary>
+<div class="deck" data-deck>
+<div class="deck-track">
+<section class="deck-slide"><span class="ds-kicker">Mental model</span><h3 class="ds-title">Probes are a contract, not a checklist</h3><p class="ds-body">"Three boxes to tick" is how people take their own services down. Each probe hands Kubernetes a different command.</p></section>
+<section class="deck-slide"><span class="ds-kicker">The premise</span><h3 class="ds-title">Kubernetes trusts your probe — not your app</h3><p class="ds-body">It doesn't know whether you're healthy. It knows what your probe <em>says</em>. The entire failure surface lives in that gap.</p></section>
+<section class="deck-slide ds-cyan"><span class="ds-tag">startup</span><h3 class="ds-title">Has it initialized enough to be judged?</h3><p class="ds-body">Gates the other two while it runs. The right tool for slow boots — not a giant <code>initialDelaySeconds</code> on liveness.</p></section>
+<section class="deck-slide ds-warn"><span class="ds-tag">readiness</span><h3 class="ds-title">Can it serve traffic right now?</h3><p class="ds-body">Failure pulls the pod from the Service endpoints. <strong>No restart.</strong> Traffic resumes the moment it passes again.</p></section>
+<section class="deck-slide ds-err"><span class="ds-tag">liveness</span><h3 class="ds-title">Is it still functioning?</h3><p class="ds-body">Failure restarts the container. Cardinal rule: <strong>never depend on anything external</strong> — or one DB blip restarts every replica.</p></section>
+<section class="deck-slide ds-err"><span class="ds-kicker">The classic outage</span><h3 class="ds-title">CrashLoopBackOff</h3><p class="ds-body">Liveness hits <code>/health</code>, which checks Postgres. Postgres hiccups → kill → restart → fail → loop. The app was never broken.</p></section>
+<section class="deck-slide ds-ok"><span class="ds-kicker">Remember this</span><h3 class="ds-title">Liveness restarts. Readiness reroutes. Startup gates the other two.</h3><p class="ds-body">Get the separation right → zero-downtime deploys. Get it wrong → Kubernetes amplifies the mistake across every replica.</p></section>
+</div>
+</div>
+</details>
+
+<h2 id="the-thing-nobody-says-out-loud-kubernetes-trusts-you-completely">The thing nobody says out loud: Kubernetes trusts you completely</h2>
+<p>Kubernetes does not know whether your application is healthy. It knows whether your <em>probe</em> says it's healthy. Those are not the same statement, and the entire failure surface lives in that gap.</p>
+<p>If your probe is wrong, Kubernetes will enforce the wrong thing relentlessly. It has no "this looks like a misconfiguration" heuristic. A probe is an instruction, and Kubernetes follows instructions to the letter — even when following them destroys the workload.</p>
+<p>So the first reframe: <strong>a probe is not a health check you write for yourself. It's a command you hand to a control loop that will act on it without hesitation.</strong></p>
+<h2 id="three-probes-three-different-contracts">Three probes, three different contracts</h2>
+<p>The reason probes get confused is that all three "check if the app is okay." But what they <em>control</em> when they fail is completely different.</p>
+<div class="probe-grid">
+<div class="probe-card probe-startup"><span class="probe-name">startupProbe</span><span class="probe-q">"Has it initialized enough to be judged?"</span><span class="probe-action">gates the other two</span></div>
+<div class="probe-card probe-readiness"><span class="probe-name">readinessProbe</span><span class="probe-q">"Can it serve traffic right now?"</span><span class="probe-action">reroutes traffic · no restart</span></div>
+<div class="probe-card probe-liveness"><span class="probe-name">livenessProbe</span><span class="probe-q">"Is it still functioning?"</span><span class="probe-action">restarts the container</span></div>
+</div>
+
+<h3 id="startup-has-the-app-initialized-enough-to-be-judged">Startup — "has the app initialized enough to be judged?"</h3>
+<p>The startup probe gates the other two. While it's running, liveness and readiness are suppressed. This is what protects slow-booting apps — Java Spring, .NET Core, anything that runs migrations on boot — from being killed before they ever finish starting.</p>
+<p>If you've ever reached for a big <code>initialDelaySeconds</code> on a liveness probe to "give it time to start," you wanted a startup probe instead. <code>initialDelaySeconds</code> is a fixed guess; a startup probe is adaptive and stops as soon as the app is actually up.</p>
+<h3 id="readiness-can-it-serve-traffic-right-now">Readiness — "can it serve traffic right now?"</h3>
+<p>Readiness failure removes the pod from the Service endpoint list. <strong>No restart.</strong> Traffic stops flowing; the pod keeps running. When readiness passes again, traffic resumes.</p>
+<p>This is the probe for <em>temporary</em> unavailability: cache still warming, a downstream dependency briefly slow, the pod under momentary load. You're telling Kubernetes "hold my requests for a second," not "I'm broken, recycle me."</p>
+<h3 id="liveness-is-it-still-functioning">Liveness — "is it still functioning?"</h3>
+<p>Liveness failure restarts the container. It exists for one situation: the process is running but irreparably stuck — a deadlock, an infinite loop, a wedged event loop — and only a restart will recover it.</p>
+<p>The cardinal rule follows directly: <strong>a liveness probe must never depend on anything external.</strong> If your liveness check hits the database and the database has a bad minute, Kubernetes will restart every replica of a perfectly healthy app. You converted a transient dependency blip into a self-inflicted, cluster-wide outage.</p>
+<h3 id="the-contract-in-one-line">The contract in one line</h3>
+<div class="viz-label">probe → responsibility</div>
+<div class="flow">
+<div class="flow-step" style="--fs-accent: var(--color-cyan)"><span class="fs-probe">startup</span><span class="fs-role">Initialize</span></div>
+<div class="flow-arrow">→</div>
+<div class="flow-step" style="--fs-accent: var(--color-warn)"><span class="fs-probe">readiness</span><span class="fs-role">Accept traffic</span></div>
+<div class="flow-arrow">→</div>
+<div class="flow-step" style="--fs-accent: var(--color-err)"><span class="fs-probe">liveness</span><span class="fs-role">Stay healthy</span></div>
+</div>
+
+<ul>
+<li>Startup controls <em>when</em> liveness becomes active.</li>
+<li>Readiness controls <em>traffic flow</em>.</li>
+<li>Liveness controls <em>restart behavior</em>.</li>
+</ul>
+<p>Almost every probe incident I've seen comes from mixing those three responsibilities into one endpoint.</p>
+<h2 id="the-failure-mode-concretely">The failure mode, concretely</h2>
+<p>Here's the classic. A liveness probe pointed at an endpoint that depends on a late-initializing or external resource:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">livenessProbe</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">httpGet</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/health</span><span class="w">      </span><span class="c1"># this handler also checks Postgres</span>
+<span class="w">    </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8080</span>
+<span class="w">  </span><span class="nt">initialDelaySeconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+<span class="w">  </span><span class="nt">periodSeconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+</code></pre></div>
+
+<p>Boot is slow, or Postgres hiccups. <code>/health</code> returns non-200. Kubernetes kills the container. It restarts, fails the same check, restarts again — and you're in <code>CrashLoopBackOff</code>. The app was never broken. The probe lied, and Kubernetes believed it.</p>
+<div class="viz-label">how a healthy app dies</div>
+<div class="timeline">
+<div class="tl-step tl-warn"><span class="tl-text"><b>Boot is slow</b>, or Postgres hiccups for a minute.</span></div>
+<div class="tl-step tl-warn"><span class="tl-text"><code>/health</code> returns non-200 — because the same handler also checks Postgres.</span></div>
+<div class="tl-step tl-crash"><span class="tl-text">Kubernetes <b>kills the container</b>: it was told a failing liveness check means "broken."</span></div>
+<div class="tl-step tl-crash"><span class="tl-text">Restart → same check fails → restart again → <b>CrashLoopBackOff</b>.</span></div>
+<div class="tl-step tl-crash"><span class="tl-text">The app was never broken. The probe lied, and Kubernetes believed it.</span></div>
+</div>
+
+<h2 id="what-a-real-readiness-probe-looks-like">What a real readiness probe looks like</h2>
+<p>Readiness is the probe people get wrong most often, so it's worth being concrete. A good readiness probe is:</p>
+<ul>
+<li><strong>Lightweight.</strong> No heavy DB scans, no expensive downstream calls. A probe that's too heavy becomes its own source of timeouts and makes the pod flap between <code>Ready</code> and <code>NotReady</code>.</li>
+<li><strong>Functional, not cosmetic.</strong> Not just "return 200." Check the things that actually block serving: DB pool warmed, cache preloaded, migrations done, workers up.</li>
+<li><strong>Tolerant.</strong> Use <code>failureThreshold</code> and <code>periodSeconds</code> so a one-off blip doesn't yank you out of rotation.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nt">readinessProbe</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">httpGet</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/health/ready</span>
+<span class="w">    </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8080</span>
+<span class="w">  </span><span class="nt">initialDelaySeconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+<span class="w">  </span><span class="nt">periodSeconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+<span class="w">  </span><span class="nt">failureThreshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+</code></pre></div>
+
+<p>Inside <code>/health/ready</code>, do quick checks of the dependencies that genuinely gate serving traffic, and return fast. Note the separate path from liveness — they answer different questions, so they get different endpoints.</p>
+<h2 id="the-interview-answer-and-the-production-answer">The interview answer, and the production answer</h2>
+<p>In an interview, the line that lands is: <em>liveness restarts, readiness reroutes, startup gates the other two.</em> That distinction alone tells the interviewer you understand operational reliability, not just <code>kubectl apply</code>.</p>
+<p>In production, the same distinction is the difference between a graceful rollout and a 3 a.m. page. Get the separation right and you get zero-downtime deploys and services that ride out transient hiccups without anyone noticing. Get it wrong and Kubernetes will faithfully amplify your mistake across every replica.</p>
+<p>If your liveness probe can fail because something <em>else</em> is down, it isn't a liveness probe — it's a blast radius.</p>
+<hr />
+<p>What's the worst probe misconfiguration you've shipped — and what did it take down? Drop it below; I collect these. I'll start: a liveness probe on <code>/health</code> that pinged Postgres and turned a 90-second DB failover into a full cluster restart.</p>
+        </div>
+
+        <footer class="mt-10 border-t border-border pt-6">
+          <p class="font-mono text-sm text-muted">
+            Written by Alex Dovnar — DevOps &amp; Cloud Architect.
+            Find me on <a href="https://www.linkedin.com/in/dovnaralex/" target="_blank" rel="noopener" class="text-k8s">LinkedIn</a>.
+          </p>
+          <a href="../../#blog" class="post-back mt-4"><i class="fas fa-arrow-left"></i>back to posts</a>
+        </footer>
+
+      </article>
+    </main>
+
+    <!-- Slide-deck navigation: progressively enhances any .deck[data-deck].
+         Without JS the track is still a swipeable scroll-snap carousel. -->
+    <script>
+      (function () {
+        var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        document.querySelectorAll(".deck[data-deck]").forEach(function (deck) {
+          var track = deck.querySelector(".deck-track");
+          var slides = Array.prototype.slice.call(track.querySelectorAll(".deck-slide"));
+          if (slides.length < 2) return;
+
+          var nav = document.createElement("div");
+          nav.className = "deck-nav";
+          var prev = document.createElement("button");
+          prev.className = "deck-btn";
+          prev.type = "button";
+          prev.setAttribute("aria-label", "Previous slide");
+          prev.textContent = "‹";
+          var dots = document.createElement("div");
+          dots.className = "deck-dots";
+          var counter = document.createElement("span");
+          counter.className = "deck-counter";
+          var next = document.createElement("button");
+          next.className = "deck-btn";
+          next.type = "button";
+          next.setAttribute("aria-label", "Next slide");
+          next.textContent = "›";
+
+          slides.forEach(function (_, i) {
+            var dot = document.createElement("button");
+            dot.className = "deck-dot";
+            dot.type = "button";
+            dot.setAttribute("aria-label", "Go to slide " + (i + 1));
+            dot.addEventListener("click", function () { go(i); });
+            dots.appendChild(dot);
+          });
+
+          nav.appendChild(prev);
+          nav.appendChild(dots);
+          nav.appendChild(counter);
+          nav.appendChild(next);
+          deck.appendChild(nav);
+
+          var current = 0;
+          function go(i) {
+            i = Math.max(0, Math.min(slides.length - 1, i));
+            track.scrollTo({ left: slides[i].offsetLeft - track.offsetLeft, behavior: reduce ? "auto" : "smooth" });
+          }
+          prev.addEventListener("click", function () { go(current - 1); });
+          next.addEventListener("click", function () { go(current + 1); });
+
+          function sync() {
+            var idx = 0, best = Infinity;
+            slides.forEach(function (s, i) {
+              var d = Math.abs(s.offsetLeft - track.offsetLeft - track.scrollLeft);
+              if (d < best) { best = d; idx = i; }
+            });
+            current = idx;
+            counter.textContent = (idx + 1) + " / " + slides.length;
+            prev.disabled = idx === 0;
+            next.disabled = idx === slides.length - 1;
+            dots.childNodes.forEach(function (dot, i) {
+              dot.classList.toggle("active", i === idx);
+            });
+          }
+          var ticking = false;
+          track.addEventListener("scroll", function () {
+            if (ticking) return;
+            ticking = true;
+            window.requestAnimationFrame(function () { sync(); ticking = false; });
+          });
+          // Recompute once the <details> actually opens (widths are 0 while closed).
+          var details = deck.closest("details");
+          if (details) details.addEventListener("toggle", function () { if (details.open) sync(); });
+          sync();
+        });
+      })();
+    </script>
+
+  </body>
+</html>
