@@ -17,3 +17,6 @@ cv/build/
 __pycache__/
 *.pyc
 .uv/
+
+# Tailwind standalone binary (downloaded by `task install-tailwind`)
+/bin/tailwindcss
