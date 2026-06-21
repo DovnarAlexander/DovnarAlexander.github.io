@@ -6,6 +6,8 @@ vars:
   CONTAINER_NAME: personal-github-page
   CV_IMAGE: dovnar-cv-builder
   PORT: 8080
+  TAILWIND_VERSION: v4.1.11
+  TAILWIND_BIN: bin/tailwindcss
 
 silent: true
 
@@ -15,10 +17,36 @@ tasks:
     cmds:
       - uv sync --frozen || uv sync
 
+  install-tailwind:
+    desc: Download the pinned Tailwind standalone CLI binary (no Node required)
+    status:
+      - test -x {{.TAILWIND_BIN}}
+    cmds:
+      - mkdir -p bin
+      - |
+        case "$(uname -s)-$(uname -m)" in
+          Darwin-arm64)  ASSET=tailwindcss-macos-arm64 ;;
+          Darwin-x86_64) ASSET=tailwindcss-macos-x64 ;;
+          Linux-x86_64)  ASSET=tailwindcss-linux-x64 ;;
+          Linux-aarch64) ASSET=tailwindcss-linux-arm64 ;;
+          *) echo "Unsupported platform: $(uname -s)-$(uname -m)"; exit 1 ;;
+        esac
+        echo "Downloading Tailwind {{.TAILWIND_VERSION}} ($ASSET)..."
+        curl -fsSL -o {{.TAILWIND_BIN}} \
+          "https://github.com/tailwindlabs/tailwindcss/releases/download/{{.TAILWIND_VERSION}}/$ASSET"
+        chmod +x {{.TAILWIND_BIN}}
+
+  build-css:
+    desc: Build Tailwind CSS to css/tailwind.css (minifies when CI is set)
+    deps: [install-tailwind]
+    cmds:
+      - "{{.TAILWIND_BIN}} -i css/input.css -o css/tailwind.css {{if .CI}}--minify{{end}}"
+
   render:
     desc: Render site to index.html (respects CI for minification)
     cmds:
       - task: sync
+      - task: build-css
       - >
         {{.PYTHON}} ./generate.py
     env:

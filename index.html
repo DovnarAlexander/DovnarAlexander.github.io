@@ -4,53 +4,66 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Alex Dovnar - DevOps & Cloud Architect</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Alex Dovnar - DevOps and Cloud Architect with 10+ years of experience in AWS, Kubernetes, Terraform, and CI/CD" />
   <meta name="keywords" content="devops, cloud, aws, kubernetes, terraform, architect, engineer" />
     <link rel="shortcut icon" href="favicon.ico">
 
+  <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap">
+
   <!-- Styles -->
-    <link rel="stylesheet" href="css/reset.css" type="text/css">
-    <link rel="stylesheet" href="css/bootstrap-grid.min.css" type="text/css">
+    <link rel="stylesheet" href="css/tailwind.css" type="text/css">
     <link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
-  <link rel="stylesheet" href="css/terminal-theme.css" type="text/css">
   <link rel="stylesheet" href="fonts/fontawesome-free/css/all.min.css" type="text/css">
   </head>
 
-  <body>
-  <!-- Top Navigation -->
-  <nav class="top-nav">
-    <a href="#home" class="nav-logo">alex-dovnar</a>
+  <body class="min-h-dvh bg-bg font-sans text-fg">
 
-    <ul class="nav-menu">
-      <li><a href="#home">Home</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#education">Education</a></li>
-      <li><a href="#blog">Blog</a></li>
-      <li><a href="#videos">Videos</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
+  <!-- Context Bar -->
+  <header class="ctx-bar">
+    <button class="ctx-burger" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="sidebar">
+      <i class="fas fa-bars"></i>
+    </button>
+    <a href="#home" class="hidden font-mono text-base font-semibold text-k8s sm:inline">&gt; alex-dovnar</a>
+    <span class="ctx-pill"><span class="status-dot status-ok"></span>ctx:&nbsp;<b>prod</b></span>
+    <span class="ctx-pill hidden sm:flex">ns:&nbsp;<b>default</b></span>
+    <span class="ctx-pill hidden md:flex">ready&nbsp;▸</span>
+    <nav class="ml-auto flex gap-2">
+      <a href="uploads/DevOps-Alexander-Dovnar-EN.pdf" target="_blank" rel="noopener" class="cv-btn">CV EN</a>
+      <a href="uploads/DevOps-Alexander-Dovnar-RU.pdf" target="_blank" rel="noopener" class="cv-btn">CV RU</a>
+    </nav>
+  </header>
 
-    <div class="nav-cv-button">
-      <a href="uploads/DevOps-Alexander-Dovnar-EN.pdf" class="btn-cv" target="_blank">CV EN</a>
-      <a href="uploads/DevOps-Alexander-Dovnar-RU.pdf" class="btn-cv" target="_blank">CV RU</a>
-    </div>
-  </nav>
+  <!-- Dashboard Grid -->
+  <div class="grid grid-cols-1 pt-12 lg:grid-cols-[240px_minmax(0,1fr)] xl:grid-cols-[240px_minmax(0,1fr)_300px]">
 
-  <!-- Main Page Content -->
-    <div class="page">
-      <div class="page-content">
+    <!-- Sidebar (resource nav) -->
+    <aside id="sidebar"
+      class="fixed bottom-0 left-0 top-12 z-40 w-60 -translate-x-full overflow-y-auto border-r border-border bg-panel transition-transform duration-200 lg:sticky lg:top-12 lg:h-[calc(100dvh-3rem)] lg:w-auto lg:translate-x-0">
+      <p class="nav-label">Resources</p>
+      <nav class="flex flex-col pb-4">
+        <a href="#home" class="nav-item"><i class="fas fa-terminal"></i>home</a>
+        <a href="#about" class="nav-item"><i class="fas fa-id-card"></i>about</a>
+        <a href="#experience" class="nav-item"><i class="fas fa-briefcase"></i>experience<span class="nav-count">4</span></a>
+        <a href="#skills" class="nav-item"><i class="fas fa-layer-group"></i>skills</a>
+        <a href="#education" class="nav-item"><i class="fas fa-graduation-cap"></i>education</a>
+        <a href="#blog" class="nav-item"><i class="fas fa-rss"></i>blog<span class="nav-count">0</span></a>
+        <a href="#videos" class="nav-item"><i class="fas fa-video"></i>talks<span class="nav-count">70+</span></a>
+        <a href="#contact" class="nav-item"><i class="fas fa-envelope"></i>contact</a>
+      </nav>
+    </aside>
+    <div id="nav-backdrop" class="fixed inset-0 top-12 z-30 hidden bg-black/50 lg:hidden"></div>
 
-        <!-- Floating Highlights Block -->
-        <aside class="floating-highlights" id="highlights-block">
-          <div class="highlights-content">
-            <div class="section-header">
-              <span class="terminal-prompt">$ cat highlights.md</span>
-            </div>
-            <div class="md-section">
-              <h2>🏆 Certifications</h2>
+    <!-- Main column -->
+    <main class="mx-auto flex w-full min-w-0 max-w-[1100px] flex-col gap-6 px-4 py-6 sm:px-6">
+
+      <!-- Highlights — mobile/tablet chip strip -->
+      <div class="highlights-strip sticky top-12 z-30 bg-bg/90 backdrop-blur xl:hidden"
+           tabindex="0" role="region" aria-label="Certifications and communities">
+        <div class="chip-flow"><h2>🏆 Certifications</h2>
 <ul>
 <li><a href="https://www.credly.com/earner/earned/badge/82027eb4-e4c8-4296-89f8-10673413da69"><strong>AWS Solutions Architect – Professional</strong> (2023 - 2026)</a></li>
 <li><a href="https://www.credly.com/earner/earned/badge/3cd25942-a894-4f31-87bc-308c6b930399"><strong>AWS Certified Security – Specialty</strong> (2022 - 2025)</a></li>
@@ -63,54 +76,48 @@
 <li><a href="https://www.youtube.com/c/DevOpsKitchenTalks"><strong>DevOps Kitchen Talks co-host</strong> (2020 - Present)</a> — 70+ episodes, 300k+ views</li>
 <li><a href="https://builder.aws.com/community/@justdevops"><strong>AWS Community Builder</strong> (2023 - Present)</a></li>
 <li><a href="https://terragrunt.gruntwork.io/terragrunt-ambassador"><strong>Terragrunt Ambassador</strong> (2025 - Present)</a></li>
-</ul>
-            </div>
-          </div>
-        </aside>
+</ul></div>
+      </div>
 
-        <!-- Main Content Wrapper -->
-        <div class="main-content">
-
-      <!-- Hero Section -->
-      <section id="home" class="hero-section">
-        <div class="hero-content fade-in">
+      <!-- Hero -->
+      <section id="home" class="panel fade-in scroll-mt-16">
+        <div class="hero-panel">
           <div class="hero-prompt">&gt; whoami</div>
           <h1 class="hero-title">Alex Dovnar<span class="hero-cursor"></span></h1>
-          <p class="hero-subtitle">DevOps & Cloud Architect</p>
-
-          <div class="hero-buttons">
-            <a href="uploads/DevOps-Alexander-Dovnar-EN.pdf" class="hero-btn hero-btn-primary" target="_blank">Download CV (EN)</a>
-            <a href="uploads/DevOps-Alexander-Dovnar-RU.pdf" class="hero-btn" target="_blank">Скачать Резюме (RU)</a>
-                        </div>
-
+          <p class="hero-subtitle">DevOps &amp; Cloud Architect</p>
+          <div class="hero-actions">
+            <a href="uploads/DevOps-Alexander-Dovnar-EN.pdf" class="hero-btn hero-btn-primary" target="_blank" rel="noopener">Download CV (EN)</a>
+            <a href="uploads/DevOps-Alexander-Dovnar-RU.pdf" class="hero-btn" target="_blank" rel="noopener">Скачать Резюме (RU)</a>
+          </div>
           <div class="hero-social">
-            <a href="https://www.linkedin.com/in/dovnaralex/" target="_blank" title="LinkedIn">
+            <a href="https://www.linkedin.com/in/dovnaralex/" target="_blank" rel="noopener" title="LinkedIn">
               <i class="fab fa-linkedin-in"></i>
-                          </a>
-                        </div>
-                </div>
-              </section>
+            </a>
+          </div>
+        </div>
+      </section>
 
-      <!-- About Section -->
-      <section id="about" class="content-section fade-in">
-        <div class="section-header">
-          <span class="terminal-prompt">$ cat about_me.md</span>
-                          </div>
-        <div class="md-section">
+      <!-- About -->
+      <section id="about" class="panel fade-in scroll-mt-16">
+        <div class="panel-head">
+          <span class="prompt-cursor">$</span><span class="prompt-cmd">kubectl describe</span><span class="prompt-res">profile</span>
+        </div>
+        <div class="panel-body">
           <p><strong>DevOps &amp; Cloud Architect</strong> with 10+ years of experience building scalable infrastructure on AWS, Azure, GCP, and other cloud platforms.</p>
 <p><strong>Expertise:</strong> Infrastructure as Code (Terraform, Terragrunt, Helm), Kubernetes, CI/CD pipelines, monitoring &amp; observability, and cloud architecture design.</p>
 <p><strong>AI-augmented engineering:</strong> coding agents (Claude Code, Cursor, Copilot), MCP integrations, and agentic workflow development applied to DevOps automation.</p>
 <p><strong>Track Record:</strong> Led technical teams, designed cloud architectures from scratch, launched 10+ production systems end-to-end, and mentored engineers across multiple organizations.</p>
 <p><strong>AWS Community Builder</strong> and certified cloud professional passionate about automation, DevOps best practices, and sharing knowledge through talks and technical content.</p>
-                          </div>
+        </div>
       </section>
 
-      <!-- Experience Section -->
-      <section id="experience" class="content-section fade-in">
-        <div class="section-header">
-          <span class="terminal-prompt">$ cat experience.md</span>
-                          </div>
-        <div class="md-section">
+      <!-- Experience -->
+      <section id="experience" class="panel fade-in scroll-mt-16">
+        <div class="panel-head">
+          <span class="prompt-cursor">$</span><span class="prompt-cmd">kubectl get</span><span class="prompt-res">experience</span>
+          <span class="panel-meta">READY <b>4/4</b> · AGE <b>14y</b></span>
+        </div>
+        <div class="panel-body">
           <h2>Tech Lead / Senior DevOps Engineer • Naviteq Ltd • Jan 2022 – Present</h2>
 <ul>
 <li>Delivered 10+ client projects end-to-end, from architecture design to production.</li>
@@ -142,15 +149,15 @@
 <li>Maintained the backbone network and corporate clients (VPN, Ethernet, SHDSL).</li>
 <li>Automated network equipment maintenance with custom scripts.</li>
 </ul>
-                          </div>
+        </div>
       </section>
 
-      <!-- Skills Section -->
-      <section id="skills" class="content-section fade-in">
-        <div class="section-header">
-          <span class="terminal-prompt">$ echo $SKILLS</span>
-                          </div>
-        <div class="md-section">
+      <!-- Skills -->
+      <section id="skills" class="panel fade-in scroll-mt-16">
+        <div class="panel-head">
+          <span class="prompt-cursor">$</span><span class="prompt-cmd">kubectl get</span><span class="prompt-res">skills</span><span class="prompt-flag">-o wide</span>
+        </div>
+        <div class="panel-body">
           <ul>
 <li>Cloud Architecture: AWS (security, networking, multi-account, FinOps), Azure, GCP</li>
 <li>Platforms: Kubernetes, ArgoCD, Helm; GitOps at scale</li>
@@ -162,976 +169,918 @@
 <li>Cost: usage analytics, right-sizing, autoscaling, waste elimination</li>
 <li>Ways of Working: pragmatic leadership, enablement, knowledge transfer</li>
 </ul>
-                          </div>
+        </div>
       </section>
 
-      <!-- Education Section -->
-      <section id="education" class="content-section fade-in">
-        <div class="section-header">
-          <span class="terminal-prompt">$ cat education.md</span>
-                          </div>
-        <div class="md-section">
+      <!-- Education -->
+      <section id="education" class="panel fade-in scroll-mt-16">
+        <div class="panel-head">
+          <span class="prompt-cursor">$</span><span class="prompt-cmd">kubectl get</span><span class="prompt-res">education</span>
+        </div>
+        <div class="panel-body">
           <ul>
 <li>Engineer, Belarusian State University of Informatics and Radioelectronics (2015)</li>
 <li>Information technologies and management in technical systems</li>
 <li>Ongoing professional education through certifications and community work</li>
 </ul>
-                          </div>
+        </div>
       </section>
 
-      <!-- Blog Section -->
-      <section id="blog" class="content-section fade-in">
-        <div class="section-header">
-          <span class="terminal-prompt">$ cat blog/* 2>/dev/null</span>
-                        </div>
-        <div class="blog-placeholder">
-          <p>Coming soon...</p>
-          <p style="color: var(--fg-secondary); font-size: 0.9rem; margin-top: 1rem;">
-            Stay tuned for articles about DevOps, Cloud Architecture, and Best Practices.
-          </p>
-                </div>
-              </section>
-
-      <!-- Videos Section -->
-      <section id="videos" class="content-section fade-in">
-        <div class="section-header">
-          <span class="terminal-prompt">$ youtube-dl --list-formats</span>
-                  </div>
-
-        <!-- Video Filters -->
-                        <ul class="portfolio-filters">
-                          <li class="active">
-            <a class="filter btn btn-sm btn-link" data-group="all">All</a>
-                          </li>
-          <li>
-            <a class="filter btn btn-sm btn-link" data-group="youtube-videos">YouTube Videos</a>
-                          </li>
-                          <li>
-            <a class="filter btn btn-sm btn-link" data-group="devops-kitchen">DevOps Kitchen Talks</a>
-          </li>
-                          <li>
-            <a class="filter btn btn-sm btn-link" data-group="public-talks">Public talks</a>
-                          </li>
-                        </ul>
-
-        <!-- Video Grid -->
-        <div class="portfolio-grid" id="video-grid">
-
-
-
-
-
-                <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/HKBCeLkA9w4/mqdefault.jpg" alt="DKT97 | DevOps в 2026: Platform Engineering, AI-агенты и будущее джунов" title="DKT97 | DevOps в 2026: Platform Engineering, AI-агенты и будущее джунов" />
-                    <a href="https://www.youtube.com/embed/HKBCeLkA9w4" class="lightbox mfp-iframe" title="DKT97 | DevOps в 2026: Platform Engineering, AI-агенты и будущее джунов"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">DKT97 | DevOps в 2026: Platform Engineering, AI-агенты и будущее джунов</h4>
-                  <span class="category">DevOps Kitchen Talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/-x-71cAWwWk/mqdefault.jpg" alt="DKT 96 | Mock-интервью DevOps: AWS EKS, Terraform, Kubernetes, AI + много практики" title="DKT 96 | Mock-интервью DevOps: AWS EKS, Terraform, Kubernetes, AI + много практики" />
-                    <a href="https://www.youtube.com/embed/-x-71cAWwWk" class="lightbox mfp-iframe" title="DKT 96 | Mock-интервью DevOps: AWS EKS, Terraform, Kubernetes, AI + много практики"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">DKT 96 | Mock-интервью DevOps: AWS EKS, Terraform, Kubernetes, AI + много практики</h4>
-                  <span class="category">DevOps Kitchen Talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/3fEANSrfu-8/mqdefault.jpg" alt="DKT95: Karpenter vs Spot.io: как сэкономить 40% на EKS" title="DKT95: Karpenter vs Spot.io: как сэкономить 40% на EKS" />
-                    <a href="https://www.youtube.com/embed/3fEANSrfu-8" class="lightbox mfp-iframe" title="DKT95: Karpenter vs Spot.io: как сэкономить 40% на EKS"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">DKT95: Karpenter vs Spot.io: как сэкономить 40% на EKS</h4>
-                  <span class="category">DevOps Kitchen Talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/y8wOjnv9wlc/mqdefault.jpg" alt="DKT93 - DevOps Mock Interview: Terraform, K8s, AI и Live Coding" title="DKT93 - DevOps Mock Interview: Terraform, K8s, AI и Live Coding" />
-                    <a href="https://www.youtube.com/embed/y8wOjnv9wlc" class="lightbox mfp-iframe" title="DKT93 - DevOps Mock Interview: Terraform, K8s, AI и Live Coding"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">DKT93 - DevOps Mock Interview: Terraform, K8s, AI и Live Coding</h4>
-                  <span class="category">DevOps Kitchen Talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/Uq-ZVCulm1E/mqdefault.jpg" alt="DKT92 - MCP - это было ошибкой? Разбираемся и показываем демо" title="DKT92 - MCP - это было ошибкой? Разбираемся и показываем демо" />
-                    <a href="https://www.youtube.com/embed/Uq-ZVCulm1E" class="lightbox mfp-iframe" title="DKT92 - MCP - это было ошибкой? Разбираемся и показываем демо"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">DKT92 - MCP - это было ошибкой? Разбираемся и показываем демо</h4>
-                  <span class="category">DevOps Kitchen Talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/PdaHnehivQs/mqdefault.jpg" alt="DKT91: Мок-интервью DevOps - Архитектура AWS, Terraform и Live Debug K8s" title="DKT91: Мок-интервью DevOps - Архитектура AWS, Terraform и Live Debug K8s" />
-                    <a href="https://www.youtube.com/embed/PdaHnehivQs" class="lightbox mfp-iframe" title="DKT91: Мок-интервью DevOps - Архитектура AWS, Terraform и Live Debug K8s"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">DKT91: Мок-интервью DevOps - Архитектура AWS, Terraform и Live Debug K8s</h4>
-                  <span class="category">DevOps Kitchen Talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/496FclVQ5fo/mqdefault.jpg" alt="DKT90-Второй мозг инженера: Obsidian, Zettelkasten и Johnny Decimal" title="DKT90-Второй мозг инженера: Obsidian, Zettelkasten и Johnny Decimal" />
-                    <a href="https://www.youtube.com/embed/496FclVQ5fo" class="lightbox mfp-iframe" title="DKT90-Второй мозг инженера: Obsidian, Zettelkasten и Johnny Decimal"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">DKT90-Второй мозг инженера: Obsidian, Zettelkasten и Johnny Decimal</h4>
-                  <span class="category">DevOps Kitchen Talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/zWJJLnScesY/mqdefault.jpg" alt="DKT89 - OpenClaw (ex-ClawdBot), Kubernetes 1.35 и другие свежие DevOps новости" title="DKT89 - OpenClaw (ex-ClawdBot), Kubernetes 1.35 и другие свежие DevOps новости" />
-                    <a href="https://www.youtube.com/embed/zWJJLnScesY" class="lightbox mfp-iframe" title="DKT89 - OpenClaw (ex-ClawdBot), Kubernetes 1.35 и другие свежие DevOps новости"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">DKT89 - OpenClaw (ex-ClawdBot), Kubernetes 1.35 и другие свежие DevOps новости</h4>
-                  <span class="category">DevOps Kitchen Talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/SWdKOWlJ_eo/mqdefault.jpg" alt="DKT87 - Разбор Technology Radar #33: AI, MCP, Context Engineering и будущее DevOps" title="DKT87 - Разбор Technology Radar #33: AI, MCP, Context Engineering и будущее DevOps" />
-                    <a href="https://www.youtube.com/embed/SWdKOWlJ_eo" class="lightbox mfp-iframe" title="DKT87 - Разбор Technology Radar #33: AI, MCP, Context Engineering и будущее DevOps"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">DKT87 - Разбор Technology Radar #33: AI, MCP, Context Engineering и будущее DevOps</h4>
-                  <span class="category">DevOps Kitchen Talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/BGpxbiiOUq8/mqdefault.jpg" alt="DKT86: Ingress NGINX уходит на пенсию: миграция на Gateway API и не только" title="DKT86: Ingress NGINX уходит на пенсию: миграция на Gateway API и не только" />
-                    <a href="https://www.youtube.com/embed/BGpxbiiOUq8" class="lightbox mfp-iframe" title="DKT86: Ingress NGINX уходит на пенсию: миграция на Gateway API и не только"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">DKT86: Ingress NGINX уходит на пенсию: миграция на Gateway API и не только</h4>
-                  <span class="category">DevOps Kitchen Talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/ujy3xnLQlw4/mqdefault.jpg" alt="DKT85 - DevOps Mock Interview #5 (Senior/Chief DevOps Engineer)" title="DKT85 - DevOps Mock Interview #5 (Senior/Chief DevOps Engineer)" />
-                    <a href="https://www.youtube.com/embed/ujy3xnLQlw4" class="lightbox mfp-iframe" title="DKT85 - DevOps Mock Interview #5 (Senior/Chief DevOps Engineer)"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">DKT85 - DevOps Mock Interview #5 (Senior/Chief DevOps Engineer)</h4>
-                  <span class="category">DevOps Kitchen Talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/KdxacPrcEgQ/mqdefault.jpg" alt="DKT82 - Radar 32: AI-ассистенты, Observability, SBOM, UV/Renovate" title="DKT82 - Radar 32: AI-ассистенты, Observability, SBOM, UV/Renovate" />
-                    <a href="https://www.youtube.com/embed/KdxacPrcEgQ" class="lightbox mfp-iframe" title="DKT82 - Radar 32: AI-ассистенты, Observability, SBOM, UV/Renovate"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">DKT82 - Radar 32: AI-ассистенты, Observability, SBOM, UV/Renovate</h4>
-                  <span class="category">DevOps Kitchen Talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/gChx3JtZQPA/mqdefault.jpg" alt="DKT81 -  DevOps Mock Interview #3 (Senior DevOps Engineer)" title="DKT81 -  DevOps Mock Interview #3 (Senior DevOps Engineer)" />
-                    <a href="https://www.youtube.com/embed/gChx3JtZQPA" class="lightbox mfp-iframe" title="DKT81 -  DevOps Mock Interview #3 (Senior DevOps Engineer)"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">DKT81 -  DevOps Mock Interview #3 (Senior DevOps Engineer)</h4>
-                  <span class="category">DevOps Kitchen Talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/BCer7ybcb1Y/mqdefault.jpg" alt="DKT80 - Интервью с автором ArgoCD" title="DKT80 - Интервью с автором ArgoCD" />
-                    <a href="https://www.youtube.com/embed/BCer7ybcb1Y" class="lightbox mfp-iframe" title="DKT80 - Интервью с автором ArgoCD"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">DKT80 - Интервью с автором ArgoCD</h4>
-                  <span class="category">DevOps Kitchen Talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/Uvt9ehNmUnA/mqdefault.jpg" alt="DKT78 - Terraform vs все остальное" title="DKT78 - Terraform vs все остальное" />
-                    <a href="https://www.youtube.com/embed/Uvt9ehNmUnA" class="lightbox mfp-iframe" title="DKT78 - Terraform vs все остальное"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">DKT78 - Terraform vs все остальное</h4>
-                  <span class="category">DevOps Kitchen Talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/gEc1ad8_PWo/mqdefault.jpg" alt="DKT77 -  DevOps Mock Interview #1 (Senior DevOps)" title="DKT77 -  DevOps Mock Interview #1 (Senior DevOps)" />
-                    <a href="https://www.youtube.com/embed/gEc1ad8_PWo" class="lightbox mfp-iframe" title="DKT77 -  DevOps Mock Interview #1 (Senior DevOps)"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">DKT77 -  DevOps Mock Interview #1 (Senior DevOps)</h4>
-                  <span class="category">DevOps Kitchen Talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/PaUK2rtMNTI/mqdefault.jpg" alt="DKT76 - Готовим Karpenter Workshop (часть 1)" title="DKT76 - Готовим Karpenter Workshop (часть 1)" />
-                    <a href="https://www.youtube.com/embed/PaUK2rtMNTI" class="lightbox mfp-iframe" title="DKT76 - Готовим Karpenter Workshop (часть 1)"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">DKT76 - Готовим Karpenter Workshop (часть 1)</h4>
-                  <span class="category">DevOps Kitchen Talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/yi5FX3xzrnY/mqdefault.jpg" alt="DKT75 - DevOps кухня и шаурма" title="DKT75 - DevOps кухня и шаурма" />
-                    <a href="https://www.youtube.com/embed/yi5FX3xzrnY" class="lightbox mfp-iframe" title="DKT75 - DevOps кухня и шаурма"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">DKT75 - DevOps кухня и шаурма</h4>
-                  <span class="category">DevOps Kitchen Talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/lP6oKlAacN0/mqdefault.jpg" alt="DKT74 - 10 лет конференции DevOps Conf" title="DKT74 - 10 лет конференции DevOps Conf" />
-                    <a href="https://www.youtube.com/embed/lP6oKlAacN0" class="lightbox mfp-iframe" title="DKT74 - 10 лет конференции DevOps Conf"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">DKT74 - 10 лет конференции DevOps Conf</h4>
-                  <span class="category">DevOps Kitchen Talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/B5Ttsy6Mu5Y/mqdefault.jpg" alt="DKT73 - От админа до DevOps за 7 лет: путь (подписчика) и ошибки, которые вам не нужно повторять" title="DKT73 - От админа до DevOps за 7 лет: путь (подписчика) и ошибки, которые вам не нужно повторять" />
-                    <a href="https://www.youtube.com/embed/B5Ttsy6Mu5Y" class="lightbox mfp-iframe" title="DKT73 - От админа до DevOps за 7 лет: путь (подписчика) и ошибки, которые вам не нужно повторять"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">DKT73 - От админа до DevOps за 7 лет: путь (подписчика) и ошибки, которые вам не нужно повторять</h4>
-                  <span class="category">DevOps Kitchen Talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/0gUgecAK4tQ/mqdefault.jpg" alt="DKT72 - Новости 2025 из мира AWS, Terraform и DevOps" title="DKT72 - Новости 2025 из мира AWS, Terraform и DevOps" />
-                    <a href="https://www.youtube.com/embed/0gUgecAK4tQ" class="lightbox mfp-iframe" title="DKT72 - Новости 2025 из мира AWS, Terraform и DevOps"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">DKT72 - Новости 2025 из мира AWS, Terraform и DevOps</h4>
-                  <span class="category">DevOps Kitchen Talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/7cqxCQrXhfw/mqdefault.jpg" alt="DKT71 - Karpenter 1.0 и опыт в продакшене" title="DKT71 - Karpenter 1.0 и опыт в продакшене" />
-                    <a href="https://www.youtube.com/embed/7cqxCQrXhfw" class="lightbox mfp-iframe" title="DKT71 - Karpenter 1.0 и опыт в продакшене"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">DKT71 - Karpenter 1.0 и опыт в продакшене</h4>
-                  <span class="category">DevOps Kitchen Talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/-8r2GPAUTuk/mqdefault.jpg" alt="DKT70 - О Подкасте и DevOps на кухне (снова)" title="DKT70 - О Подкасте и DevOps на кухне (снова)" />
-                    <a href="https://www.youtube.com/embed/-8r2GPAUTuk" class="lightbox mfp-iframe" title="DKT70 - О Подкасте и DevOps на кухне (снова)"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">DKT70 - О Подкасте и DevOps на кухне (снова)</h4>
-                  <span class="category">DevOps Kitchen Talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/UKTP00-AbGM/mqdefault.jpg" alt="DKT69 - Что там с Terraform и другие новости" title="DKT69 - Что там с Terraform и другие новости" />
-                    <a href="https://www.youtube.com/embed/UKTP00-AbGM" class="lightbox mfp-iframe" title="DKT69 - Что там с Terraform и другие новости"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">DKT69 - Что там с Terraform и другие новости</h4>
-                  <span class="category">DevOps Kitchen Talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/8WtYalzPhAI/mqdefault.jpg" alt="DKT68 - 10 лет Kubernetes!" title="DKT68 - 10 лет Kubernetes!" />
-                    <a href="https://www.youtube.com/embed/8WtYalzPhAI" class="lightbox mfp-iframe" title="DKT68 - 10 лет Kubernetes!"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">DKT68 - 10 лет Kubernetes!</h4>
-                  <span class="category">DevOps Kitchen Talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/k7l4YeU_Xn0/mqdefault.jpg" alt="Yet another skill: DevOps | Sr Developer Advocate в AWS | Собеседования в AWS | DevOps Kitchen Talks" title="Yet another skill: DevOps | Sr Developer Advocate в AWS | Собеседования в AWS | DevOps Kitchen Talks" />
-                    <a href="https://www.youtube.com/embed/k7l4YeU_Xn0" class="lightbox mfp-iframe" title="Yet another skill: DevOps | Sr Developer Advocate в AWS | Собеседования в AWS | DevOps Kitchen Talks"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">Yet another skill: DevOps | Sr Developer Advocate в AWS | Собеседования в AWS | DevOps Kitchen Talks</h4>
-                  <span class="category">DevOps Kitchen Talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/EnSueCJfxHQ/mqdefault.jpg" alt="DKT67 - Разбор Technology Radar vol. 30 (2024)" title="DKT67 - Разбор Technology Radar vol. 30 (2024)" />
-                    <a href="https://www.youtube.com/embed/EnSueCJfxHQ" class="lightbox mfp-iframe" title="DKT67 - Разбор Technology Radar vol. 30 (2024)"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">DKT67 - Разбор Technology Radar vol. 30 (2024)</h4>
-                  <span class="category">DevOps Kitchen Talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/5ljFkYqWN4c/mqdefault.jpg" alt="DKT66 - Что такое GitOps и с чего начать?" title="DKT66 - Что такое GitOps и с чего начать?" />
-                    <a href="https://www.youtube.com/embed/5ljFkYqWN4c" class="lightbox mfp-iframe" title="DKT66 - Что такое GitOps и с чего начать?"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">DKT66 - Что такое GitOps и с чего начать?</h4>
-                  <span class="category">DevOps Kitchen Talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/JeNuZ7qYpA4/mqdefault.jpg" alt="DKT65 - ECS vs EKS - когда что выбрать?" title="DKT65 - ECS vs EKS - когда что выбрать?" />
-                    <a href="https://www.youtube.com/embed/JeNuZ7qYpA4" class="lightbox mfp-iframe" title="DKT65 - ECS vs EKS - когда что выбрать?"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">DKT65 - ECS vs EKS - когда что выбрать?</h4>
-                  <span class="category">DevOps Kitchen Talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/QuMUzflHsS4/mqdefault.jpg" alt="DKT64 - Тренажер подготовки к экзамену CKS и CKA(D)" title="DKT64 - Тренажер подготовки к экзамену CKS и CKA(D)" />
-                    <a href="https://www.youtube.com/embed/QuMUzflHsS4" class="lightbox mfp-iframe" title="DKT64 - Тренажер подготовки к экзамену CKS и CKA(D)"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">DKT64 - Тренажер подготовки к экзамену CKS и CKA(D)</h4>
-                  <span class="category">DevOps Kitchen Talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/yNmP1JzZLfw/mqdefault.jpg" alt="DKT63 - Новостной выпуск" title="DKT63 - Новостной выпуск" />
-                    <a href="https://www.youtube.com/embed/yNmP1JzZLfw" class="lightbox mfp-iframe" title="DKT63 - Новостной выпуск"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">DKT63 - Новостной выпуск</h4>
-                  <span class="category">DevOps Kitchen Talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/05BUsRCFpDc/mqdefault.jpg" alt="DKT62 - Топ инструментов на Mac (Часть 2)" title="DKT62 - Топ инструментов на Mac (Часть 2)" />
-                    <a href="https://www.youtube.com/embed/05BUsRCFpDc" class="lightbox mfp-iframe" title="DKT62 - Топ инструментов на Mac (Часть 2)"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">DKT62 - Топ инструментов на Mac (Часть 2)</h4>
-                  <span class="category">DevOps Kitchen Talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/CaY084pgUC4/mqdefault.jpg" alt="DKT61 - Как научиться DevOps?" title="DKT61 - Как научиться DevOps?" />
-                    <a href="https://www.youtube.com/embed/CaY084pgUC4" class="lightbox mfp-iframe" title="DKT61 - Как научиться DevOps?"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">DKT61 - Как научиться DevOps?</h4>
-                  <span class="category">DevOps Kitchen Talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/pmqebxQQLjA/mqdefault.jpg" alt="DKT60 - Топ инструментов на Mac (Часть 1)" title="DKT60 - Топ инструментов на Mac (Часть 1)" />
-                    <a href="https://www.youtube.com/embed/pmqebxQQLjA" class="lightbox mfp-iframe" title="DKT60 - Топ инструментов на Mac (Часть 1)"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">DKT60 - Топ инструментов на Mac (Часть 1)</h4>
-                  <span class="category">DevOps Kitchen Talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/jDYy5zFCZbg/mqdefault.jpg" alt="🔥 DevOps Kitchen Talks: Что должен знать DevOps-инженер в 2024 году 🔥" title="🔥 DevOps Kitchen Talks: Что должен знать DevOps-инженер в 2024 году 🔥" />
-                    <a href="https://www.youtube.com/embed/jDYy5zFCZbg" class="lightbox mfp-iframe" title="🔥 DevOps Kitchen Talks: Что должен знать DevOps-инженер в 2024 году 🔥"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">🔥 DevOps Kitchen Talks: Что должен знать DevOps-инженер в 2024 году 🔥</h4>
-                  <span class="category">DevOps Kitchen Talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/fRbQXdRbWZo/mqdefault.jpg" alt="DKT58 RoadMap для изучения AWS, а также обзор метрик в DevOps" title="DKT58 RoadMap для изучения AWS, а также обзор метрик в DevOps" />
-                    <a href="https://www.youtube.com/embed/fRbQXdRbWZo" class="lightbox mfp-iframe" title="DKT58 RoadMap для изучения AWS, а также обзор метрик в DevOps"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">DKT58 RoadMap для изучения AWS, а также обзор метрик в DevOps</h4>
-                  <span class="category">DevOps Kitchen Talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/hWNQvAg1zP8/mqdefault.jpg" alt="🔥 DevOps Kitchen Talks: Готовим Вместе! 🔥" title="🔥 DevOps Kitchen Talks: Готовим Вместе! 🔥" />
-                    <a href="https://www.youtube.com/embed/hWNQvAg1zP8" class="lightbox mfp-iframe" title="🔥 DevOps Kitchen Talks: Готовим Вместе! 🔥"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">🔥 DevOps Kitchen Talks: Готовим Вместе! 🔥</h4>
-                  <span class="category">DevOps Kitchen Talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/spSoAqzAVNw/mqdefault.jpg" alt="DKT56 Релиз Terraform 1.5, Изменение лицензии HashiCorp и Сертификации Kubernetes" title="DKT56 Релиз Terraform 1.5, Изменение лицензии HashiCorp и Сертификации Kubernetes" />
-                    <a href="https://www.youtube.com/embed/spSoAqzAVNw" class="lightbox mfp-iframe" title="DKT56 Релиз Terraform 1.5, Изменение лицензии HashiCorp и Сертификации Kubernetes"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">DKT56 Релиз Terraform 1.5, Изменение лицензии HashiCorp и Сертификации Kubernetes</h4>
-                  <span class="category">DevOps Kitchen Talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/h_Wm-tgsJ5I/mqdefault.jpg" alt="Как сдать CKA в 2023 году, опыт Виктора Ведмича DKT48" title="Как сдать CKA в 2023 году, опыт Виктора Ведмича DKT48" />
-                    <a href="https://www.youtube.com/embed/h_Wm-tgsJ5I" class="lightbox mfp-iframe" title="Как сдать CKA в 2023 году, опыт Виктора Ведмича DKT48"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">Как сдать CKA в 2023 году, опыт Виктора Ведмича DKT48</h4>
-                  <span class="category">DevOps Kitchen Talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/aMFLpf1So6k/mqdefault.jpg" alt="DKT47: Что нового в мире IT по версии Thoughtworks technology radar" title="DKT47: Что нового в мире IT по версии Thoughtworks technology radar" />
-                    <a href="https://www.youtube.com/embed/aMFLpf1So6k" class="lightbox mfp-iframe" title="DKT47: Что нового в мире IT по версии Thoughtworks technology radar"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">DKT47: Что нового в мире IT по версии Thoughtworks technology radar</h4>
-                  <span class="category">DevOps Kitchen Talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/NYQLDHUGRfo/mqdefault.jpg" alt="DKT42 - News: Serverless, NoCode, Terraform, Terragrunt, Incident Management, Security" title="DKT42 - News: Serverless, NoCode, Terraform, Terragrunt, Incident Management, Security" />
-                    <a href="https://www.youtube.com/embed/NYQLDHUGRfo" class="lightbox mfp-iframe" title="DKT42 - News: Serverless, NoCode, Terraform, Terragrunt, Incident Management, Security"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">DKT42 - News: Serverless, NoCode, Terraform, Terragrunt, Incident Management, Security</h4>
-                  <span class="category">DevOps Kitchen Talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/yqGTkH4Flww/mqdefault.jpg" alt="DevOps Kitchen Talks #40 - Как учиться DevOps инженеру" title="DevOps Kitchen Talks #40 - Как учиться DevOps инженеру" />
-                    <a href="https://www.youtube.com/embed/yqGTkH4Flww" class="lightbox mfp-iframe" title="DevOps Kitchen Talks #40 - Как учиться DevOps инженеру"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">DevOps Kitchen Talks #40 - Как учиться DevOps инженеру</h4>
-                  <span class="category">DevOps Kitchen Talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/88SCuXxrwXo/mqdefault.jpg" alt="DevOps Kitchen Talks #37 - DevOps vs SRE" title="DevOps Kitchen Talks #37 - DevOps vs SRE" />
-                    <a href="https://www.youtube.com/embed/88SCuXxrwXo" class="lightbox mfp-iframe" title="DevOps Kitchen Talks #37 - DevOps vs SRE"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">DevOps Kitchen Talks #37 - DevOps vs SRE</h4>
-                  <span class="category">DevOps Kitchen Talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/UPzbWLVdSxI/mqdefault.jpg" alt="DevOps Kitchen Talks #36 - DevOps Maturity Model. Как померить свой DevOps?" title="DevOps Kitchen Talks #36 - DevOps Maturity Model. Как померить свой DevOps?" />
-                    <a href="https://www.youtube.com/embed/UPzbWLVdSxI" class="lightbox mfp-iframe" title="DevOps Kitchen Talks #36 - DevOps Maturity Model. Как померить свой DevOps?"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">DevOps Kitchen Talks #36 - DevOps Maturity Model. Как померить свой DevOps?</h4>
-                  <span class="category">DevOps Kitchen Talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/J48mpMZIMBE/mqdefault.jpg" alt="DevOps Kitchen Talks #34 - Как (не)надо готовить DevOps? DevOps roadmap 2021/2022" title="DevOps Kitchen Talks #34 - Как (не)надо готовить DevOps? DevOps roadmap 2021/2022" />
-                    <a href="https://www.youtube.com/embed/J48mpMZIMBE" class="lightbox mfp-iframe" title="DevOps Kitchen Talks #34 - Как (не)надо готовить DevOps? DevOps roadmap 2021/2022"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">DevOps Kitchen Talks #34 - Как (не)надо готовить DevOps? DevOps roadmap 2021/2022</h4>
-                  <span class="category">DevOps Kitchen Talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/g7zoG7DJeOI/mqdefault.jpg" alt="DevOps Kitchen Talks #32 - ThoughtWorks Radar 25" title="DevOps Kitchen Talks #32 - ThoughtWorks Radar 25" />
-                    <a href="https://www.youtube.com/embed/g7zoG7DJeOI" class="lightbox mfp-iframe" title="DevOps Kitchen Talks #32 - ThoughtWorks Radar 25"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">DevOps Kitchen Talks #32 - ThoughtWorks Radar 25</h4>
-                  <span class="category">DevOps Kitchen Talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/sa3AxvLrcD8/mqdefault.jpg" alt="DevOps Kitchen Talks #30 - Сколько получают DevOps и как не сойти с ума на удаленке?" title="DevOps Kitchen Talks #30 - Сколько получают DevOps и как не сойти с ума на удаленке?" />
-                    <a href="https://www.youtube.com/embed/sa3AxvLrcD8" class="lightbox mfp-iframe" title="DevOps Kitchen Talks #30 - Сколько получают DevOps и как не сойти с ума на удаленке?"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">DevOps Kitchen Talks #30 - Сколько получают DevOps и как не сойти с ума на удаленке?</h4>
-                  <span class="category">DevOps Kitchen Talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/d6BpRZb_Vis/mqdefault.jpg" alt="DevOps Kitchen Talks #27 - GitHub Copilot, CI/CD trends, Helm best practices, k8s virtual clusters" title="DevOps Kitchen Talks #27 - GitHub Copilot, CI/CD trends, Helm best practices, k8s virtual clusters" />
-                    <a href="https://www.youtube.com/embed/d6BpRZb_Vis" class="lightbox mfp-iframe" title="DevOps Kitchen Talks #27 - GitHub Copilot, CI/CD trends, Helm best practices, k8s virtual clusters"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">DevOps Kitchen Talks #27 - GitHub Copilot, CI/CD trends, Helm best practices, k8s virtual clusters</h4>
-                  <span class="category">DevOps Kitchen Talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/Ptwk-rKQ5WM/mqdefault.jpg" alt="[Field Kitchen] DevOps Kitchen Talks on Zed Conference (Eng)" title="[Field Kitchen] DevOps Kitchen Talks on Zed Conference (Eng)" />
-                    <a href="https://www.youtube.com/embed/Ptwk-rKQ5WM" class="lightbox mfp-iframe" title="[Field Kitchen] DevOps Kitchen Talks on Zed Conference (Eng)"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">[Field Kitchen] DevOps Kitchen Talks on Zed Conference (Eng)</h4>
-                  <span class="category">DevOps Kitchen Talks</span>
-                          </figure>
-
-
-
-
-                <figure class="item" data-groups='["all","youtube-videos","public-talks"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/_D8TN28G6hc/mqdefault.jpg" alt="Панельная сессия с AWS Community Leaders, AWS Builders" title="Панельная сессия с AWS Community Leaders, AWS Builders" />
-                    <a href="https://www.youtube.com/embed/_D8TN28G6hc" class="lightbox mfp-iframe" title="Панельная сессия с AWS Community Leaders, AWS Builders"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">Панельная сессия с AWS Community Leaders, AWS Builders</h4>
-                  <span class="category">Public talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","public-talks"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/zIx633mnBcA/mqdefault.jpg" alt="Интервью с Александром Довнаром" title="Интервью с Александром Довнаром" />
-                    <a href="https://www.youtube.com/embed/zIx633mnBcA" class="lightbox mfp-iframe" title="Интервью с Александром Довнаром"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">Интервью с Александром Довнаром</h4>
-                  <span class="category">Public talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","public-talks"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/LJNMNhvYIGY/mqdefault.jpg" alt="Александр Довнар, Naviteq LTD" title="Александр Довнар, Naviteq LTD" />
-                    <a href="https://www.youtube.com/embed/LJNMNhvYIGY" class="lightbox mfp-iframe" title="Александр Довнар, Naviteq LTD"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">Александр Довнар, Naviteq LTD</h4>
-                  <span class="category">Public talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","public-talks"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/3Ur5woLInKg/mqdefault.jpg" alt="Панельная сессия" title="Панельная сессия" />
-                    <a href="https://www.youtube.com/embed/3Ur5woLInKg" class="lightbox mfp-iframe" title="Панельная сессия"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">Панельная сессия</h4>
-                  <span class="category">Public talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","public-talks"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/HaCgF5t8PF8/mqdefault.jpg" alt="Готовим Karpenter: глубокое погружение." title="Готовим Karpenter: глубокое погружение." />
-                    <a href="https://www.youtube.com/embed/HaCgF5t8PF8" class="lightbox mfp-iframe" title="Готовим Karpenter: глубокое погружение."></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">Готовим Karpenter: глубокое погружение.</h4>
-                  <span class="category">Public talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","public-talks"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/SthWHsE7n9I/mqdefault.jpg" alt="30 сертификатов, которые прокачали карьеру: история Principal DevOps Engineer | Секреты успеха Ильи" title="30 сертификатов, которые прокачали карьеру: история Principal DevOps Engineer | Секреты успеха Ильи" />
-                    <a href="https://www.youtube.com/embed/SthWHsE7n9I" class="lightbox mfp-iframe" title="30 сертификатов, которые прокачали карьеру: история Principal DevOps Engineer | Секреты успеха Ильи"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">30 сертификатов, которые прокачали карьеру: история Principal DevOps Engineer | Секреты успеха Ильи</h4>
-                  <span class="category">Public talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","public-talks"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/FGoxHCqE6qM/mqdefault.jpg" alt="Что нового в k8s 1.27 по версии Александра Довнара и другие новости из мира DevOps" title="Что нового в k8s 1.27 по версии Александра Довнара и другие новости из мира DevOps" />
-                    <a href="https://www.youtube.com/embed/FGoxHCqE6qM" class="lightbox mfp-iframe" title="Что нового в k8s 1.27 по версии Александра Довнара и другие новости из мира DevOps"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">Что нового в k8s 1.27 по версии Александра Довнара и другие новости из мира DevOps</h4>
-                  <span class="category">Public talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","public-talks"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/nvrUUHr5zj4/mqdefault.jpg" alt="CI/CD: Как? Зачем? Для чего?" title="CI/CD: Как? Зачем? Для чего?" />
-                    <a href="https://www.youtube.com/embed/nvrUUHr5zj4" class="lightbox mfp-iframe" title="CI/CD: Как? Зачем? Для чего?"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">CI/CD: Как? Зачем? Для чего?</h4>
-                  <span class="category">Public talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","public-talks"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/yAvkFgelHQI/mqdefault.jpg" alt="Kubernetes, Kubernetes, Kubernetes! Обзор версии 1.25, а также тренды в Cloud and DevOps" title="Kubernetes, Kubernetes, Kubernetes! Обзор версии 1.25, а также тренды в Cloud and DevOps" />
-                    <a href="https://www.youtube.com/embed/yAvkFgelHQI" class="lightbox mfp-iframe" title="Kubernetes, Kubernetes, Kubernetes! Обзор версии 1.25, а также тренды в Cloud and DevOps"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">Kubernetes, Kubernetes, Kubernetes! Обзор версии 1.25, а также тренды в Cloud and DevOps</h4>
-                  <span class="category">Public talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","public-talks"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/907URcGkBU4/mqdefault.jpg" alt="Argocd from Zero to Hero (Live Hands-On Demo)" title="Argocd from Zero to Hero (Live Hands-On Demo)" />
-                    <a href="https://www.youtube.com/embed/907URcGkBU4" class="lightbox mfp-iframe" title="Argocd from Zero to Hero (Live Hands-On Demo)"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">Argocd from Zero to Hero (Live Hands-On Demo)</h4>
-                  <span class="category">Public talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","public-talks"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/vXJbl1xjvdU/mqdefault.jpg" alt="23 - IT career RoadMap, GitLab 13.11, Open DevOps, SRE vs DevOps by IBM, OpenSearch" title="23 - IT career RoadMap, GitLab 13.11, Open DevOps, SRE vs DevOps by IBM, OpenSearch" />
-                    <a href="https://www.youtube.com/embed/vXJbl1xjvdU" class="lightbox mfp-iframe" title="23 - IT career RoadMap, GitLab 13.11, Open DevOps, SRE vs DevOps by IBM, OpenSearch"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">23 - IT career RoadMap, GitLab 13.11, Open DevOps, SRE vs DevOps by IBM, OpenSearch</h4>
-                  <span class="category">Public talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","public-talks"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/mF4OtCzt2AA/mqdefault.jpg" alt="21 - Kubernetes 1.21, Terraform 0.15, пока Mesos, Google Logica и майнеры на GitHub" title="21 - Kubernetes 1.21, Terraform 0.15, пока Mesos, Google Logica и майнеры на GitHub" />
-                    <a href="https://www.youtube.com/embed/mF4OtCzt2AA" class="lightbox mfp-iframe" title="21 - Kubernetes 1.21, Terraform 0.15, пока Mesos, Google Logica и майнеры на GitHub"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">21 - Kubernetes 1.21, Terraform 0.15, пока Mesos, Google Logica и майнеры на GitHub</h4>
-                  <span class="category">Public talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","public-talks"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/vdHb6U3AH9E/mqdefault.jpg" alt="30 глупых вопросов DevOps-инженеру [Карьера в IT]" title="30 глупых вопросов DevOps-инженеру [Карьера в IT]" />
-                    <a href="https://www.youtube.com/embed/vdHb6U3AH9E" class="lightbox mfp-iframe" title="30 глупых вопросов DevOps-инженеру [Карьера в IT]"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">30 глупых вопросов DevOps-инженеру [Карьера в IT]</h4>
-                  <span class="category">Public talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","public-talks"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/odFtX2WPQCk/mqdefault.jpg" alt="Terraform vs Pulumi vs CDKfor Serverless deployments" title="Terraform vs Pulumi vs CDKfor Serverless deployments" />
-                    <a href="https://www.youtube.com/embed/odFtX2WPQCk" class="lightbox mfp-iframe" title="Terraform vs Pulumi vs CDKfor Serverless deployments"></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">Terraform vs Pulumi vs CDKfor Serverless deployments</h4>
-                  <span class="category">Public talks</span>
-                          </figure>
-
-
-                <figure class="item" data-groups='["all","youtube-videos","public-talks"]'>
-                            <div class="portfolio-item-img">
-                    <img src="https://i1.ytimg.com/vi/Avuu38YFZMg/mqdefault.jpg" alt="DevOps Минск. Terraform 12 и Terragrunt, и как это можно применять для Multi-Cloud инфраструктуры." title="DevOps Минск. Terraform 12 и Terragrunt, и как это можно применять для Multi-Cloud инфраструктуры." />
-                    <a href="https://www.youtube.com/embed/Avuu38YFZMg" class="lightbox mfp-iframe" title="DevOps Минск. Terraform 12 и Terragrunt, и как это можно применять для Multi-Cloud инфраструктуры."></a>
-                            </div>
-                  <i class="fas fa-video"></i>
-                  <h4 class="name">DevOps Минск. Terraform 12 и Terragrunt, и как это можно применять для Multi-Cloud инфраструктуры.</h4>
-                  <span class="category">Public talks</span>
-                          </figure>
-
-
-
-                </div>
-              </section>
-
-      <!-- Contact/Footer Section -->
-      <section id="contact" class="footer-section">
-        <div class="section-header" style="border-color: var(--accent-green);">
-          <span class="terminal-prompt">$ whois alex-dovnar.in</span>
-                  </div>
-        <div class="contact-info">
-          <div class="contact-item">
-            <strong>Email:</strong> <a href="mailto:alex@alex-dovnar.in">alex@alex-dovnar.in</a>
-                              </div>
-          <div class="contact-item">
-            <strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/dovnaralex/" target="_blank">/in/aliaksandrdounar</a>
-                            </div>
-          <div class="contact-item">
-            <strong>Location:</strong> Minsk, Belarus
-                            </div>
-          <div class="contact-item" style="margin-top: 2rem; color: var(--fg-secondary);">
-            © 2025 Alex Dovnar. All rights reserved.
-                          </div>
-                        </div>
-              </section>
-
-        </div><!-- /.main-content -->
-    </div><!-- /.page-content -->
-  </div><!-- /.page -->
+      <!-- Blog -->
+      <section id="blog" class="panel fade-in scroll-mt-16">
+        <div class="panel-head">
+          <span class="prompt-cursor">$</span><span class="prompt-cmd">kubectl get</span><span class="prompt-res">posts</span><span class="prompt-flag">-A</span>
+        </div>
+        <div class="panel-body">
+          <p class="empty-state">No resources found in default namespace.</p>
+          <p class="mt-2 text-sm text-dim">Articles on DevOps, Cloud Architecture &amp; best practices — coming soon.</p>
+        </div>
+      </section>
+
+      <!-- Videos -->
+      <section id="videos" class="panel fade-in scroll-mt-16">
+        <div class="panel-head">
+          <span class="prompt-cursor">$</span><span class="prompt-cmd">kubectl get</span><span class="prompt-res">talks</span><span class="prompt-flag">-A</span>
+        </div>
+        <div class="panel-body">
+
+          <!-- Video Filters -->
+          <ul class="portfolio-filters">
+            <li class="active">
+              <a class="filter" data-group="all">All</a>
+            </li>
+            <li>
+              <a class="filter" data-group="youtube-videos">YouTube Videos</a>
+            </li>
+            <li>
+              <a class="filter" data-group="devops-kitchen">DevOps Kitchen Talks</a>
+            </li>
+            <li>
+              <a class="filter" data-group="public-talks">Public talks</a>
+            </li>
+          </ul>
+
+          <!-- Video Grid -->
+          <div class="portfolio-grid" id="video-grid">
+
+
+
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/gRUQKvaYtZo/mqdefault.jpg" alt="DKT98: IPv8, Terraform 1.15, Terragrunt 1.0, NGINX 1.30 - новости DevOps" title="DKT98: IPv8, Terraform 1.15, Terragrunt 1.0, NGINX 1.30 - новости DevOps" />
+                      <a href="https://www.youtube.com/embed/gRUQKvaYtZo" class="lightbox mfp-iframe" title="DKT98: IPv8, Terraform 1.15, Terragrunt 1.0, NGINX 1.30 - новости DevOps"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">DKT98: IPv8, Terraform 1.15, Terragrunt 1.0, NGINX 1.30 - новости DevOps</h4>
+                    <span class="category">DevOps Kitchen Talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/HKBCeLkA9w4/mqdefault.jpg" alt="DKT97 | DevOps в 2026: Platform Engineering, AI-агенты и будущее джунов" title="DKT97 | DevOps в 2026: Platform Engineering, AI-агенты и будущее джунов" />
+                      <a href="https://www.youtube.com/embed/HKBCeLkA9w4" class="lightbox mfp-iframe" title="DKT97 | DevOps в 2026: Platform Engineering, AI-агенты и будущее джунов"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">DKT97 | DevOps в 2026: Platform Engineering, AI-агенты и будущее джунов</h4>
+                    <span class="category">DevOps Kitchen Talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/-x-71cAWwWk/mqdefault.jpg" alt="DKT 96 | Mock-интервью DevOps: AWS EKS, Terraform, Kubernetes, AI + много практики" title="DKT 96 | Mock-интервью DevOps: AWS EKS, Terraform, Kubernetes, AI + много практики" />
+                      <a href="https://www.youtube.com/embed/-x-71cAWwWk" class="lightbox mfp-iframe" title="DKT 96 | Mock-интервью DevOps: AWS EKS, Terraform, Kubernetes, AI + много практики"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">DKT 96 | Mock-интервью DevOps: AWS EKS, Terraform, Kubernetes, AI + много практики</h4>
+                    <span class="category">DevOps Kitchen Talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/3fEANSrfu-8/mqdefault.jpg" alt="DKT95: Karpenter vs Spot.io: как сэкономить 40% на EKS" title="DKT95: Karpenter vs Spot.io: как сэкономить 40% на EKS" />
+                      <a href="https://www.youtube.com/embed/3fEANSrfu-8" class="lightbox mfp-iframe" title="DKT95: Karpenter vs Spot.io: как сэкономить 40% на EKS"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">DKT95: Karpenter vs Spot.io: как сэкономить 40% на EKS</h4>
+                    <span class="category">DevOps Kitchen Talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/y8wOjnv9wlc/mqdefault.jpg" alt="DKT93 - DevOps Mock Interview: Terraform, K8s, AI и Live Coding" title="DKT93 - DevOps Mock Interview: Terraform, K8s, AI и Live Coding" />
+                      <a href="https://www.youtube.com/embed/y8wOjnv9wlc" class="lightbox mfp-iframe" title="DKT93 - DevOps Mock Interview: Terraform, K8s, AI и Live Coding"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">DKT93 - DevOps Mock Interview: Terraform, K8s, AI и Live Coding</h4>
+                    <span class="category">DevOps Kitchen Talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/Uq-ZVCulm1E/mqdefault.jpg" alt="DKT92 - MCP - это было ошибкой? Разбираемся и показываем демо" title="DKT92 - MCP - это было ошибкой? Разбираемся и показываем демо" />
+                      <a href="https://www.youtube.com/embed/Uq-ZVCulm1E" class="lightbox mfp-iframe" title="DKT92 - MCP - это было ошибкой? Разбираемся и показываем демо"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">DKT92 - MCP - это было ошибкой? Разбираемся и показываем демо</h4>
+                    <span class="category">DevOps Kitchen Talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/PdaHnehivQs/mqdefault.jpg" alt="DKT91: Мок-интервью DevOps - Архитектура AWS, Terraform и Live Debug K8s" title="DKT91: Мок-интервью DevOps - Архитектура AWS, Terraform и Live Debug K8s" />
+                      <a href="https://www.youtube.com/embed/PdaHnehivQs" class="lightbox mfp-iframe" title="DKT91: Мок-интервью DevOps - Архитектура AWS, Terraform и Live Debug K8s"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">DKT91: Мок-интервью DevOps - Архитектура AWS, Terraform и Live Debug K8s</h4>
+                    <span class="category">DevOps Kitchen Talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/496FclVQ5fo/mqdefault.jpg" alt="DKT90-Второй мозг инженера: Obsidian, Zettelkasten и Johnny Decimal" title="DKT90-Второй мозг инженера: Obsidian, Zettelkasten и Johnny Decimal" />
+                      <a href="https://www.youtube.com/embed/496FclVQ5fo" class="lightbox mfp-iframe" title="DKT90-Второй мозг инженера: Obsidian, Zettelkasten и Johnny Decimal"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">DKT90-Второй мозг инженера: Obsidian, Zettelkasten и Johnny Decimal</h4>
+                    <span class="category">DevOps Kitchen Talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/zWJJLnScesY/mqdefault.jpg" alt="DKT89 - OpenClaw (ex-ClawdBot), Kubernetes 1.35 и другие свежие DevOps новости" title="DKT89 - OpenClaw (ex-ClawdBot), Kubernetes 1.35 и другие свежие DevOps новости" />
+                      <a href="https://www.youtube.com/embed/zWJJLnScesY" class="lightbox mfp-iframe" title="DKT89 - OpenClaw (ex-ClawdBot), Kubernetes 1.35 и другие свежие DevOps новости"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">DKT89 - OpenClaw (ex-ClawdBot), Kubernetes 1.35 и другие свежие DevOps новости</h4>
+                    <span class="category">DevOps Kitchen Talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/SWdKOWlJ_eo/mqdefault.jpg" alt="DKT87 - Разбор Technology Radar #33: AI, MCP, Context Engineering и будущее DevOps" title="DKT87 - Разбор Technology Radar #33: AI, MCP, Context Engineering и будущее DevOps" />
+                      <a href="https://www.youtube.com/embed/SWdKOWlJ_eo" class="lightbox mfp-iframe" title="DKT87 - Разбор Technology Radar #33: AI, MCP, Context Engineering и будущее DevOps"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">DKT87 - Разбор Technology Radar #33: AI, MCP, Context Engineering и будущее DevOps</h4>
+                    <span class="category">DevOps Kitchen Talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/BGpxbiiOUq8/mqdefault.jpg" alt="DKT86: Ingress NGINX уходит на пенсию: миграция на Gateway API и не только" title="DKT86: Ingress NGINX уходит на пенсию: миграция на Gateway API и не только" />
+                      <a href="https://www.youtube.com/embed/BGpxbiiOUq8" class="lightbox mfp-iframe" title="DKT86: Ingress NGINX уходит на пенсию: миграция на Gateway API и не только"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">DKT86: Ingress NGINX уходит на пенсию: миграция на Gateway API и не только</h4>
+                    <span class="category">DevOps Kitchen Talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/ujy3xnLQlw4/mqdefault.jpg" alt="DKT85 - DevOps Mock Interview #5 (Senior/Chief DevOps Engineer)" title="DKT85 - DevOps Mock Interview #5 (Senior/Chief DevOps Engineer)" />
+                      <a href="https://www.youtube.com/embed/ujy3xnLQlw4" class="lightbox mfp-iframe" title="DKT85 - DevOps Mock Interview #5 (Senior/Chief DevOps Engineer)"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">DKT85 - DevOps Mock Interview #5 (Senior/Chief DevOps Engineer)</h4>
+                    <span class="category">DevOps Kitchen Talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/KdxacPrcEgQ/mqdefault.jpg" alt="DKT82 - Radar 32: AI-ассистенты, Observability, SBOM, UV/Renovate" title="DKT82 - Radar 32: AI-ассистенты, Observability, SBOM, UV/Renovate" />
+                      <a href="https://www.youtube.com/embed/KdxacPrcEgQ" class="lightbox mfp-iframe" title="DKT82 - Radar 32: AI-ассистенты, Observability, SBOM, UV/Renovate"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">DKT82 - Radar 32: AI-ассистенты, Observability, SBOM, UV/Renovate</h4>
+                    <span class="category">DevOps Kitchen Talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/gChx3JtZQPA/mqdefault.jpg" alt="DKT81 -  DevOps Mock Interview #3 (Senior DevOps Engineer)" title="DKT81 -  DevOps Mock Interview #3 (Senior DevOps Engineer)" />
+                      <a href="https://www.youtube.com/embed/gChx3JtZQPA" class="lightbox mfp-iframe" title="DKT81 -  DevOps Mock Interview #3 (Senior DevOps Engineer)"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">DKT81 -  DevOps Mock Interview #3 (Senior DevOps Engineer)</h4>
+                    <span class="category">DevOps Kitchen Talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/BCer7ybcb1Y/mqdefault.jpg" alt="DKT80 - Интервью с автором ArgoCD" title="DKT80 - Интервью с автором ArgoCD" />
+                      <a href="https://www.youtube.com/embed/BCer7ybcb1Y" class="lightbox mfp-iframe" title="DKT80 - Интервью с автором ArgoCD"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">DKT80 - Интервью с автором ArgoCD</h4>
+                    <span class="category">DevOps Kitchen Talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/Uvt9ehNmUnA/mqdefault.jpg" alt="DKT78 - Terraform vs все остальное" title="DKT78 - Terraform vs все остальное" />
+                      <a href="https://www.youtube.com/embed/Uvt9ehNmUnA" class="lightbox mfp-iframe" title="DKT78 - Terraform vs все остальное"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">DKT78 - Terraform vs все остальное</h4>
+                    <span class="category">DevOps Kitchen Talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/gEc1ad8_PWo/mqdefault.jpg" alt="DKT77 -  DevOps Mock Interview #1 (Senior DevOps)" title="DKT77 -  DevOps Mock Interview #1 (Senior DevOps)" />
+                      <a href="https://www.youtube.com/embed/gEc1ad8_PWo" class="lightbox mfp-iframe" title="DKT77 -  DevOps Mock Interview #1 (Senior DevOps)"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">DKT77 -  DevOps Mock Interview #1 (Senior DevOps)</h4>
+                    <span class="category">DevOps Kitchen Talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/PaUK2rtMNTI/mqdefault.jpg" alt="DKT76 - Готовим Karpenter Workshop (часть 1)" title="DKT76 - Готовим Karpenter Workshop (часть 1)" />
+                      <a href="https://www.youtube.com/embed/PaUK2rtMNTI" class="lightbox mfp-iframe" title="DKT76 - Готовим Karpenter Workshop (часть 1)"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">DKT76 - Готовим Karpenter Workshop (часть 1)</h4>
+                    <span class="category">DevOps Kitchen Talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/yi5FX3xzrnY/mqdefault.jpg" alt="DKT75 - DevOps кухня и шаурма" title="DKT75 - DevOps кухня и шаурма" />
+                      <a href="https://www.youtube.com/embed/yi5FX3xzrnY" class="lightbox mfp-iframe" title="DKT75 - DevOps кухня и шаурма"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">DKT75 - DevOps кухня и шаурма</h4>
+                    <span class="category">DevOps Kitchen Talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/lP6oKlAacN0/mqdefault.jpg" alt="DKT74 - 10 лет конференции DevOps Conf" title="DKT74 - 10 лет конференции DevOps Conf" />
+                      <a href="https://www.youtube.com/embed/lP6oKlAacN0" class="lightbox mfp-iframe" title="DKT74 - 10 лет конференции DevOps Conf"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">DKT74 - 10 лет конференции DevOps Conf</h4>
+                    <span class="category">DevOps Kitchen Talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/B5Ttsy6Mu5Y/mqdefault.jpg" alt="DKT73 - От админа до DevOps за 7 лет: путь (подписчика) и ошибки, которые вам не нужно повторять" title="DKT73 - От админа до DevOps за 7 лет: путь (подписчика) и ошибки, которые вам не нужно повторять" />
+                      <a href="https://www.youtube.com/embed/B5Ttsy6Mu5Y" class="lightbox mfp-iframe" title="DKT73 - От админа до DevOps за 7 лет: путь (подписчика) и ошибки, которые вам не нужно повторять"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">DKT73 - От админа до DevOps за 7 лет: путь (подписчика) и ошибки, которые вам не нужно повторять</h4>
+                    <span class="category">DevOps Kitchen Talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/0gUgecAK4tQ/mqdefault.jpg" alt="DKT72 - Новости 2025 из мира AWS, Terraform и DevOps" title="DKT72 - Новости 2025 из мира AWS, Terraform и DevOps" />
+                      <a href="https://www.youtube.com/embed/0gUgecAK4tQ" class="lightbox mfp-iframe" title="DKT72 - Новости 2025 из мира AWS, Terraform и DevOps"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">DKT72 - Новости 2025 из мира AWS, Terraform и DevOps</h4>
+                    <span class="category">DevOps Kitchen Talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/7cqxCQrXhfw/mqdefault.jpg" alt="DKT71 - Karpenter 1.0 и опыт в продакшене" title="DKT71 - Karpenter 1.0 и опыт в продакшене" />
+                      <a href="https://www.youtube.com/embed/7cqxCQrXhfw" class="lightbox mfp-iframe" title="DKT71 - Karpenter 1.0 и опыт в продакшене"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">DKT71 - Karpenter 1.0 и опыт в продакшене</h4>
+                    <span class="category">DevOps Kitchen Talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/-8r2GPAUTuk/mqdefault.jpg" alt="DKT70 - О Подкасте и DevOps на кухне (снова)" title="DKT70 - О Подкасте и DevOps на кухне (снова)" />
+                      <a href="https://www.youtube.com/embed/-8r2GPAUTuk" class="lightbox mfp-iframe" title="DKT70 - О Подкасте и DevOps на кухне (снова)"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">DKT70 - О Подкасте и DevOps на кухне (снова)</h4>
+                    <span class="category">DevOps Kitchen Talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/UKTP00-AbGM/mqdefault.jpg" alt="DKT69 - Что там с Terraform и другие новости" title="DKT69 - Что там с Terraform и другие новости" />
+                      <a href="https://www.youtube.com/embed/UKTP00-AbGM" class="lightbox mfp-iframe" title="DKT69 - Что там с Terraform и другие новости"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">DKT69 - Что там с Terraform и другие новости</h4>
+                    <span class="category">DevOps Kitchen Talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/8WtYalzPhAI/mqdefault.jpg" alt="DKT68 - 10 лет Kubernetes!" title="DKT68 - 10 лет Kubernetes!" />
+                      <a href="https://www.youtube.com/embed/8WtYalzPhAI" class="lightbox mfp-iframe" title="DKT68 - 10 лет Kubernetes!"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">DKT68 - 10 лет Kubernetes!</h4>
+                    <span class="category">DevOps Kitchen Talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/k7l4YeU_Xn0/mqdefault.jpg" alt="Yet another skill: DevOps | Sr Developer Advocate в AWS | Собеседования в AWS | DevOps Kitchen Talks" title="Yet another skill: DevOps | Sr Developer Advocate в AWS | Собеседования в AWS | DevOps Kitchen Talks" />
+                      <a href="https://www.youtube.com/embed/k7l4YeU_Xn0" class="lightbox mfp-iframe" title="Yet another skill: DevOps | Sr Developer Advocate в AWS | Собеседования в AWS | DevOps Kitchen Talks"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">Yet another skill: DevOps | Sr Developer Advocate в AWS | Собеседования в AWS | DevOps Kitchen Talks</h4>
+                    <span class="category">DevOps Kitchen Talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/EnSueCJfxHQ/mqdefault.jpg" alt="DKT67 - Разбор Technology Radar vol. 30 (2024)" title="DKT67 - Разбор Technology Radar vol. 30 (2024)" />
+                      <a href="https://www.youtube.com/embed/EnSueCJfxHQ" class="lightbox mfp-iframe" title="DKT67 - Разбор Technology Radar vol. 30 (2024)"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">DKT67 - Разбор Technology Radar vol. 30 (2024)</h4>
+                    <span class="category">DevOps Kitchen Talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/5ljFkYqWN4c/mqdefault.jpg" alt="DKT66 - Что такое GitOps и с чего начать?" title="DKT66 - Что такое GitOps и с чего начать?" />
+                      <a href="https://www.youtube.com/embed/5ljFkYqWN4c" class="lightbox mfp-iframe" title="DKT66 - Что такое GitOps и с чего начать?"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">DKT66 - Что такое GitOps и с чего начать?</h4>
+                    <span class="category">DevOps Kitchen Talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/JeNuZ7qYpA4/mqdefault.jpg" alt="DKT65 - ECS vs EKS - когда что выбрать?" title="DKT65 - ECS vs EKS - когда что выбрать?" />
+                      <a href="https://www.youtube.com/embed/JeNuZ7qYpA4" class="lightbox mfp-iframe" title="DKT65 - ECS vs EKS - когда что выбрать?"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">DKT65 - ECS vs EKS - когда что выбрать?</h4>
+                    <span class="category">DevOps Kitchen Talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/QuMUzflHsS4/mqdefault.jpg" alt="DKT64 - Тренажер подготовки к экзамену CKS и CKA(D)" title="DKT64 - Тренажер подготовки к экзамену CKS и CKA(D)" />
+                      <a href="https://www.youtube.com/embed/QuMUzflHsS4" class="lightbox mfp-iframe" title="DKT64 - Тренажер подготовки к экзамену CKS и CKA(D)"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">DKT64 - Тренажер подготовки к экзамену CKS и CKA(D)</h4>
+                    <span class="category">DevOps Kitchen Talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/yNmP1JzZLfw/mqdefault.jpg" alt="DKT63 - Новостной выпуск" title="DKT63 - Новостной выпуск" />
+                      <a href="https://www.youtube.com/embed/yNmP1JzZLfw" class="lightbox mfp-iframe" title="DKT63 - Новостной выпуск"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">DKT63 - Новостной выпуск</h4>
+                    <span class="category">DevOps Kitchen Talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/05BUsRCFpDc/mqdefault.jpg" alt="DKT62 - Топ инструментов на Mac (Часть 2)" title="DKT62 - Топ инструментов на Mac (Часть 2)" />
+                      <a href="https://www.youtube.com/embed/05BUsRCFpDc" class="lightbox mfp-iframe" title="DKT62 - Топ инструментов на Mac (Часть 2)"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">DKT62 - Топ инструментов на Mac (Часть 2)</h4>
+                    <span class="category">DevOps Kitchen Talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/CaY084pgUC4/mqdefault.jpg" alt="DKT61 - Как научиться DevOps?" title="DKT61 - Как научиться DevOps?" />
+                      <a href="https://www.youtube.com/embed/CaY084pgUC4" class="lightbox mfp-iframe" title="DKT61 - Как научиться DevOps?"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">DKT61 - Как научиться DevOps?</h4>
+                    <span class="category">DevOps Kitchen Talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/pmqebxQQLjA/mqdefault.jpg" alt="DKT60 - Топ инструментов на Mac (Часть 1)" title="DKT60 - Топ инструментов на Mac (Часть 1)" />
+                      <a href="https://www.youtube.com/embed/pmqebxQQLjA" class="lightbox mfp-iframe" title="DKT60 - Топ инструментов на Mac (Часть 1)"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">DKT60 - Топ инструментов на Mac (Часть 1)</h4>
+                    <span class="category">DevOps Kitchen Talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/jDYy5zFCZbg/mqdefault.jpg" alt="🔥 DevOps Kitchen Talks: Что должен знать DevOps-инженер в 2024 году 🔥" title="🔥 DevOps Kitchen Talks: Что должен знать DevOps-инженер в 2024 году 🔥" />
+                      <a href="https://www.youtube.com/embed/jDYy5zFCZbg" class="lightbox mfp-iframe" title="🔥 DevOps Kitchen Talks: Что должен знать DevOps-инженер в 2024 году 🔥"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">🔥 DevOps Kitchen Talks: Что должен знать DevOps-инженер в 2024 году 🔥</h4>
+                    <span class="category">DevOps Kitchen Talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/fRbQXdRbWZo/mqdefault.jpg" alt="DKT58 RoadMap для изучения AWS, а также обзор метрик в DevOps" title="DKT58 RoadMap для изучения AWS, а также обзор метрик в DevOps" />
+                      <a href="https://www.youtube.com/embed/fRbQXdRbWZo" class="lightbox mfp-iframe" title="DKT58 RoadMap для изучения AWS, а также обзор метрик в DevOps"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">DKT58 RoadMap для изучения AWS, а также обзор метрик в DevOps</h4>
+                    <span class="category">DevOps Kitchen Talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/hWNQvAg1zP8/mqdefault.jpg" alt="🔥 DevOps Kitchen Talks: Готовим Вместе! 🔥" title="🔥 DevOps Kitchen Talks: Готовим Вместе! 🔥" />
+                      <a href="https://www.youtube.com/embed/hWNQvAg1zP8" class="lightbox mfp-iframe" title="🔥 DevOps Kitchen Talks: Готовим Вместе! 🔥"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">🔥 DevOps Kitchen Talks: Готовим Вместе! 🔥</h4>
+                    <span class="category">DevOps Kitchen Talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/spSoAqzAVNw/mqdefault.jpg" alt="DKT56 Релиз Terraform 1.5, Изменение лицензии HashiCorp и Сертификации Kubernetes" title="DKT56 Релиз Terraform 1.5, Изменение лицензии HashiCorp и Сертификации Kubernetes" />
+                      <a href="https://www.youtube.com/embed/spSoAqzAVNw" class="lightbox mfp-iframe" title="DKT56 Релиз Terraform 1.5, Изменение лицензии HashiCorp и Сертификации Kubernetes"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">DKT56 Релиз Terraform 1.5, Изменение лицензии HashiCorp и Сертификации Kubernetes</h4>
+                    <span class="category">DevOps Kitchen Talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/h_Wm-tgsJ5I/mqdefault.jpg" alt="Как сдать CKA в 2023 году, опыт Виктора Ведмича DKT48" title="Как сдать CKA в 2023 году, опыт Виктора Ведмича DKT48" />
+                      <a href="https://www.youtube.com/embed/h_Wm-tgsJ5I" class="lightbox mfp-iframe" title="Как сдать CKA в 2023 году, опыт Виктора Ведмича DKT48"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">Как сдать CKA в 2023 году, опыт Виктора Ведмича DKT48</h4>
+                    <span class="category">DevOps Kitchen Talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/aMFLpf1So6k/mqdefault.jpg" alt="DKT47: Что нового в мире IT по версии Thoughtworks technology radar" title="DKT47: Что нового в мире IT по версии Thoughtworks technology radar" />
+                      <a href="https://www.youtube.com/embed/aMFLpf1So6k" class="lightbox mfp-iframe" title="DKT47: Что нового в мире IT по версии Thoughtworks technology radar"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">DKT47: Что нового в мире IT по версии Thoughtworks technology radar</h4>
+                    <span class="category">DevOps Kitchen Talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/NYQLDHUGRfo/mqdefault.jpg" alt="DKT42 - News: Serverless, NoCode, Terraform, Terragrunt, Incident Management, Security" title="DKT42 - News: Serverless, NoCode, Terraform, Terragrunt, Incident Management, Security" />
+                      <a href="https://www.youtube.com/embed/NYQLDHUGRfo" class="lightbox mfp-iframe" title="DKT42 - News: Serverless, NoCode, Terraform, Terragrunt, Incident Management, Security"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">DKT42 - News: Serverless, NoCode, Terraform, Terragrunt, Incident Management, Security</h4>
+                    <span class="category">DevOps Kitchen Talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/yqGTkH4Flww/mqdefault.jpg" alt="DevOps Kitchen Talks #40 - Как учиться DevOps инженеру" title="DevOps Kitchen Talks #40 - Как учиться DevOps инженеру" />
+                      <a href="https://www.youtube.com/embed/yqGTkH4Flww" class="lightbox mfp-iframe" title="DevOps Kitchen Talks #40 - Как учиться DevOps инженеру"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">DevOps Kitchen Talks #40 - Как учиться DevOps инженеру</h4>
+                    <span class="category">DevOps Kitchen Talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/88SCuXxrwXo/mqdefault.jpg" alt="DevOps Kitchen Talks #37 - DevOps vs SRE" title="DevOps Kitchen Talks #37 - DevOps vs SRE" />
+                      <a href="https://www.youtube.com/embed/88SCuXxrwXo" class="lightbox mfp-iframe" title="DevOps Kitchen Talks #37 - DevOps vs SRE"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">DevOps Kitchen Talks #37 - DevOps vs SRE</h4>
+                    <span class="category">DevOps Kitchen Talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/UPzbWLVdSxI/mqdefault.jpg" alt="DevOps Kitchen Talks #36 - DevOps Maturity Model. Как померить свой DevOps?" title="DevOps Kitchen Talks #36 - DevOps Maturity Model. Как померить свой DevOps?" />
+                      <a href="https://www.youtube.com/embed/UPzbWLVdSxI" class="lightbox mfp-iframe" title="DevOps Kitchen Talks #36 - DevOps Maturity Model. Как померить свой DevOps?"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">DevOps Kitchen Talks #36 - DevOps Maturity Model. Как померить свой DevOps?</h4>
+                    <span class="category">DevOps Kitchen Talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/J48mpMZIMBE/mqdefault.jpg" alt="DevOps Kitchen Talks #34 - Как (не)надо готовить DevOps? DevOps roadmap 2021/2022" title="DevOps Kitchen Talks #34 - Как (не)надо готовить DevOps? DevOps roadmap 2021/2022" />
+                      <a href="https://www.youtube.com/embed/J48mpMZIMBE" class="lightbox mfp-iframe" title="DevOps Kitchen Talks #34 - Как (не)надо готовить DevOps? DevOps roadmap 2021/2022"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">DevOps Kitchen Talks #34 - Как (не)надо готовить DevOps? DevOps roadmap 2021/2022</h4>
+                    <span class="category">DevOps Kitchen Talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/g7zoG7DJeOI/mqdefault.jpg" alt="DevOps Kitchen Talks #32 - ThoughtWorks Radar 25" title="DevOps Kitchen Talks #32 - ThoughtWorks Radar 25" />
+                      <a href="https://www.youtube.com/embed/g7zoG7DJeOI" class="lightbox mfp-iframe" title="DevOps Kitchen Talks #32 - ThoughtWorks Radar 25"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">DevOps Kitchen Talks #32 - ThoughtWorks Radar 25</h4>
+                    <span class="category">DevOps Kitchen Talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/sa3AxvLrcD8/mqdefault.jpg" alt="DevOps Kitchen Talks #30 - Сколько получают DevOps и как не сойти с ума на удаленке?" title="DevOps Kitchen Talks #30 - Сколько получают DevOps и как не сойти с ума на удаленке?" />
+                      <a href="https://www.youtube.com/embed/sa3AxvLrcD8" class="lightbox mfp-iframe" title="DevOps Kitchen Talks #30 - Сколько получают DevOps и как не сойти с ума на удаленке?"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">DevOps Kitchen Talks #30 - Сколько получают DevOps и как не сойти с ума на удаленке?</h4>
+                    <span class="category">DevOps Kitchen Talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/d6BpRZb_Vis/mqdefault.jpg" alt="DevOps Kitchen Talks #27 - GitHub Copilot, CI/CD trends, Helm best practices, k8s virtual clusters" title="DevOps Kitchen Talks #27 - GitHub Copilot, CI/CD trends, Helm best practices, k8s virtual clusters" />
+                      <a href="https://www.youtube.com/embed/d6BpRZb_Vis" class="lightbox mfp-iframe" title="DevOps Kitchen Talks #27 - GitHub Copilot, CI/CD trends, Helm best practices, k8s virtual clusters"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">DevOps Kitchen Talks #27 - GitHub Copilot, CI/CD trends, Helm best practices, k8s virtual clusters</h4>
+                    <span class="category">DevOps Kitchen Talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","devops-kitchen"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/Ptwk-rKQ5WM/mqdefault.jpg" alt="[Field Kitchen] DevOps Kitchen Talks on Zed Conference (Eng)" title="[Field Kitchen] DevOps Kitchen Talks on Zed Conference (Eng)" />
+                      <a href="https://www.youtube.com/embed/Ptwk-rKQ5WM" class="lightbox mfp-iframe" title="[Field Kitchen] DevOps Kitchen Talks on Zed Conference (Eng)"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">[Field Kitchen] DevOps Kitchen Talks on Zed Conference (Eng)</h4>
+                    <span class="category">DevOps Kitchen Talks</span>
+                  </figure>
+
+
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","public-talks"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/_D8TN28G6hc/mqdefault.jpg" alt="Панельная сессия с AWS Community Leaders, AWS Builders" title="Панельная сессия с AWS Community Leaders, AWS Builders" />
+                      <a href="https://www.youtube.com/embed/_D8TN28G6hc" class="lightbox mfp-iframe" title="Панельная сессия с AWS Community Leaders, AWS Builders"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">Панельная сессия с AWS Community Leaders, AWS Builders</h4>
+                    <span class="category">Public talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","public-talks"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/zIx633mnBcA/mqdefault.jpg" alt="Интервью с Александром Довнаром" title="Интервью с Александром Довнаром" />
+                      <a href="https://www.youtube.com/embed/zIx633mnBcA" class="lightbox mfp-iframe" title="Интервью с Александром Довнаром"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">Интервью с Александром Довнаром</h4>
+                    <span class="category">Public talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","public-talks"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/LJNMNhvYIGY/mqdefault.jpg" alt="Александр Довнар, Naviteq LTD" title="Александр Довнар, Naviteq LTD" />
+                      <a href="https://www.youtube.com/embed/LJNMNhvYIGY" class="lightbox mfp-iframe" title="Александр Довнар, Naviteq LTD"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">Александр Довнар, Naviteq LTD</h4>
+                    <span class="category">Public talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","public-talks"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/3Ur5woLInKg/mqdefault.jpg" alt="Панельная сессия" title="Панельная сессия" />
+                      <a href="https://www.youtube.com/embed/3Ur5woLInKg" class="lightbox mfp-iframe" title="Панельная сессия"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">Панельная сессия</h4>
+                    <span class="category">Public talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","public-talks"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/HaCgF5t8PF8/mqdefault.jpg" alt="Готовим Karpenter: глубокое погружение." title="Готовим Karpenter: глубокое погружение." />
+                      <a href="https://www.youtube.com/embed/HaCgF5t8PF8" class="lightbox mfp-iframe" title="Готовим Karpenter: глубокое погружение."></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">Готовим Karpenter: глубокое погружение.</h4>
+                    <span class="category">Public talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","public-talks"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/SthWHsE7n9I/mqdefault.jpg" alt="30 сертификатов, которые прокачали карьеру: история Principal DevOps Engineer | Секреты успеха Ильи" title="30 сертификатов, которые прокачали карьеру: история Principal DevOps Engineer | Секреты успеха Ильи" />
+                      <a href="https://www.youtube.com/embed/SthWHsE7n9I" class="lightbox mfp-iframe" title="30 сертификатов, которые прокачали карьеру: история Principal DevOps Engineer | Секреты успеха Ильи"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">30 сертификатов, которые прокачали карьеру: история Principal DevOps Engineer | Секреты успеха Ильи</h4>
+                    <span class="category">Public talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","public-talks"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/FGoxHCqE6qM/mqdefault.jpg" alt="Что нового в k8s 1.27 по версии Александра Довнара и другие новости из мира DevOps" title="Что нового в k8s 1.27 по версии Александра Довнара и другие новости из мира DevOps" />
+                      <a href="https://www.youtube.com/embed/FGoxHCqE6qM" class="lightbox mfp-iframe" title="Что нового в k8s 1.27 по версии Александра Довнара и другие новости из мира DevOps"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">Что нового в k8s 1.27 по версии Александра Довнара и другие новости из мира DevOps</h4>
+                    <span class="category">Public talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","public-talks"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/nvrUUHr5zj4/mqdefault.jpg" alt="CI/CD: Как? Зачем? Для чего?" title="CI/CD: Как? Зачем? Для чего?" />
+                      <a href="https://www.youtube.com/embed/nvrUUHr5zj4" class="lightbox mfp-iframe" title="CI/CD: Как? Зачем? Для чего?"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">CI/CD: Как? Зачем? Для чего?</h4>
+                    <span class="category">Public talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","public-talks"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/yAvkFgelHQI/mqdefault.jpg" alt="Kubernetes, Kubernetes, Kubernetes! Обзор версии 1.25, а также тренды в Cloud and DevOps" title="Kubernetes, Kubernetes, Kubernetes! Обзор версии 1.25, а также тренды в Cloud and DevOps" />
+                      <a href="https://www.youtube.com/embed/yAvkFgelHQI" class="lightbox mfp-iframe" title="Kubernetes, Kubernetes, Kubernetes! Обзор версии 1.25, а также тренды в Cloud and DevOps"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">Kubernetes, Kubernetes, Kubernetes! Обзор версии 1.25, а также тренды в Cloud and DevOps</h4>
+                    <span class="category">Public talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","public-talks"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/907URcGkBU4/mqdefault.jpg" alt="Argocd from Zero to Hero (Live Hands-On Demo)" title="Argocd from Zero to Hero (Live Hands-On Demo)" />
+                      <a href="https://www.youtube.com/embed/907URcGkBU4" class="lightbox mfp-iframe" title="Argocd from Zero to Hero (Live Hands-On Demo)"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">Argocd from Zero to Hero (Live Hands-On Demo)</h4>
+                    <span class="category">Public talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","public-talks"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/vXJbl1xjvdU/mqdefault.jpg" alt="23 - IT career RoadMap, GitLab 13.11, Open DevOps, SRE vs DevOps by IBM, OpenSearch" title="23 - IT career RoadMap, GitLab 13.11, Open DevOps, SRE vs DevOps by IBM, OpenSearch" />
+                      <a href="https://www.youtube.com/embed/vXJbl1xjvdU" class="lightbox mfp-iframe" title="23 - IT career RoadMap, GitLab 13.11, Open DevOps, SRE vs DevOps by IBM, OpenSearch"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">23 - IT career RoadMap, GitLab 13.11, Open DevOps, SRE vs DevOps by IBM, OpenSearch</h4>
+                    <span class="category">Public talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","public-talks"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/mF4OtCzt2AA/mqdefault.jpg" alt="21 - Kubernetes 1.21, Terraform 0.15, пока Mesos, Google Logica и майнеры на GitHub" title="21 - Kubernetes 1.21, Terraform 0.15, пока Mesos, Google Logica и майнеры на GitHub" />
+                      <a href="https://www.youtube.com/embed/mF4OtCzt2AA" class="lightbox mfp-iframe" title="21 - Kubernetes 1.21, Terraform 0.15, пока Mesos, Google Logica и майнеры на GitHub"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">21 - Kubernetes 1.21, Terraform 0.15, пока Mesos, Google Logica и майнеры на GitHub</h4>
+                    <span class="category">Public talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","public-talks"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/vdHb6U3AH9E/mqdefault.jpg" alt="30 глупых вопросов DevOps-инженеру [Карьера в IT]" title="30 глупых вопросов DevOps-инженеру [Карьера в IT]" />
+                      <a href="https://www.youtube.com/embed/vdHb6U3AH9E" class="lightbox mfp-iframe" title="30 глупых вопросов DevOps-инженеру [Карьера в IT]"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">30 глупых вопросов DevOps-инженеру [Карьера в IT]</h4>
+                    <span class="category">Public talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","public-talks"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/odFtX2WPQCk/mqdefault.jpg" alt="Terraform vs Pulumi vs CDKfor Serverless deployments" title="Terraform vs Pulumi vs CDKfor Serverless deployments" />
+                      <a href="https://www.youtube.com/embed/odFtX2WPQCk" class="lightbox mfp-iframe" title="Terraform vs Pulumi vs CDKfor Serverless deployments"></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">Terraform vs Pulumi vs CDKfor Serverless deployments</h4>
+                    <span class="category">Public talks</span>
+                  </figure>
+
+
+                  <figure class="item" data-groups='["all","youtube-videos","public-talks"]'>
+                    <div class="portfolio-item-img">
+                      <img src="https://i1.ytimg.com/vi/Avuu38YFZMg/mqdefault.jpg" alt="DevOps Минск. Terraform 12 и Terragrunt, и как это можно применять для Multi-Cloud инфраструктуры." title="DevOps Минск. Terraform 12 и Terragrunt, и как это можно применять для Multi-Cloud инфраструктуры." />
+                      <a href="https://www.youtube.com/embed/Avuu38YFZMg" class="lightbox mfp-iframe" title="DevOps Минск. Terraform 12 и Terragrunt, и как это можно применять для Multi-Cloud инфраструктуры."></a>
+                    </div>
+                    <i class="fas fa-video"></i>
+                    <h4 class="name">DevOps Минск. Terraform 12 и Terragrunt, и как это можно применять для Multi-Cloud инфраструктуры.</h4>
+                    <span class="category">Public talks</span>
+                  </figure>
+
+
+
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact -->
+      <section id="contact" class="panel fade-in scroll-mt-16">
+        <div class="panel-head" style="border-bottom-color: var(--color-ok);">
+          <span class="prompt-cursor">$</span><span class="prompt-cmd">whois</span><span class="prompt-res">alex-dovnar.in</span>
+        </div>
+        <div class="panel-body">
+          <div class="contact-info">
+            <div class="contact-item"><strong>Email:</strong> <a href="mailto:alex@alex-dovnar.in">alex@alex-dovnar.in</a></div>
+            <div class="contact-item"><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/dovnaralex/" target="_blank" rel="noopener">/in/dovnaralex</a></div>
+            <div class="contact-item"><strong>Location:</strong> Minsk, Belarus</div>
+            <div class="contact-item mt-4 text-dim">© 2025 Alex Dovnar. All rights reserved.</div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Highlights — desktop sticky panel -->
+    <aside class="hidden xl:block">
+      <div class="panel sticky top-16 mr-4 mt-6 max-h-[calc(100dvh-5rem)] overflow-y-auto">
+        <div class="panel-head">
+          <span class="prompt-cursor">$</span><span class="prompt-cmd">kubectl get</span><span class="prompt-res">certifications</span>
+        </div>
+        <div class="panel-body highlights-panel">
+          <h2>🏆 Certifications</h2>
+<ul>
+<li><a href="https://www.credly.com/earner/earned/badge/82027eb4-e4c8-4296-89f8-10673413da69"><strong>AWS Solutions Architect – Professional</strong> (2023 - 2026)</a></li>
+<li><a href="https://www.credly.com/earner/earned/badge/3cd25942-a894-4f31-87bc-308c6b930399"><strong>AWS Certified Security – Specialty</strong> (2022 - 2025)</a></li>
+<li><a href="https://www.credly.com/badges/d9f04bb8-dfa5-4c0c-8746-752a7212c3f8/public_url"><strong>Kubestronaut</strong> (2025)</a></li>
+<li><a href="https://www.credly.com/earner/earned/badge/11b49fbb-ff64-4500-ba00-bad94c91bc1a"><strong>Certified Kubernetes Security Specialist</strong> (2025 - 2027)</a></li>
+<li><a href="https://www.credly.com/earner/earned/badge/59856979-01a6-46b4-a370-1a6916b19e7b"><strong>Certified Kubernetes Administrator</strong> (2025 - 2027)</a></li>
+</ul>
+<h2>🌟 Communities</h2>
+<ul>
+<li><a href="https://www.youtube.com/c/DevOpsKitchenTalks"><strong>DevOps Kitchen Talks co-host</strong> (2020 - Present)</a> — 70+ episodes, 300k+ views</li>
+<li><a href="https://builder.aws.com/community/@justdevops"><strong>AWS Community Builder</strong> (2023 - Present)</a></li>
+<li><a href="https://terragrunt.gruntwork.io/terragrunt-ambassador"><strong>Terragrunt Ambassador</strong> (2025 - Present)</a></li>
+</ul>
+        </div>
+      </div>
+    </aside>
+
+  </div><!-- /.grid -->
 
   <!-- Scripts -->
     <script src="js/jquery.min.js"></script>
     <script src="js/jquery.magnific-popup.min.js"></script>
 
-  <!-- Custom Script for Filtering -->
   <script>
-    $(document).ready(function() {
-      console.log('jQuery loaded');
+    $(document).ready(function () {
+      // Open highlight links in a new tab
+      $('.chip-flow a, .highlights-panel a').attr('target', '_blank').attr('rel', 'noopener noreferrer');
 
-      // Open all links in highlights in new tab
-      $('.floating-highlights a').attr('target', '_blank').attr('rel', 'noopener noreferrer');
+      // ── Mobile nav drawer ──────────────────────────────────────────
+      var sidebar = document.getElementById('sidebar');
+      var backdrop = document.getElementById('nav-backdrop');
+      var toggle = document.getElementById('nav-toggle');
 
-      // === Highlights Auto-Collapse with Intersection Observer ===
-      setTimeout(function() {
-        var highlightsEl = document.getElementById('highlights-block');
-        var aboutEl = document.getElementById('about');
-        var homeEl = document.getElementById('home');
+      function navIsOpen() { return toggle.getAttribute('aria-expanded') === 'true'; }
+      function openNav() {
+        sidebar.classList.remove('-translate-x-full');
+        backdrop.classList.remove('hidden');
+        toggle.setAttribute('aria-expanded', 'true');
+      }
+      function closeNav() {
+        sidebar.classList.add('-translate-x-full');
+        backdrop.classList.add('hidden');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
 
-        if (!highlightsEl || !aboutEl || !homeEl) {
-          console.error('Required elements not found');
-          return;
-        }
-
-        var isCollapsed = false;
-
-        console.log('✓ Using Intersection Observer for auto-collapse');
-
-        function collapseHighlights() {
-          highlightsEl.style.cssText =
-            'float: none !important; ' +
-            'position: fixed !important; ' +
-            'top: 100px !important; ' +
-            'right: 2rem !important; ' +
-            'width: 60px !important; ' +
-            'height: 60px !important; ' +
-            'min-width: 60px !important; ' +
-            'max-width: 60px !important; ' +
-            'min-height: 60px !important; ' +
-            'max-height: 60px !important; ' +
-            'padding: 0 !important; ' +
-            'margin: 0 !important; ' +
-            'border-radius: 50% !important; ' +
-            'overflow: hidden !important; ' +
-            'display: flex !important; ' +
-            'align-items: center !important; ' +
-            'justify-content: center !important; ' +
-            'background: rgba(40, 42, 46, 0.98) !important; ' +
-            'border: 2px solid #b5bd68 !important; ' +
-            'z-index: 9999 !important; ' +
-            'cursor: pointer !important; ' +
-            'transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1) !important;';
-
-          var content = highlightsEl.querySelector('.highlights-content');
-          if (content) content.style.display = 'none';
-
-          if (!highlightsEl.querySelector('.collapse-emoji')) {
-            var emoji = document.createElement('div');
-            emoji.className = 'collapse-emoji';
-            emoji.innerHTML = '✨';
-            emoji.style.cssText = 'font-size: 2rem;';
-            highlightsEl.appendChild(emoji);
-          }
-
-          isCollapsed = true;
-          console.log('✓ Collapsed');
-        }
-
-        function expandHighlights() {
-          // Add transition before clearing styles for smooth animation
-          highlightsEl.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
-
-          setTimeout(function() {
-            highlightsEl.style.cssText = '';
-
-            var content = highlightsEl.querySelector('.highlights-content');
-            if (content) content.style.display = '';
-
-            var emoji = highlightsEl.querySelector('.collapse-emoji');
-            if (emoji) emoji.remove();
-
-            isCollapsed = false;
-            console.log('✓ Expanded');
-          }, 10);
-        }
-
-        // Click to expand when collapsed
-        highlightsEl.addEventListener('click', function() {
-          if (isCollapsed) {
-            console.log('Click: expanding manually');
-            expandHighlights();
-          }
+      if (toggle) {
+        toggle.addEventListener('click', function () {
+          navIsOpen() ? closeNav() : openNav();
         });
-
-        // Observer for About - collapse when About enters viewport
-        var aboutObserver = new IntersectionObserver(function(entries) {
-          entries.forEach(function(entry) {
-            if (entry.isIntersecting && !isCollapsed) {
-              console.log('>>> About section visible - COLLAPSING!');
-              collapseHighlights();
-            }
-          });
-        }, {
-          threshold: [0, 0.1],
-          rootMargin: '300px 0px 0px 0px' // Trigger 300px before element enters
-        });
-
-        // Observer for Home - expand only when back at top
-        var homeObserver = new IntersectionObserver(function(entries) {
-          entries.forEach(function(entry) {
-            if (entry.isIntersecting && isCollapsed) {
-              console.log('>>> Home section visible - EXPANDING!');
-              expandHighlights();
-            }
-          });
-        }, {
-          threshold: [0.5, 1.0] // Only when Home is mostly visible
-        });
-
-        aboutObserver.observe(aboutEl);
-        homeObserver.observe(homeEl);
-        console.log('✓ Observing About (collapse) and Home (expand) sections');
-      }, 500);
-
-      var $videoGrid = $('#video-grid');
-      var $items = $videoGrid.find('.item');
-
-      console.log('Found', $items.length, 'video items');
-
-      // Ensure all items are visible on page load
-      $items.css({'display': 'block', 'opacity': '1'});
-      console.log('All items initialized as visible');
-
-      // Debug: Check if items are actually visible
-      $items.each(function(index) {
-        var $item = $(this);
-        var display = $item.css('display');
-        var opacity = $item.css('opacity');
-        var visibility = $item.css('visibility');
-        console.log('Item ' + index + ':', {display: display, opacity: opacity, visibility: visibility});
+      }
+      if (backdrop) backdrop.addEventListener('click', closeNav);
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeNav();
       });
 
-      // Filter button handlers
-      $('.portfolio-filters a').on('click', function(e) {
-        e.preventDefault();
-        console.log('Filter clicked!');
+      // ── Scroll-spy: highlight the active sidebar item ───────────────
+      var navItems = Array.prototype.slice.call(document.querySelectorAll('.nav-item'));
+      function navItemFor(id) {
+        return navItems.filter(function (a) { return a.getAttribute('href') === '#' + id; })[0];
+      }
+      var spy = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            navItems.forEach(function (a) { a.classList.remove('active'); });
+            var item = navItemFor(entry.target.id);
+            if (item) item.classList.add('active');
+          }
+        });
+      }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+      document.querySelectorAll('main section[id]').forEach(function (s) { spy.observe(s); });
 
+      // ── Smooth scroll for anchor links (closes the drawer) ──────────
+      $('a[href^="#"]').on('click', function (e) {
+        var target = $(this.getAttribute('href'));
+        if (target.length) {
+          e.preventDefault();
+          if (navIsOpen()) closeNav();
+          $('html, body').stop().animate({ scrollTop: target.offset().top - 64 }, 500);
+        }
+      });
+
+      // ── Video grid filtering ────────────────────────────────────────
+      var $items = $('#video-grid').find('.item');
+      $items.css({ display: 'block', opacity: '1' });
+
+      $('.portfolio-filters a').on('click', function (e) {
+        e.preventDefault();
         var $this = $(this);
         var filterValue = $this.attr('data-group');
-        console.log('Filter value:', filterValue);
-
-        // Update active class
         $('.portfolio-filters li').removeClass('active');
         $this.parent().addClass('active');
 
-        // Filter items with simple jQuery
         if (filterValue === 'all') {
-          console.log('Showing all items');
           $items.fadeIn(300);
         } else {
-          console.log('Filtering by:', filterValue);
-          $items.each(function() {
-            var $item = $(this);
-            var groups = $item.attr('data-groups');
-
+          $items.each(function () {
+            var groups = $(this).attr('data-groups');
             if (groups && groups.indexOf(filterValue) !== -1) {
-              $item.fadeIn(300);
+              $(this).fadeIn(300);
             } else {
-              $item.fadeOut(300);
+              $(this).fadeOut(300);
             }
           });
         }
       });
 
-      console.log('Filter handlers attached');
-
-      // Initialize Magnific Popup for videos
+      // ── Lightbox for videos ─────────────────────────────────────────
       $('.lightbox').magnificPopup({
         type: 'iframe',
         mainClass: 'mfp-fade',
@@ -1139,14 +1088,14 @@
         preloader: false,
         fixedContentPos: false,
         iframe: {
-          markup: '<div class="mfp-iframe-scaler">'+
-                    '<div class="mfp-close"></div>'+
-                    '<iframe class="mfp-iframe" frameborder="0" allowfullscreen></iframe>'+
+          markup: '<div class="mfp-iframe-scaler">' +
+                    '<div class="mfp-close"></div>' +
+                    '<iframe class="mfp-iframe" frameborder="0" allowfullscreen></iframe>' +
                   '</div>',
           patterns: {
             youtube: {
               index: 'youtube.com/',
-              id: function(url) {
+              id: function (url) {
                 var m = url.match(/embed\/([^?]+)/);
                 if (!m || !m[1]) return null;
                 return m[1];
@@ -1158,37 +1107,21 @@
         }
       });
 
-      // Smooth scroll for anchor links
-      $('a[href^="#"]').on('click', function(e) {
-        var target = $(this.getAttribute('href'));
-        if(target.length) {
-          e.preventDefault();
-          $('html, body').stop().animate({
-            scrollTop: target.offset().top - 70
-          }, 600);
-        }
-      });
-
-      // Intersection Observer for fade-in animations
-      const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-      };
-
-      const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
+      // ── Fade-in on scroll ───────────────────────────────────────────
+      var fadeObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
           if (entry.isIntersecting) {
             entry.target.style.opacity = '1';
             entry.target.style.transform = 'translateY(0)';
           }
         });
-      }, observerOptions);
+      }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
-      document.querySelectorAll('.fade-in').forEach(el => {
+      document.querySelectorAll('.fade-in').forEach(function (el) {
         el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
-        observer.observe(el);
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+        fadeObserver.observe(el);
       });
     });
   </script>
