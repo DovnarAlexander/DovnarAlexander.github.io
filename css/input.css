@@ -1,9 +1,11 @@
 @import "tailwindcss";
 
-/* Scan the Jinja template (the file with literal class names), not the
+/* Scan the Jinja templates (the files with literal class names), not the
    generated output — keeps the build order-independent. */
 @source "../index.html.j2";
+@source "../post.html.j2";
 @source not "../index.html";
+@source not "../blog";
 
 /* ── Cloud-native dashboard design tokens ───────────────────────────── */
 @theme {
@@ -373,6 +375,154 @@
   figure.item i {
     @apply mt-2 block;
     color: var(--color-k8s);
+  }
+
+  /* Blog — post list (index #blog section) */
+  .post-list {
+    @apply m-0 flex list-none flex-col gap-4 p-0;
+  }
+  .post-item {
+    @apply border-b pb-4;
+    border-color: var(--color-border);
+  }
+  .post-item:last-child {
+    @apply border-b-0 pb-0;
+  }
+  .post-link {
+    @apply flex flex-wrap items-baseline gap-x-3 gap-y-1 no-underline;
+  }
+  .post-title {
+    @apply font-mono text-base font-semibold transition-colors;
+    color: var(--color-k8s);
+  }
+  .post-link:hover .post-title {
+    color: var(--color-cyan);
+  }
+  .post-date {
+    @apply font-mono text-xs;
+    color: var(--color-dim);
+  }
+  .post-excerpt {
+    @apply mt-1 text-sm leading-relaxed;
+    color: var(--color-muted);
+  }
+  .post-tags {
+    @apply mt-1.5 flex flex-wrap gap-2;
+  }
+  .post-tag {
+    @apply font-mono text-xs;
+    color: var(--color-cyan);
+  }
+
+  /* Blog — single post page */
+  .post-article {
+    @apply mx-auto w-full min-w-0 max-w-[760px] px-4 py-6 sm:px-6;
+  }
+  .post-header {
+    @apply mb-6;
+  }
+  .post-h1 {
+    @apply font-mono text-2xl font-bold leading-tight sm:text-3xl;
+    color: var(--color-fg);
+  }
+  .post-meta {
+    @apply mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-xs;
+    color: var(--color-dim);
+  }
+  .post-back {
+    @apply inline-flex items-center gap-1.5 font-mono text-sm no-underline transition-colors;
+    color: var(--color-muted);
+  }
+  .post-back:hover {
+    color: var(--color-k8s);
+  }
+
+  /* Prose styling for the article body */
+  .post-body {
+    @apply leading-relaxed;
+    color: var(--color-fg);
+  }
+  .post-body h2 {
+    @apply mt-8 mb-3 font-mono text-xl font-semibold;
+    color: var(--color-k8s);
+  }
+  .post-body h3 {
+    @apply mt-6 mb-2 text-lg font-semibold;
+    color: var(--color-warn);
+  }
+  .post-body p {
+    @apply my-4;
+  }
+  .post-body ul,
+  .post-body ol {
+    @apply my-4 flex flex-col gap-2 pl-6;
+  }
+  .post-body ul {
+    @apply list-disc;
+  }
+  .post-body ol {
+    @apply list-decimal;
+  }
+  .post-body li {
+    @apply pl-1;
+  }
+  .post-body li::marker {
+    color: var(--color-k8s);
+  }
+  .post-body strong {
+    @apply font-semibold;
+    color: var(--color-fg);
+  }
+  .post-body em {
+    color: var(--color-warn);
+  }
+  .post-body a {
+    color: var(--color-k8s);
+    border-bottom: 1px dotted currentColor;
+    @apply transition-colors;
+  }
+  .post-body a:hover {
+    color: var(--color-cyan);
+  }
+  .post-body code {
+    @apply rounded px-1.5 py-0.5 font-mono text-[0.85em];
+    background: var(--color-elev);
+    color: var(--color-cyan);
+  }
+  .post-body pre {
+    @apply my-5 overflow-x-auto rounded-lg p-4 text-sm leading-relaxed;
+    background: var(--color-head);
+    border: 1px solid var(--color-border);
+  }
+  .post-body pre code {
+    @apply p-0;
+    background: transparent;
+    color: var(--color-fg);
+  }
+  .post-body blockquote {
+    @apply my-5 border-l-2 pl-4 italic;
+    border-color: var(--color-k8s);
+    color: var(--color-muted);
+  }
+  .post-body table {
+    @apply my-5 w-full border-collapse font-mono text-sm;
+  }
+  .post-body th,
+  .post-body td {
+    @apply px-3 py-2 text-left;
+    border: 1px solid var(--color-border);
+  }
+  .post-body th {
+    background: var(--color-head);
+    color: var(--color-fg);
+  }
+  .post-body img {
+    @apply my-5 mx-auto block max-w-full rounded-lg;
+    border: 1px solid var(--color-border);
+  }
+  .post-body h2 a,
+  .post-body h3 a {
+    border-bottom: none;
   }
 
   /* Contact / footer */

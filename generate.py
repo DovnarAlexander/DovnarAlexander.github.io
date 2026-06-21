@@ -1,14 +1,18 @@
 #!env python3
+import datetime
 import json
 import logging
 import os
 import re
 from pathlib import Path
 
-import minify_html
+import frontmatter
 from jinja2 import Template
 from markdown import markdown
 from pyyoutube import Api
+
+# Public base URL of the site — used to build absolute canonical links for posts.
+BASE_URL = "https://alex-dovnar.in"
 
 # Configure logging
 LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO").upper()
@@ -47,6 +51,69 @@ def load_markdown(path: str) -> str:
             return strip_top_h1(rendered)
     logger.warning("Markdown file not found: %s", path)
     return ""
+
+
+def _coerce_date(value) -> str:
+    """Normalize a frontmatter date (date/datetime/str) to an ISO YYYY-MM-DD string."""
+    if isinstance(value, (datetime.date, datetime.datetime)):
+        return value.strftime("%Y-%m-%d")
+    return str(value or "").strip()
+
+
+def _human_date(iso: str) -> str:
+    """Render an ISO date as e.g. 'Jun 21, 2026'; fall back to the raw string."""
+    try:
+        return datetime.datetime.strptime(iso, "%Y-%m-%d").strftime("%b %-d, %Y")
+    except ValueError:
+        return iso
+
+
+def load_blog_posts(content_dir: str) -> list:
+    """Load blog articles from content/blog/*.md.
+
+    Each file carries YAML frontmatter (title, date, slug, excerpt, tags, draft).
+    Returns a list of post dicts (newest first), skipping anything marked draft.
+    """
+    blog_dir = Path(content_dir) / "blog"
+    if not blog_dir.is_dir():
+        logger.info("No blog directory at %s — skipping posts", blog_dir)
+        return []
+
+    posts = []
+    for md_path in sorted(blog_dir.glob("*.md")):
+        logger.debug("Loading blog post %s", md_path)
+        post = frontmatter.load(md_path)
+        meta = post.metadata
+        if meta.get("draft"):
+            logger.info("Skipping draft post %s", md_path)
+            continue
+
+        slug = str(meta.get("slug") or md_path.stem).strip()
+        iso_date = _coerce_date(meta.get("date"))
+        body_html = strip_top_h1(
+            markdown(post.content, extensions=["fenced_code", "tables", "toc", "sane_lists"])
+        )
+        tags = meta.get("tags") or []
+        if isinstance(tags, str):
+            tags = [t.strip() for t in tags.replace(",", " ").split() if t.strip()]
+
+        posts.append(
+            {
+                "slug": slug,
+                "title": str(meta.get("title") or slug).strip(),
+                "date": iso_date,
+                "date_human": _human_date(iso_date),
+                "excerpt": str(meta.get("excerpt") or "").strip(),
+                "tags": tags,
+                "body_html": body_html,
+                "url": f"/blog/{slug}/",
+                "canonical": f"{BASE_URL}/blog/{slug}/",
+            }
+        )
+
+    posts.sort(key=lambda p: p["date"], reverse=True)
+    logger.info("Loaded %d blog post(s)", len(posts))
+    return posts
 
 
 def load_youtube_cache(cache_file: str = ".youtube_cache.json") -> dict:
@@ -92,47 +159,56 @@ education_html = load_markdown(os.path.join(content_dir, "education.md"))
 skills_html = load_markdown(os.path.join(content_dir, "skills.md"))
 highlights_html = load_markdown(os.path.join(content_dir, "highlights.md"))
 
-logger.debug("Initializing YouTube API client")
-api = Api(api_key=os.environ["YOUTUBE_API_KEY"])
+# Load blog posts (content/blog/*.md)
+posts = load_blog_posts(content_dir)
 
-# Load cache
+# Load cache first — it lets the site build (videos + blog) even if the API key
+# is absent (local preview) or the API call fails.
 youtube_cache = load_youtube_cache()
 logger.info(f"Loaded {len(youtube_cache)} videos from cache")
 
-logger.debug("Fetching playlist items (IDs only)")
-playlist_item_by_playlist = api.get_playlist_items(
-    playlist_id="PLAGNQxMisRs1F-1CryCRWKjmEsj5GAy6y", count=100
-)
-logger.debug("Fetched %d playlist items", len(playlist_item_by_playlist.items))
+youtube_api_key = os.environ.get("YOUTUBE_API_KEY")
+if youtube_api_key:
+    logger.debug("Initializing YouTube API client")
+    api = Api(api_key=youtube_api_key)
 
-# Extract video IDs from playlist
-playlist_video_ids = [
-    item.contentDetails.videoId for item in playlist_item_by_playlist.items
-]
-logger.info(f"Found {len(playlist_video_ids)} videos in playlist")
+    logger.debug("Fetching playlist items (IDs only)")
+    playlist_item_by_playlist = api.get_playlist_items(
+        playlist_id="PLAGNQxMisRs1F-1CryCRWKjmEsj5GAy6y", count=100
+    )
+    logger.debug("Fetched %d playlist items", len(playlist_item_by_playlist.items))
 
-# Find new videos (not in cache)
-new_video_ids = [vid for vid in playlist_video_ids if vid not in youtube_cache]
-logger.info(f"Found {len(new_video_ids)} new videos to fetch")
+    # Extract video IDs from playlist
+    playlist_video_ids = [
+        item.contentDetails.videoId for item in playlist_item_by_playlist.items
+    ]
+    logger.info(f"Found {len(playlist_video_ids)} videos in playlist")
 
-# Fetch details only for new videos
-youtube_raw = dict(youtube_cache)  # Start with cached data
-for video_id in new_video_ids:
-    logger.info(f"Fetching new video: {video_id}")
-    try:
-        video_data = fetch_video_details(api, video_id)
-        youtube_raw[video_id] = video_data
-    except Exception as e:
-        logger.error(f"Failed to fetch video {video_id}: {e}")
+    # Find new videos (not in cache)
+    new_video_ids = [vid for vid in playlist_video_ids if vid not in youtube_cache]
+    logger.info(f"Found {len(new_video_ids)} new videos to fetch")
 
-# Remove videos that are no longer in the playlist
-youtube_raw = {
-    vid: data for vid, data in youtube_raw.items() if vid in playlist_video_ids
-}
-logger.info(f"Total videos after cleanup: {len(youtube_raw)}")
+    # Fetch details only for new videos
+    youtube_raw = dict(youtube_cache)  # Start with cached data
+    for video_id in new_video_ids:
+        logger.info(f"Fetching new video: {video_id}")
+        try:
+            video_data = fetch_video_details(api, video_id)
+            youtube_raw[video_id] = video_data
+        except Exception as e:
+            logger.error(f"Failed to fetch video {video_id}: {e}")
 
-# Save updated cache
-save_youtube_cache(youtube_raw)
+    # Remove videos that are no longer in the playlist
+    youtube_raw = {
+        vid: data for vid, data in youtube_raw.items() if vid in playlist_video_ids
+    }
+    logger.info(f"Total videos after cleanup: {len(youtube_raw)}")
+
+    # Save updated cache
+    save_youtube_cache(youtube_raw)
+else:
+    logger.warning("YOUTUBE_API_KEY not set — building from cache only (videos may be empty)")
+    youtube_raw = dict(youtube_cache)
 
 logger.debug("Sorting %d videos by publishedAt desc", len(youtube_raw))
 youtube = sorted(youtube_raw.items(), key=lambda x: x[1]["publishedAt"], reverse=True)
@@ -162,13 +238,34 @@ html = template.render(
     education_html=education_html,
     skills_html=skills_html,
     highlights_html=highlights_html,
+    posts=posts,
 )
 
+ci = bool(os.getenv("CI", False))
+
+
+def write_html(out_path: Path, rendered: str):
+    if ci:
+        # Imported lazily: minify_html is only needed for CI builds, and avoiding
+        # the hard import lets the site render locally without a Rust toolchain.
+        import minify_html
+
+        rendered = minify_html.minify(rendered)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path.write_text(rendered, encoding="utf-8")
+
+
 logger.debug("Writing output to index.html")
-htmlFile = open("./index.html", mode="w+")
-if os.getenv("CI", False):
-    logger.debug("CI detected: minifying HTML output")
-    html = minify_html.minify(html)
-htmlFile.write(html)
-htmlFile.close()
+write_html(Path("index.html"), html)
 logger.info("Generation complete: index.html updated")
+
+# Render individual blog post pages to blog/<slug>/index.html
+if posts:
+    logger.debug("Reading Jinja template from post.html.j2")
+    with open("./post.html.j2", mode="r") as f:
+        post_template = Template(f.read())
+    for post in posts:
+        logger.info("Rendering blog post: %s", post["slug"])
+        post_html = post_template.render(post=post, posts=posts)
+        write_html(Path("blog") / post["slug"] / "index.html", post_html)
+    logger.info("Rendered %d blog post page(s)", len(posts))
