@@ -91,7 +91,15 @@ def load_blog_posts(content_dir: str) -> list:
         slug = str(meta.get("slug") or md_path.stem).strip()
         iso_date = _coerce_date(meta.get("date"))
         body_html = strip_top_h1(
-            markdown(post.content, extensions=["fenced_code", "tables", "toc", "sane_lists"])
+            markdown(
+                post.content,
+                extensions=["fenced_code", "codehilite", "tables", "toc", "sane_lists"],
+                extension_configs={
+                    # Highlight fenced blocks at build time via Pygments (CSS classes,
+                    # no inline styles) and never guess a language for unlabelled blocks.
+                    "codehilite": {"css_class": "highlight", "guess_lang": False},
+                },
+            )
         )
         tags = meta.get("tags") or []
         if isinstance(tags, str):
@@ -207,7 +215,9 @@ if youtube_api_key:
     # Save updated cache
     save_youtube_cache(youtube_raw)
 else:
-    logger.warning("YOUTUBE_API_KEY not set — building from cache only (videos may be empty)")
+    logger.warning(
+        "YOUTUBE_API_KEY not set — building from cache only (videos may be empty)"
+    )
     youtube_raw = dict(youtube_cache)
 
 logger.debug("Sorting %d videos by publishedAt desc", len(youtube_raw))
