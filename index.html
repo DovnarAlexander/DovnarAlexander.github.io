@@ -50,7 +50,7 @@
         <a href="#experience" class="nav-item"><i class="fas fa-briefcase"></i>experience<span class="nav-count">4</span></a>
         <a href="#skills" class="nav-item"><i class="fas fa-layer-group"></i>skills</a>
         <a href="#education" class="nav-item"><i class="fas fa-graduation-cap"></i>education</a>
-        <a href="#blog" class="nav-item"><i class="fas fa-rss"></i>blog<span class="nav-count">0</span></a>
+        <a href="#blog" class="nav-item"><i class="fas fa-rss"></i>blog<span class="nav-count">1</span></a>
         <a href="#videos" class="nav-item"><i class="fas fa-video"></i>talks<span class="nav-count">70+</span></a>
         <a href="#contact" class="nav-item"><i class="fas fa-envelope"></i>contact</a>
       </nav>
@@ -192,8 +192,20 @@
           <span class="prompt-cursor">$</span><span class="prompt-cmd">kubectl get</span><span class="prompt-res">posts</span><span class="prompt-flag">-A</span>
         </div>
         <div class="panel-body">
-          <p class="empty-state">No resources found in default namespace.</p>
-          <p class="mt-2 text-sm text-dim">Articles on DevOps, Cloud Architecture &amp; best practices — coming soon.</p>
+
+          <ul class="post-list">
+
+            <li class="post-item">
+              <a href="/blog/kubernetes-probes-mental-model/" class="post-link">
+                <span class="post-title">Kubernetes probes are a mental model, not a checklist</span>
+                <span class="post-date">Jun 21, 2026</span>
+              </a>
+              <p class="post-excerpt">What startup, readiness, and liveness each actually control — and why treating probes as three boxes to tick is how people take their own services down.</p>
+              <p class="post-tags"><span class="post-tag">#Kubernetes</span> <span class="post-tag">#DevOps</span> <span class="post-tag">#SRE</span> <span class="post-tag">#PlatformEngineering</span> <span class="post-tag">#CloudNative</span> </p>
+            </li>
+
+          </ul>
+
         </div>
       </section>
 

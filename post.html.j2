@@ -73,5 +73,83 @@
       </article>
     </main>
 
+    <!-- Slide-deck navigation: progressively enhances any .deck[data-deck].
+         Without JS the track is still a swipeable scroll-snap carousel. -->
+    <script>
+      (function () {
+        var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        document.querySelectorAll(".deck[data-deck]").forEach(function (deck) {
+          var track = deck.querySelector(".deck-track");
+          var slides = Array.prototype.slice.call(track.querySelectorAll(".deck-slide"));
+          if (slides.length < 2) return;
+
+          var nav = document.createElement("div");
+          nav.className = "deck-nav";
+          var prev = document.createElement("button");
+          prev.className = "deck-btn";
+          prev.type = "button";
+          prev.setAttribute("aria-label", "Previous slide");
+          prev.textContent = "‹";
+          var dots = document.createElement("div");
+          dots.className = "deck-dots";
+          var counter = document.createElement("span");
+          counter.className = "deck-counter";
+          var next = document.createElement("button");
+          next.className = "deck-btn";
+          next.type = "button";
+          next.setAttribute("aria-label", "Next slide");
+          next.textContent = "›";
+
+          slides.forEach(function (_, i) {
+            var dot = document.createElement("button");
+            dot.className = "deck-dot";
+            dot.type = "button";
+            dot.setAttribute("aria-label", "Go to slide " + (i + 1));
+            dot.addEventListener("click", function () { go(i); });
+            dots.appendChild(dot);
+          });
+
+          nav.appendChild(prev);
+          nav.appendChild(dots);
+          nav.appendChild(counter);
+          nav.appendChild(next);
+          deck.appendChild(nav);
+
+          var current = 0;
+          function go(i) {
+            i = Math.max(0, Math.min(slides.length - 1, i));
+            track.scrollTo({ left: slides[i].offsetLeft - track.offsetLeft, behavior: reduce ? "auto" : "smooth" });
+          }
+          prev.addEventListener("click", function () { go(current - 1); });
+          next.addEventListener("click", function () { go(current + 1); });
+
+          function sync() {
+            var idx = 0, best = Infinity;
+            slides.forEach(function (s, i) {
+              var d = Math.abs(s.offsetLeft - track.offsetLeft - track.scrollLeft);
+              if (d < best) { best = d; idx = i; }
+            });
+            current = idx;
+            counter.textContent = (idx + 1) + " / " + slides.length;
+            prev.disabled = idx === 0;
+            next.disabled = idx === slides.length - 1;
+            dots.childNodes.forEach(function (dot, i) {
+              dot.classList.toggle("active", i === idx);
+            });
+          }
+          var ticking = false;
+          track.addEventListener("scroll", function () {
+            if (ticking) return;
+            ticking = true;
+            window.requestAnimationFrame(function () { sync(); ticking = false; });
+          });
+          // Recompute once the <details> actually opens (widths are 0 while closed).
+          var details = deck.closest("details");
+          if (details) details.addEventListener("toggle", function () { if (details.open) sync(); });
+          sync();
+        });
+      })();
+    </script>
+
   </body>
 </html>
