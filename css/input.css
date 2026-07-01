@@ -694,6 +694,20 @@
   --vc-accent: var(--color-ok);
 }
 
+/* Pre-flight / ship checklist — square checkboxes (no task-list extension needed).
+   Write it as <ul class="checklist"> with plain <li> items — never Markdown "- [ ]". */
+.post-body .checklist {
+  @apply my-5 flex list-none flex-col gap-2 pl-0;
+}
+.post-body .checklist li {
+  @apply relative pl-7 leading-snug;
+}
+.post-body .checklist li::before {
+  content: "\2610";
+  @apply absolute left-0 top-0 font-mono not-italic;
+  color: var(--color-k8s);
+}
+
 /* Contract flow: Initialize → Accept traffic → Stay healthy */
 .flow {
   @apply my-5 grid items-stretch gap-2 rounded-xl p-4;
