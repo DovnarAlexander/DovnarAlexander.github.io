@@ -7,8 +7,10 @@
 .env
 *.sh
 
-# Ignore generated/temp files
+# Ignore generated/temp files (rendered by `task render` / CI, deployed via Actions artifact)
 _site/
+index.html
+/blog/
 .youtube_cache.json
 test_render.py
 cv/build/
