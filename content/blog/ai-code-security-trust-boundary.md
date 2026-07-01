@@ -153,13 +153,15 @@ The merge gate is the first filter. Runtime is where truth lives.
 
 Before AI-generated code ships to prod:
 
-- [ ] PR-scoped SAST ran and findings triaged (not dismissed — triaged)
-- [ ] IaC policy-as-code passed (no over-permissioned roles, no public buckets)
-- [ ] Secret scan clean
-- [ ] Blast radius of every credential in scope documented
-- [ ] AI agent/service has a scoped IAM role, not a shared or admin role
-- [ ] Egress monitoring in place for new services
-- [ ] Runbook exists for "workload calls something unexpected"
+<ul class="checklist">
+<li>PR-scoped SAST ran and findings triaged (not dismissed — triaged)</li>
+<li>IaC policy-as-code passed (no over-permissioned roles, no public buckets)</li>
+<li>Secret scan clean</li>
+<li>Blast radius of every credential in scope documented</li>
+<li>AI agent/service has a scoped IAM role, not a shared or admin role</li>
+<li>Egress monitoring in place for new services</li>
+<li>Runbook exists for "workload calls something unexpected"</li>
+</ul>
 
 That last one is the tell. If you don't have a runbook for anomalous behavior, the runtime layer doesn't exist yet.
 

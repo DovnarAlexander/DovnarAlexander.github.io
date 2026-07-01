@@ -132,7 +132,7 @@ In an interview, the line that lands is: *liveness restarts, readiness reroutes,
 
 In production, the same distinction is the difference between a graceful rollout and a 3 a.m. page. Get the separation right and you get zero-downtime deploys and services that ride out transient hiccups without anyone noticing. Get it wrong and Kubernetes will faithfully amplify your mistake across every replica.
 
-If your liveness probe can fail because something *else* is down, it isn't a liveness probe — it's a blast radius.
+> If your liveness probe can fail because something *else* is down, it isn't a liveness probe — it's a blast radius.
 
 ---
 
