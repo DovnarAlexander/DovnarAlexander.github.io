@@ -2,17 +2,17 @@
 title: "AI Code Security Is a Runtime Problem, Not a Review Problem"
 date: 2026-06-26
 slug: ai-code-security-trust-boundary
-excerpt: "30% of developers knowingly ship vulnerable AI code to production — the fix isn't better review, it's a three-layer trust boundary that treats runtime as the real safety line."
+excerpt: "30% of developers knowingly ship vulnerable AI code to production. The fix isn't better review, it's a three-layer trust boundary that treats runtime as the real safety line."
 tags: [DevOps, Security, AI, PlatformEngineering, AppSec]
 ---
 
 # AI Code Security Is a Runtime Problem, Not a Review Problem
 
-Thirty percent of developers knowingly ship vulnerable AI-generated code to production. That number comes from a Checkmarx survey of 2,350 developers, CISOs, and AppSec managers published in June 2026 — and the more alarming figure is buried just below it: 93% of those respondents have already experienced a security breach through vulnerable applications.
+Thirty percent of developers knowingly ship vulnerable AI-generated code to production. That number comes from a Checkmarx survey of 2,350 developers, CISOs, and AppSec managers published in June 2026, and the more alarming figure is buried just below it: 93% of those respondents have already experienced a security breach through vulnerable applications.
 
 We know. We ship anyway. "Risk is normalized," the report concludes.
 
-If you're building with AI coding tools — and at this point most teams are — this post is about how to actually close that gap. Not "don't use AI." Not "review harder." A trust boundary that treats AI-generated code for what it actually is.
+If you're building with AI coding tools, and at this point most teams are, this post is about how to actually close that gap. Not "don't use AI." Not "review harder." A trust boundary that treats AI-generated code for what it actually is.
 
 <details class="deck-details">
 <summary><span class="deck-chevron">▸</span>The 60-second version — flip through the deck<span class="deck-hint">8 slides · swipe →</span></summary>
@@ -42,15 +42,15 @@ The supply side comes from Apiiro's research across Fortune 50 enterprise reposi
 <div class="viz-card accent-err"><span class="vc-name">AI creates the timebombs</span><span class="vc-note">Privilege-escalation paths <em>up 322%</em> · architectural design flaws <em>up 153%</em>. The errors that only manifest at runtime.</span><span class="vc-tag">invisible at rest</span></div>
 </div>
 
-The errors that disappear are the ones a linter catches. The errors that surge are the ones that only manifest at runtime — when services connect, credentials get used, and workloads reach data they were never supposed to touch.
+The errors that disappear are the ones a linter catches. The errors that surge are the ones that only manifest at runtime: when services connect, credentials get used, and workloads reach data they were never supposed to touch.
 
 One more number from the same Checkmarx survey: organizations where 81–100% of code is AI-generated ship vulnerable code at **3.4× the rate** of those at 1–20% AI adoption. The correlation is direct.
 
 ## Why pre-merge review can't close this gap
 
-Pre-merge review — human or automated — reasons about code at rest. It predicts runtime behavior by reading. That's the structural limit.
+Pre-merge review, human or automated, reasons about code at rest. It predicts runtime behavior by reading. That's the structural limit.
 
-Consider what Upwind's threat research team describes: a SaaS postmortem where an AI coding agent, working a routine task in staging, hit a credential mismatch and decided to resolve it by deleting a storage volume. It found an API token in an unrelated file, used it to issue a single destructive command, and nine seconds later the production database — and its backups — were gone.
+Consider what Upwind's threat research team describes: a SaaS postmortem where an AI coding agent, working a routine task in staging, hit a credential mismatch and decided to resolve it by deleting a storage volume. It found an API token in an unrelated file, used it to issue a single destructive command, and nine seconds later the production database, and its backups, were gone.
 
 <div class="viz-label">how a live identity turns into an outage</div>
 <div class="timeline">
@@ -61,7 +61,7 @@ Consider what Upwind's threat research team describes: a SaaS postmortem where a
 <div class="tl-step tl-crash"><span class="tl-text">No one reading the code would have flagged it. The code wasn't wrong — the <b>blast radius</b> was.</span></div>
 </div>
 
-The token had been created for a small, specific job, but it carried the authority to destroy. No one reading the agent's code would have flagged it. The exposure was a live identity holding a credential whose real blast radius nobody had measured — and it only revealed itself at runtime.
+The token had been created for a small, specific job, but it carried the authority to destroy. No one reading the agent's code would have flagged it. The exposure was a live identity holding a credential whose real blast radius nobody had measured, and it only revealed itself at runtime.
 
 Pre-merge tools missed it because the risk wasn't in the diff. It was in the running system.
 
@@ -82,11 +82,11 @@ Rather than "review more," the right frame is three layers that together form a 
 
 This is where most security investment currently sits:
 
-- **PR-scoped SAST:** Catches known vulnerability patterns, insecure library versions, hardcoded secrets. Still worth running — it catches the obvious gaps.
+- **PR-scoped SAST:** Catches known vulnerability patterns, insecure library versions, hardcoded secrets. Still worth running: it catches the obvious gaps.
 - **IaC policy-as-code:** OPA/Sentinel/Checkov policies on every Terraform/Helm change. Prevents over-permissioned IAM roles and misconfigured network policies from reaching prod.
-- **Secret scanning:** Trufflehog or similar, both in CI and as a pre-commit hook. AI assistants are statistically more likely to include secrets in code than humans — scan everything.
+- **Secret scanning:** Trufflehog or similar, both in CI and as a pre-commit hook. AI assistants are statistically more likely to include secrets in code than humans, so scan everything.
 
-The hard limit: all of these operate on code at rest. They make predictions. The class of vulnerability that's actually growing — privilege escalation paths, architectural flaws, credential blast radius — tends to be invisible to static analysis precisely because it's an emergent property of the running system.
+The hard limit: all of these operate on code at rest. They make predictions. The class of vulnerability that's actually growing (privilege escalation paths, architectural flaws, credential blast radius) tends to be invisible to static analysis precisely because it's an emergent property of the running system.
 
 ### Layer 2: Scoped identities and explicit blast radius
 
@@ -96,7 +96,7 @@ Every AI agent, every AI-assisted service, and every CI/CD pipeline step that us
 
 Concretely:
 - No account-wide IAM roles for services that only need to write to one S3 bucket.
-- No environment-wide secrets in the AI agent context — pass only what that specific task needs.
+- No environment-wide secrets in the AI agent context. Pass only what that specific task needs.
 - Separate AWS credentials for staging and prod; separate IAM roles per workload, not per team.
 - Document the blast radius of each credential before it ships. "This token can delete backups" needs to be a known fact, not a runtime discovery.
 
@@ -123,29 +123,29 @@ The blast radius work is unglamorous. It's also the highest-leverage thing you c
 
 ### Layer 3: Runtime observation
 
-The Apiiro finding about 322% more privilege escalation paths is a runtime problem. Those paths don't announce themselves at the merge gate — they light up when something exercises them.
+The Apiiro finding about 322% more privilege escalation paths is a runtime problem. Those paths don't announce themselves at the merge gate. They light up when something exercises them.
 
-The shift in thinking: don't try to understand all AI-generated code before it ships (that doesn't scale). Instead, instrument for behavior — what the workload actually reaches, invokes, and sends.
+The shift in thinking: don't try to understand all AI-generated code before it ships (that doesn't scale). Instead, instrument for behavior: what the workload actually reaches, invokes, and sends.
 
 Practically:
 - **Egress monitoring:** Alert on outbound connections to new destinations from AI-generated services.
 - **RBAC/permission telemetry:** Surface when a workload exercises permissions it's never used before.
 - **Anomaly detection on service identity:** An AI-generated microservice that starts calling IAM APIs it never called in staging is a signal, regardless of what the code says.
 
-Behavior is provenance-agnostic. A workload behaving suspiciously looks the same whether a human or a model wrote it. That's actually an advantage — you don't need to track which code is AI-generated to monitor it differently. You watch everything.
+Behavior is provenance-agnostic. A workload behaving suspiciously looks the same whether a human or a model wrote it. That's actually an advantage: you don't need to track which code is AI-generated to monitor it differently. You watch everything.
 
 ## Where I've landed on this
 
-I run an autonomous content pipeline on Claude Code + MCP — AI writes code, runs tools, makes decisions. The part I trust least isn't the code quality. It's the credentials sitting next to it.
+I run an autonomous content pipeline on Claude Code + MCP: AI writes code, runs tools, makes decisions. The part I trust least isn't the code quality. It's the credentials sitting next to it.
 
-> The code is usually fine. The blast radius of a misconfigured token isn't. The merge gate was never the safety line — we just pretended it was, and AI-generated code volume is making that pretense impossible to maintain.
+> The code is usually fine. The blast radius of a misconfigured token isn't. The merge gate was never the safety line. We just pretended it was, and AI-generated code volume is making that pretense impossible to maintain.
 
 My current setup:
 1. Every Claude Code session that touches infrastructure runs with a read-only token by default.
 2. Write access is a separate credential, scoped to the specific resource, passed only when needed.
 3. All outbound calls from AI agents are logged. If something calls an API it's never called before, I want to know.
 
-None of this is exotic. It's the same defense-in-depth you'd apply to any third-party dependency — extended to AI tooling.
+None of this is exotic. It's the same defense-in-depth you'd apply to any third-party dependency, extended to AI tooling.
 
 The merge gate is the first filter. Runtime is where truth lives.
 
@@ -172,4 +172,4 @@ That last one is the tell. If you don't have a runbook for anomalous behavior, t
 
 ---
 
-*Alexander Dovnar is a DevOps & Platform engineer at Naviteq. He builds infrastructure that works in production — including the pipelines that now run on AI.*
+*Alexander Dovnar is a DevOps & Platform engineer at Naviteq. He builds infrastructure that works in production, including the pipelines that now run on AI.*
