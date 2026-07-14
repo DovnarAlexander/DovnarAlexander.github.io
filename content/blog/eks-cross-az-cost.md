@@ -2,7 +2,7 @@
 title: "The half of your EKS bill nobody reads"
 date: 2026-07-03
 slug: eks-cross-az-cost
-excerpt: "Everyone optimizing their EKS bill tunes compute and ignores the other half of the invoice — data transfer, hiding in a dozen tiny cross-AZ and NAT rows."
+excerpt: "Everyone optimizing their EKS bill tunes compute and ignores the other half of the invoice: data transfer, hiding in a dozen tiny cross-AZ and NAT rows."
 tags: [AWS, Kubernetes, FinOps, EKS, DevOps]
 ---
 
@@ -10,7 +10,7 @@ tags: [AWS, Kubernetes, FinOps, EKS, DevOps]
 
 Karpenter v1.13.0 shipped on June 10, and my feed has been wall-to-wall EKS cost content ever since: consolidate your nodes, move stateless workloads to Spot, switch to Graviton, right-size everything. All of it is correct. All of it is about **compute**.
 
-And compute is the right place to start. It's usually the biggest line on the bill and the one you have the most direct control over. But it's only half the invoice. The other half — data transfer — hides in plain sight, split across a dozen tiny rows nobody scrolls down to read. So it survives every cost review, quietly, for years.
+And compute is the right place to start. It's usually the biggest line on the bill and the one you have the most direct control over. But it's only half the invoice. The other half is data transfer, and it hides in plain sight: split across a dozen tiny rows nobody scrolls down to read. So it survives every cost review, quietly, for years.
 
 This is the order I actually work a noisy EKS bill, and why the second half is the one that gets left on the table.
 
@@ -31,15 +31,15 @@ This is the order I actually work a noisy EKS bill, and why the second half is t
 
 Karpenter, Spot, and Graviton are genuinely the highest-leverage moves on most clusters, and I reach for them first:
 
-- **Karpenter consolidation** — bin-pack pods onto fewer, cheaper nodes and let idle capacity terminate. v1.13.0's changes are mostly operational (subnet-level IP tracking, configurable AMI/subnet refresh, custom IAM paths) rather than new cost levers — but the consolidation engine that makes Karpenter worth running has been there all along.
-- **Spot for stateless** — anything that tolerates interruption runs at a fraction of on-demand.
-- **Graviton where the image is multi-arch** — ARM instances are cheaper per vCPU, and if your containers already build for `arm64`, the migration is mostly a node-pool change.
+- **Karpenter consolidation.** Bin-pack pods onto fewer, cheaper nodes and let idle capacity terminate. v1.13.0's changes are mostly operational (subnet-level IP tracking, configurable AMI/subnet refresh, custom IAM paths) rather than new cost levers, but the consolidation engine that makes Karpenter worth running has been there all along.
+- **Spot for stateless.** Anything that tolerates interruption runs at a fraction of on-demand.
+- **Graviton where the image is multi-arch.** ARM instances are cheaper per vCPU, and if your containers already build for `arm64`, the migration is mostly a node-pool change.
 
 Do all of it. Then look at the number sitting one row down.
 
 ## The half nobody reads
 
-Data transfer inside AWS isn't one charge — it's several small ones that only look small until you multiply them by "all your traffic, all the time."
+Data transfer inside AWS isn't one charge. It's several small ones that only look small until you multiply them by "all your traffic, all the time."
 
 > Compute is the number you watch. Data transfer is the number that watches you.
 
@@ -55,7 +55,7 @@ The trap is that these **compound**. A pod that pulls an image from the internet
 
 ### The chatter tax
 
-The most common silent cost is intra-cluster traffic crossing AZ boundaries. You spread your workloads across three Availability Zones for resilience — good instinct — but every time a pod in `us-east-1a` calls a service whose endpoint happens to land in `us-east-1b`, that round trip costs you $0.01/GB out and $0.01/GB back.
+The most common silent cost is intra-cluster traffic crossing AZ boundaries. You spread your workloads across three Availability Zones for resilience, which is a good instinct. But every time a pod in `us-east-1a` calls a service whose endpoint happens to land in `us-east-1b`, that round trip costs you $0.01/GB out and $0.01/GB back.
 
 <div class="viz-label">what a single cross-AZ round trip costs</div>
 <div class="flow">
@@ -66,7 +66,7 @@ The most common silent cost is intra-cluster traffic crossing AZ boundaries. You
 <div class="flow-step" style="--fs-accent: var(--color-err)"><span class="fs-probe">reply comes back</span><span class="fs-role">$0.01/GB back</span></div>
 </div>
 
-For a chatty microservice architecture — service mesh, sidecars, high-QPS internal APIs — this adds up to a real line on the bill. And most of it is invisible, because no single call is expensive. It's the aggregate that hurts.
+For a chatty microservice architecture (service mesh, sidecars, high-QPS internal APIs) this adds up to a real line on the bill. And most of it is invisible, because no single call is expensive. It's the aggregate that hurts.
 
 ## The order I actually work a bill
 
@@ -90,11 +90,11 @@ resource "aws_vpc_endpoint" "s3" {
 }
 ```
 
-For ECR, interface endpoints do the same for image pulls — which, on a cluster that scales nodes up and down all day, is a surprising amount of traffic to be paying NAT rates on.
+For ECR, interface endpoints do the same for image pulls. On a cluster that scales nodes up and down all day, that's a surprising amount of traffic to be paying NAT rates on.
 
 ## Where I've landed
 
-The uncomfortable part of cross-AZ cost is that a lot of the spread is there for "resilience" nobody actually measured. Sometimes the multi-AZ topology is load-bearing and the transfer cost is the price of staying up. Often it's a Helm chart default, a `topologySpreadConstraint` copied from a blog, and a bill nobody ever traced back to a specific decision.
+A lot of the cross-AZ spread is there for "resilience" nobody actually measured. Sometimes the multi-AZ topology is load-bearing and the transfer cost is the price of staying up. Often it's a Helm chart default, a `topologySpreadConstraint` copied from a blog, and a bill nobody ever traced back to a specific decision.
 
 I'm not arguing against multi-AZ. I'm arguing for **knowing what it costs you**, so it's a decision instead of an accident. Turn on cost allocation by AZ, look at the data-transfer line for one week, and see how much of it is workloads talking to themselves across a zone boundary they didn't need to cross.
 
@@ -102,4 +102,4 @@ Compute is where you start. It's just not where the bill ends.
 
 ---
 
-When an EKS bill spikes, where do you look first — compute or the network? And what's the biggest data-transfer surprise you've traced back? I'll start: an internal service mesh spread across 3 AZs "for HA" that was paying cross-AZ on every single hop, all day, for traffic that never needed to leave the zone.
+When an EKS bill spikes, where do you look first: compute or the network? And what's the biggest data-transfer surprise you've traced back? I'll start: an internal service mesh spread across 3 AZs "for HA" that was paying cross-AZ on every single hop, all day, for traffic that never needed to leave the zone.
