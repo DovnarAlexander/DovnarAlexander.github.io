@@ -10,7 +10,7 @@ tags: [Kubernetes, AWS, Karpenter, EKS, PlatformEngineering]
 
 My 90-second Kubernetes troubleshooting workflow starts with `kubectl get pods -o wide`. Status, then describe, then logs. It works because it assumes the pod is somewhere. It has no step for the case where the node never showed up at all.
 
-That case is the one I keep coming back to, because it is the quietest. An EC2 instance starts, the meter starts with it, and nothing in the cluster reports a problem. There is no `CrashLoopBackOff` to grep for. There is no event on a pod, because there is no pod. There is a `Pending` pod somewhere and an instance in the EC2 console that looks perfectly healthy from the outside.
+That case is the one I keep coming back to, because it is the quietest. An EC2 instance starts, the meter starts with it, and nothing in the cluster reports a problem. There is no `CrashLoopBackOff` to grep for, and no event on a pod, because there is no pod. What you have is a `Pending` pod somewhere and an instance in the EC2 console that looks perfectly healthy from the outside.
 
 On September 4, AWS shipped a small feature that closes one of the common ways this happens.
 
@@ -66,7 +66,7 @@ spec:
     - id: ami-1234567890abcdef0
 ```
 
-Two objects, usually two different files, often two different pull requests. Nothing validates that the image in the second one can actually run on the instance types allowed by the first one. This is not an oversight I am inferring; the Karpenter documentation states the limit directly. Karpenter works out which architecture a custom AMI is compatible with, and then:
+Two objects, and usually two different files. Nothing validates that the image in the second one can actually run on the instance types allowed by the first one. This is not an oversight I am inferring; the Karpenter documentation states the limit directly. Karpenter works out which architecture a custom AMI is compatible with, and then:
 
 > Unless using an alias, Karpenter cannot detect requirements other than architecture.
 
@@ -168,7 +168,7 @@ and try again.
 
 Four behaviours are worth knowing before you set this on anything shared.
 
-**It replaces, it does not merge.** The action is called `ReplaceImageInstanceTypeSpecification` for a reason. There is no "add one type" call. To change anything you send the complete updated specification, which means whatever automation you write has to read the current state first or it will silently drop entries.
+**It replaces the whole specification.** The action is called `ReplaceImageInstanceTypeSpecification` for a reason. There is no "add one type" call. To change anything you send the complete updated specification, which means whatever automation you write has to read the current state first or it will silently drop entries.
 
 **It only affects new launches.** Instances already running on a now-forbidden type keep running. This is good for safety and bad for your assumptions: setting the specification is not a way to find existing violations, only to prevent new ones.
 
