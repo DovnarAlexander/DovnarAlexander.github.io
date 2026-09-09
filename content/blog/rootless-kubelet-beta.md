@@ -96,7 +96,7 @@ The documentation is equally clear about what it does not do, and I would rather
 
 > User namespaces are not effective for mitigating vulnerabilities in the kernel itself.
 
-So this is a layer, not a replacement. It sits alongside a restricted Pod Security baseline, seccomp profiles, and minimal scanned images. The baseline stops most escapes from starting. This stops the ones that start anyway from ending on the host.
+So it works as one layer among several. It sits alongside a restricted Pod Security baseline, seccomp profiles, and minimal scanned images. The baseline stops most escapes from starting. This stops the ones that start anyway from ending on the host.
 
 ## New in beta: the node tells you
 
