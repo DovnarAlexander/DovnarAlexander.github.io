@@ -68,6 +68,39 @@ def _human_date(iso: str) -> str:
         return iso
 
 
+def namespace_slug(tag: str) -> str:
+    """Turn a post tag into a namespace name: 'Platform Engineering' -> 'platformengineering'."""
+    return re.sub(r"[^a-z0-9]", "", tag.lower())
+
+
+def build_namespaces(posts: list) -> list:
+    """Collect post tags into namespaces for the blog filter.
+
+    Tags that differ only in case/spacing share one namespace. Each namespace keeps the
+    most common spelling as its label. Sorted by post count desc, then by name.
+    """
+    spellings: dict = {}
+    counts: dict = {}
+    for post in posts:
+        for slug, tag in {namespace_slug(t): t for t in post["tags"]}.items():
+            if not slug:
+                continue
+            counts[slug] = counts.get(slug, 0) + 1
+            spellings.setdefault(slug, {})
+            spellings[slug][tag] = spellings[slug].get(tag, 0) + 1
+
+    namespaces = [
+        {
+            "slug": slug,
+            "label": max(spellings[slug], key=spellings[slug].get),
+            "count": count,
+        }
+        for slug, count in counts.items()
+    ]
+    namespaces.sort(key=lambda ns: (-ns["count"], ns["slug"]))
+    return namespaces
+
+
 def load_blog_posts(content_dir: str) -> list:
     """Load blog articles from content/blog/*.md.
 
@@ -113,6 +146,11 @@ def load_blog_posts(content_dir: str) -> list:
                 "date_human": _human_date(iso_date),
                 "excerpt": str(meta.get("excerpt") or "").strip(),
                 "tags": tags,
+                "tag_links": [
+                    {"label": t, "ns": namespace_slug(t)}
+                    for t in tags
+                    if namespace_slug(t)
+                ],
                 "body_html": body_html,
                 "url": f"/blog/{slug}/",
                 "canonical": f"{BASE_URL}/blog/{slug}/",
@@ -169,6 +207,7 @@ highlights_html = load_markdown(os.path.join(content_dir, "highlights.md"))
 
 # Load blog posts (content/blog/*.md)
 posts = load_blog_posts(content_dir)
+namespaces = build_namespaces(posts)
 
 # Load cache first — it lets the site build (videos + blog) even if the API key
 # is absent (local preview) or the API call fails.
@@ -249,6 +288,7 @@ html = template.render(
     skills_html=skills_html,
     highlights_html=highlights_html,
     posts=posts,
+    namespaces=namespaces,
 )
 
 ci = bool(os.getenv("CI", False))

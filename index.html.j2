@@ -128,22 +128,35 @@
       <!-- Blog -->
       <section id="blog" class="panel fade-in scroll-mt-16">
         <div class="panel-head">
-          <span class="prompt-cursor">$</span><span class="prompt-cmd">kubectl get</span><span class="prompt-res">posts</span><span class="prompt-flag">-A</span>
+          <span class="prompt-cursor">$</span><span class="prompt-cmd">kubectl get</span><span class="prompt-res">posts</span><span class="prompt-flag" id="blog-ns-flag">-A</span>
         </div>
         <div class="panel-body">
           {% if posts %}
-          <ul class="post-list">
+          {% if namespaces %}
+          {% set ns_visible = 10 %}
+          <nav class="ns-filter" aria-label="Filter posts by namespace">
+            <a href="./#blog" class="ns-chip active" data-ns="" aria-pressed="true">all<span class="ns-count">{{ posts|length }}</span></a>
+            {% for ns in namespaces %}
+            <a href="?ns={{ ns.slug }}#blog" class="ns-chip{% if loop.index > ns_visible %} ns-extra{% endif %}" data-ns="{{ ns.slug }}" title="{{ ns.label }}" aria-pressed="false">{{ ns.slug }}<span class="ns-count">{{ ns.count }}</span></a>
+            {% endfor %}
+            {% if namespaces|length > ns_visible %}
+            <button type="button" class="ns-more" id="ns-more" aria-expanded="false">+{{ namespaces|length - ns_visible }} more</button>
+            {% endif %}
+          </nav>
+          {% endif %}
+          <ul class="post-list" id="post-list">
             {% for post in posts %}
-            <li class="post-item">
+            <li class="post-item" data-ns="{{ post.tag_links|map(attribute='ns')|join(' ') }}">
               <a href="{{ post.url }}" class="post-link">
                 <span class="post-title">{{ post.title }}</span>
                 {% if post.date_human %}<span class="post-date">{{ post.date_human }}</span>{% endif %}
               </a>
               {% if post.excerpt %}<p class="post-excerpt">{{ post.excerpt }}</p>{% endif %}
-              {% if post.tags %}<p class="post-tags">{% for tag in post.tags %}<span class="post-tag">#{{ tag }}</span> {% endfor %}</p>{% endif %}
+              {% if post.tag_links %}<p class="post-tags">{% for tag in post.tag_links %}<a href="?ns={{ tag.ns }}#blog" class="post-tag" data-ns="{{ tag.ns }}">#{{ tag.label }}</a> {% endfor %}</p>{% endif %}
             </li>
             {% endfor %}
           </ul>
+          <p class="empty-state hidden" id="post-empty">No resources found in this namespace.</p>
           {% else %}
           <p class="empty-state">No resources found in default namespace.</p>
           <p class="mt-2 text-sm text-dim">Articles on DevOps, Cloud Architecture &amp; best practices — coming soon.</p>
@@ -301,6 +314,57 @@
           $('html, body').stop().animate({ scrollTop: target.offset().top - 64 }, 500);
         }
       });
+
+      // ── Blog namespace filter (tags as namespaces, state in ?ns=) ──
+      var nsChips = Array.prototype.slice.call(document.querySelectorAll('.ns-chip'));
+      var nsPosts = Array.prototype.slice.call(document.querySelectorAll('#post-list .post-item'));
+      var nsFlag = document.getElementById('blog-ns-flag');
+      var nsEmpty = document.getElementById('post-empty');
+      var nsMore = document.getElementById('ns-more');
+      var nsFilter = document.querySelector('.ns-filter');
+      function setNsExpanded(expanded) {
+        if (!nsMore || !nsFilter) return;
+        nsFilter.classList.toggle('expanded', expanded);
+        nsMore.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+        nsMore.hidden = expanded;
+      }
+      function applyNs(ns, push) {
+        if (ns && !nsChips.some(function (c) { return c.dataset.ns === ns; })) ns = '';
+        var shown = 0;
+        nsPosts.forEach(function (li) {
+          var match = !ns || li.dataset.ns.split(' ').indexOf(ns) !== -1;
+          li.hidden = !match;
+          if (match) shown++;
+        });
+        nsChips.forEach(function (c) {
+          var active = c.dataset.ns === ns;
+          c.classList.toggle('active', active);
+          c.setAttribute('aria-pressed', active ? 'true' : 'false');
+          if (active && c.classList.contains('ns-extra')) setNsExpanded(true);
+        });
+        if (nsFlag) nsFlag.textContent = ns ? '-n ' + ns : '-A';
+        if (nsEmpty) nsEmpty.classList.toggle('hidden', shown > 0);
+        if (push) {
+          var url = new URL(window.location.href);
+          if (ns) url.searchParams.set('ns', ns); else url.searchParams.delete('ns');
+          url.hash = 'blog';
+          history.replaceState(null, '', url);
+        }
+      }
+      if (nsPosts.length) {
+        $(document).on('click', '.ns-chip, .post-tag', function (e) {
+          e.preventDefault();
+          var ns = this.dataset.ns;
+          // Clicking the active namespace again resets to all.
+          if (this.classList.contains('ns-chip') && this.classList.contains('active')) ns = '';
+          applyNs(ns, true);
+          if (this.classList.contains('post-tag')) {
+            $('html, body').stop().animate({ scrollTop: $('#blog').offset().top - 64 }, 300);
+          }
+        });
+        if (nsMore) nsMore.addEventListener('click', function () { setNsExpanded(true); });
+        applyNs(new URLSearchParams(window.location.search).get('ns') || '', false);
+      }
 
       // ── Video grid filtering ────────────────────────────────────────
       var $items = $('#video-grid').find('.item');

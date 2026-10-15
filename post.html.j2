@@ -53,7 +53,7 @@
             <div class="post-meta">
               {% if post.date_human %}<span><i class="fas fa-calendar-day"></i>&nbsp;{{ post.date_human }}</span>{% endif %}
               <span>·&nbsp;Alex Dovnar</span>
-              {% if post.tags %}<span>·&nbsp;{% for tag in post.tags %}#{{ tag }} {% endfor %}</span>{% endif %}
+              {% if post.tag_links %}<span>·&nbsp;{% for tag in post.tag_links %}<a href="../../?ns={{ tag.ns }}#blog" class="post-meta-tag">#{{ tag.label }}</a> {% endfor %}</span>{% endif %}
             </div>
           </div>
         </header>
