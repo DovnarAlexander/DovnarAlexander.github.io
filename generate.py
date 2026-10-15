@@ -1,5 +1,6 @@
 #!env python3
 import datetime
+import hashlib
 import json
 import logging
 import os
@@ -162,6 +163,16 @@ def load_blog_posts(content_dir: str) -> list:
     return posts
 
 
+def asset_version(path: str) -> str:
+    """Short content hash of a static asset, appended as ?v= so browsers and the CDN
+    fetch the new file on every change instead of serving a stale cached copy."""
+    try:
+        return hashlib.sha256(Path(path).read_bytes()).hexdigest()[:10]
+    except FileNotFoundError:
+        logger.warning("Asset not found for versioning: %s", path)
+        return ""
+
+
 def load_youtube_cache(cache_file: str = ".youtube_cache.json") -> dict:
     """Load cached YouTube video data from file"""
     cache_path = Path(cache_file)
@@ -208,6 +219,9 @@ highlights_html = load_markdown(os.path.join(content_dir, "highlights.md"))
 # Load blog posts (content/blog/*.md)
 posts = load_blog_posts(content_dir)
 namespaces = build_namespaces(posts)
+
+# Cache-busting token for the stylesheet (built by `task build-css` before this script).
+css_version = asset_version("css/tailwind.css")
 
 # Load cache first — it lets the site build (videos + blog) even if the API key
 # is absent (local preview) or the API call fails.
@@ -289,6 +303,7 @@ html = template.render(
     highlights_html=highlights_html,
     posts=posts,
     namespaces=namespaces,
+    css_version=css_version,
 )
 
 ci = bool(os.getenv("CI", False))
@@ -316,6 +331,8 @@ if posts:
         post_template = Template(f.read())
     for post in posts:
         logger.info("Rendering blog post: %s", post["slug"])
-        post_html = post_template.render(post=post, posts=posts)
+        post_html = post_template.render(
+            post=post, posts=posts, css_version=css_version
+        )
         write_html(Path("blog") / post["slug"] / "index.html", post_html)
     logger.info("Rendered %d blog post page(s)", len(posts))
