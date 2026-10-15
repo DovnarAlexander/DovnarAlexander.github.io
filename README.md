@@ -53,6 +53,13 @@ Article body in Markdown (fenced code blocks and tables supported)…
 `post.html.j2`), and lists them in the site's `#blog` section. URLs are clean and readable:
 `https://alex-dovnar.in/blog/<slug>/`.
 
+**Namespaces:** post `tags` double as namespaces for the filter above the post list
+(`kubectl get posts -n <namespace>`). A namespace name is the tag lowercased with everything but
+letters and digits dropped, so `Platform Engineering` and `PlatformEngineering` land in the same
+`platformengineering` namespace. The ten largest namespaces are shown; the rest sit behind
+"+N more". The selected namespace lives in the URL (`/?ns=terraform#blog`), so filtered views can
+be shared, and tags on a post page link back to the filtered list.
+
 **Publishing flow:** add the Markdown file (typically via the `/content-publish-blog` command in the
 content pipeline, which opens a PR), get the PR reviewed/merged to `main`. The
 `Deploy site to Pages` GitHub Action builds the site (`task render`) and deploys it — the post is

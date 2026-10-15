@@ -409,9 +409,58 @@
   .post-tags {
     @apply mt-1.5 flex flex-wrap gap-2;
   }
-  .post-tag {
-    @apply font-mono text-xs;
+  /* .post-tags prefix outranks the generic .panel-body a link style */
+  .post-tags .post-tag {
+    @apply font-mono text-xs no-underline;
     color: var(--color-cyan);
+    border-bottom: 0;
+  }
+  .post-tags .post-tag:hover,
+  .post-meta-tag:hover {
+    @apply underline;
+  }
+  .post-meta-tag {
+    @apply no-underline;
+    color: var(--color-cyan);
+  }
+  .post-item[hidden] {
+    @apply hidden;
+  }
+
+  /* Blog — namespace filter (post tags as kubectl namespaces) */
+  .ns-filter {
+    @apply mb-5 flex flex-wrap items-center gap-2;
+  }
+  /* .ns-filter prefix outranks the generic .panel-body a link style */
+  .ns-filter .ns-chip {
+    @apply inline-flex cursor-pointer items-center gap-1.5 rounded-md px-2.5 py-1 font-mono text-xs no-underline transition-colors;
+    background: var(--color-elev);
+    border: 1px solid var(--color-border);
+    color: var(--color-muted);
+  }
+  .ns-filter .ns-chip:hover,
+  .ns-filter .ns-chip.active {
+    color: #fff;
+    border-color: var(--color-k8s);
+    background: rgba(50, 108, 229, 0.15);
+  }
+  .ns-count {
+    @apply text-[10px] text-dim;
+  }
+  .ns-chip.active .ns-count {
+    color: var(--color-cyan);
+  }
+  .ns-filter:not(.expanded) .ns-extra:not(.active) {
+    @apply hidden;
+  }
+  .ns-more {
+    @apply cursor-pointer rounded-md px-2.5 py-1 font-mono text-xs transition-colors;
+    border: 1px dashed var(--color-border);
+    color: var(--color-dim);
+  }
+  .ns-more:hover {
+    color: var(--color-fg);
+    border-color: var(--color-muted);
   }
 
   /* Blog — single post page */
