@@ -11,6 +11,7 @@
 _site/
 index.html
 /blog/
+/ru/
 .youtube_cache.json
 test_render.py
 cv/build/

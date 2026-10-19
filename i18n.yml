@@ -1,0 +1,73 @@
+# UI strings for the two site languages. Page content lives in content/ (EN)
+# and content/ru/ (RU); this file only holds the template chrome.
+en:
+  html_lang: en
+  title: Alex Dovnar - Platform & DevOps Engineer
+  description: >-
+    Alex Dovnar - Platform and DevOps engineer, currently hands-on CTO, with 15 years in
+    infrastructure and 10 in cloud: AWS, OCI, Kubernetes, Terraform, CI/CD. Co-author of
+    Cracking the Kubernetes Interview (Packt).
+  subtitle: Platform &amp; DevOps Engineer · hands-on CTO
+  cv_primary: { label: Download CV (EN), file: DevOps-Alexander-Dovnar-EN.pdf }
+  cv_secondary: { label: Скачать резюме (RU), file: DevOps-Alexander-Dovnar-RU.pdf }
+  cv_bar: [{ label: CV EN, file: DevOps-Alexander-Dovnar-EN.pdf }, { label: CV RU, file: DevOps-Alexander-Dovnar-RU.pdf }]
+  nav_label: Resources
+  nav: { home: home, about: about, experience: experience, skills: skills, education: education, blog: blog, talks: talks, contact: contact }
+  toggle_nav: Toggle navigation
+  highlights_aria: Certifications and communities
+  ns_filter_aria: Filter posts by namespace
+  ns_all: all
+  ns_more: more
+  ns_empty: No resources found in this namespace.
+  blog_empty: No resources found in default namespace.
+  blog_soon: Articles on DevOps, Cloud Architecture &amp; best practices — coming soon.
+  en_only: EN
+  en_only_title: This article is available in English only
+  video_all: All
+  video_youtube: YouTube Videos
+  video_groups: { DevOps Kitchen Talks: DevOps Kitchen Talks, Public talks: Public talks }
+  contact_location_label: Location
+  contact_location: Minsk, Belarus
+  rights: All rights reserved.
+  switch_label: RU
+  switch_title: Русская версия
+  all_posts: All posts
+  back_to_posts: back to posts
+  written_by: Written by Alex Dovnar — Platform &amp; DevOps Engineer.
+  find_me: Find me on
+
+ru:
+  html_lang: ru
+  title: Александр Довнар — DevOps/Platform-инженер
+  description: >-
+    Александр Довнар — DevOps/Platform-инженер и hands-on CTO: 15 лет в инфраструктуре,
+    10 из них в облаках — AWS, OCI, Kubernetes, Terraform, CI/CD. Соавтор книги Cracking
+    the Kubernetes Interview (Packt).
+  subtitle: DevOps/Platform-инженер · hands-on CTO
+  cv_primary: { label: Скачать резюме (RU), file: DevOps-Alexander-Dovnar-RU.pdf }
+  cv_secondary: { label: Download CV (EN), file: DevOps-Alexander-Dovnar-EN.pdf }
+  cv_bar: [{ label: Резюме RU, file: DevOps-Alexander-Dovnar-RU.pdf }, { label: CV EN, file: DevOps-Alexander-Dovnar-EN.pdf }]
+  nav_label: Разделы
+  nav: { home: главная, about: обо мне, experience: опыт, skills: навыки, education: образование, blog: блог, talks: выступления, contact: контакты }
+  toggle_nav: Открыть меню
+  highlights_aria: Сертификаты и сообщества
+  ns_filter_aria: Фильтр постов по теме
+  ns_all: все
+  ns_more: ещё
+  ns_empty: В этой теме пока ничего нет.
+  blog_empty: Постов пока нет.
+  blog_soon: Статьи о DevOps, облачной архитектуре и практиках — скоро.
+  en_only: EN
+  en_only_title: Статья пока только на английском
+  video_all: Все
+  video_youtube: YouTube
+  video_groups: { DevOps Kitchen Talks: DevOps Kitchen Talks, Public talks: Выступления }
+  contact_location_label: Локация
+  contact_location: Минск, Беларусь
+  rights: Все права защищены.
+  switch_label: EN
+  switch_title: English version
+  all_posts: Все посты
+  back_to_posts: к списку постов
+  written_by: Автор — Александр Довнар, DevOps/Platform-инженер.
+  find_me: Я в

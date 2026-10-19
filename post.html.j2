@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ t.html_lang }}">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,7 +8,9 @@
     <meta name="description" content="{{ post.excerpt }}" />
     {% if post.tags %}<meta name="keywords" content="{{ post.tags | join(', ') }}" />{% endif %}
     <link rel="canonical" href="{{ post.canonical }}" />
-    <link rel="shortcut icon" href="../../favicon.ico">
+    {% for code, url in alternates.items() %}<link rel="alternate" hreflang="{{ code }}" href="{{ url }}" />
+    {% endfor %}
+    <link rel="shortcut icon" href="/favicon.ico">
 
     <!-- Open Graph -->
     <meta property="og:type" content="article" />
@@ -23,26 +25,27 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="../../css/tailwind.css?v={{ css_version }}" type="text/css">
-    <link rel="stylesheet" href="../../fonts/fontawesome-free/css/all.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/tailwind.css?v={{ css_version }}" type="text/css">
+    <link rel="stylesheet" href="/fonts/fontawesome-free/css/all.min.css" type="text/css">
   </head>
 
   <body class="min-h-dvh bg-bg font-sans text-fg">
 
     <!-- Context Bar -->
     <header class="ctx-bar">
-      <a href="../../" class="hidden font-mono text-base font-semibold text-k8s sm:inline">&gt; alex-dovnar</a>
+      <a href="{{ base }}" class="hidden font-mono text-base font-semibold text-k8s sm:inline">&gt; alex-dovnar</a>
       <span class="ctx-pill"><span class="status-dot status-ok"></span>ctx:&nbsp;<b>prod</b></span>
       <span class="ctx-pill hidden sm:flex">ns:&nbsp;<b>blog</b></span>
       <nav class="ml-auto flex gap-2">
-        <a href="../../#blog" class="cv-btn">All posts</a>
+        <a href="{{ post.alt_url }}" class="cv-btn lang-switch" data-lang="{{ 'ru' if lang == 'en' else 'en' }}" title="{{ t.switch_title }}"><i class="fas fa-globe"></i>&nbsp;{{ t.switch_label }}</a>
+        <a href="{{ base }}#blog" class="cv-btn">{{ t.all_posts }}</a>
       </nav>
     </header>
 
     <main class="pt-12">
       <article class="post-article">
 
-        <a href="../../#blog" class="post-back"><i class="fas fa-arrow-left"></i>back to posts</a>
+        <a href="{{ base }}#blog" class="post-back"><i class="fas fa-arrow-left"></i>{{ t.back_to_posts }}</a>
 
         <header class="post-header">
           <div class="panel-head mt-4 rounded-t-xl">
@@ -53,7 +56,7 @@
             <div class="post-meta">
               {% if post.date_human %}<span><i class="fas fa-calendar-day"></i>&nbsp;{{ post.date_human }}</span>{% endif %}
               <span>·&nbsp;Alex Dovnar</span>
-              {% if post.tag_links %}<span>·&nbsp;{% for tag in post.tag_links %}<a href="../../?ns={{ tag.ns }}#blog" class="post-meta-tag">#{{ tag.label }}</a> {% endfor %}</span>{% endif %}
+              {% if post.tag_links %}<span>·&nbsp;{% for tag in post.tag_links %}<a href="{{ base }}?ns={{ tag.ns }}#blog" class="post-meta-tag">#{{ tag.label }}</a> {% endfor %}</span>{% endif %}
             </div>
           </div>
         </header>
@@ -64,14 +67,23 @@
 
         <footer class="mt-10 border-t border-border pt-6">
           <p class="font-mono text-sm text-muted">
-            Written by Alex Dovnar — DevOps &amp; Cloud Architect.
-            Find me on <a href="https://www.linkedin.com/in/dovnaralex/" target="_blank" rel="noopener" class="text-k8s">LinkedIn</a>.
+            {{ t.written_by }}
+            {{ t.find_me }} <a href="https://www.linkedin.com/in/dovnaralex/" target="_blank" rel="noopener" class="text-k8s">LinkedIn</a>.
           </p>
-          <a href="../../#blog" class="post-back mt-4"><i class="fas fa-arrow-left"></i>back to posts</a>
+          <a href="{{ base }}#blog" class="post-back mt-4"><i class="fas fa-arrow-left"></i>{{ t.back_to_posts }}</a>
         </footer>
 
       </article>
     </main>
+
+    <script>
+      // Remember an explicit language choice (read by the Cloudflare redirect rule on /).
+      document.querySelectorAll(".lang-switch").forEach(function (a) {
+        a.addEventListener("click", function () {
+          document.cookie = "lang=" + a.dataset.lang + "; path=/; max-age=31536000; SameSite=Lax";
+        });
+      });
+    </script>
 
     <!-- Slide-deck navigation: progressively enhances any .deck[data-deck].
          Without JS the track is still a swipeable scroll-snap carousel. -->

@@ -47,6 +47,7 @@ jobs:
           mkdir -p _site
           cp -r index.html css js fonts uploads favicon.ico CNAME _site/
           [ -d blog ] && cp -r blog _site/ || true
+          [ -d ru ] && cp -r ru _site/ || true
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

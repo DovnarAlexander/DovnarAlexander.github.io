@@ -8,12 +8,20 @@ import re
 from pathlib import Path
 
 import frontmatter
+import yaml
 from jinja2 import Template
 from markdown import markdown
 from pyyoutube import Api
 
 # Public base URL of the site — used to build absolute canonical links for posts.
 BASE_URL = "https://alex-dovnar.in"
+
+# Site languages -> URL prefix. EN is served from /, RU from /ru/. RU page
+# content comes from content/ru/ and falls back to the EN file per section;
+# a RU blog post is content/blog/<slug>.ru.md next to the EN original.
+LANGS = {"en": "", "ru": "ru"}
+I18N = yaml.safe_load(Path("i18n.yml").read_text(encoding="utf-8"))
+RU_MONTHS = ["янв", "фев", "мар", "апр", "мая", "июн", "июл", "авг", "сен", "окт", "ноя", "дек"]
 
 # Configure logging
 LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO").upper()
@@ -61,12 +69,20 @@ def _coerce_date(value) -> str:
     return str(value or "").strip()
 
 
-def _human_date(iso: str) -> str:
-    """Render an ISO date as e.g. 'Jun 21, 2026'; fall back to the raw string."""
+def _human_date(iso: str, lang: str = "en") -> str:
+    """Render an ISO date as 'Jun 21, 2026' (EN) or '21 июн 2026' (RU); fall back to the raw string."""
     try:
-        return datetime.datetime.strptime(iso, "%Y-%m-%d").strftime("%b %-d, %Y")
+        d = datetime.datetime.strptime(iso, "%Y-%m-%d")
     except ValueError:
         return iso
+    if lang == "ru":
+        return f"{d.day} {RU_MONTHS[d.month - 1]} {d.year}"
+    return d.strftime("%b %-d, %Y")
+
+
+def lang_prefix(lang: str) -> str:
+    """URL path prefix for a language: '/' for EN, '/ru/' for RU."""
+    return f"/{LANGS[lang]}/" if LANGS[lang] else "/"
 
 
 def namespace_slug(tag: str) -> str:
@@ -102,8 +118,8 @@ def build_namespaces(posts: list) -> list:
     return namespaces
 
 
-def load_blog_posts(content_dir: str) -> list:
-    """Load blog articles from content/blog/*.md.
+def load_blog_posts(content_dir: str, lang: str = "en") -> list:
+    """Load blog articles from content/blog/*.md (EN) or content/blog/*.ru.md (RU).
 
     Each file carries YAML frontmatter (title, date, slug, excerpt, tags, draft).
     Returns a list of post dicts (newest first), skipping anything marked draft.
@@ -115,6 +131,9 @@ def load_blog_posts(content_dir: str) -> list:
 
     posts = []
     for md_path in sorted(blog_dir.glob("*.md")):
+        is_ru = md_path.name.endswith(".ru.md")
+        if is_ru != (lang == "ru"):
+            continue
         logger.debug("Loading blog post %s", md_path)
         post = frontmatter.load(md_path)
         meta = post.metadata
@@ -122,7 +141,7 @@ def load_blog_posts(content_dir: str) -> list:
             logger.info("Skipping draft post %s", md_path)
             continue
 
-        slug = str(meta.get("slug") or md_path.stem).strip()
+        slug = str(meta.get("slug") or md_path.stem.removesuffix(".ru")).strip()
         iso_date = _coerce_date(meta.get("date"))
         body_html = strip_top_h1(
             markdown(
@@ -144,7 +163,7 @@ def load_blog_posts(content_dir: str) -> list:
                 "slug": slug,
                 "title": str(meta.get("title") or slug).strip(),
                 "date": iso_date,
-                "date_human": _human_date(iso_date),
+                "date_human": _human_date(iso_date, lang),
                 "excerpt": str(meta.get("excerpt") or "").strip(),
                 "tags": tags,
                 "tag_links": [
@@ -153,14 +172,41 @@ def load_blog_posts(content_dir: str) -> list:
                     if namespace_slug(t)
                 ],
                 "body_html": body_html,
-                "url": f"/blog/{slug}/",
-                "canonical": f"{BASE_URL}/blog/{slug}/",
+                "lang": lang,
+                "url": f"{lang_prefix(lang)}blog/{slug}/",
+                "canonical": f"{BASE_URL}{lang_prefix(lang)}blog/{slug}/",
             }
         )
 
     posts.sort(key=lambda p: p["date"], reverse=True)
-    logger.info("Loaded %d blog post(s)", len(posts))
+    logger.info("Loaded %d %s blog post(s)", len(posts), lang.upper())
     return posts
+
+
+def link_translations(en_posts: list, ru_posts: list) -> list:
+    """Pair EN and RU posts by slug and build the RU listing.
+
+    Sets alt_url on every post (its counterpart, or the other language's home
+    page when there is none). The RU listing holds every RU translation plus the
+    untranslated EN posts, flagged en_only so the template can mark them.
+    """
+    ru_by_slug = {p["slug"]: p for p in ru_posts}
+    en_by_slug = {p["slug"]: p for p in en_posts}
+    for post in en_posts:
+        ru = ru_by_slug.get(post["slug"])
+        post["translated"] = bool(ru)
+        post["alt_url"] = ru["url"] if ru else lang_prefix("ru")
+    for post in ru_posts:
+        en = en_by_slug.get(post["slug"])
+        post["translated"] = bool(en)
+        post["alt_url"] = en["url"] if en else lang_prefix("en")
+    listing = list(ru_posts) + [
+        {**p, "en_only": True, "date_human": _human_date(p["date"], "ru")}
+        for p in en_posts
+        if p["slug"] not in ru_by_slug
+    ]
+    listing.sort(key=lambda p: p["date"], reverse=True)
+    return listing
 
 
 def asset_version(path: str) -> str:
@@ -210,15 +256,28 @@ templateFile.close()
 
 # Load Markdown content
 content_dir = os.getenv("CONTENT_DIR", "content")
-about_me_html = load_markdown(os.path.join(content_dir, "about_me.md"))
-experience_html = load_markdown(os.path.join(content_dir, "experience.md"))
-education_html = load_markdown(os.path.join(content_dir, "education.md"))
-skills_html = load_markdown(os.path.join(content_dir, "skills.md"))
-highlights_html = load_markdown(os.path.join(content_dir, "highlights.md"))
+SECTIONS = ["about_me", "experience", "education", "skills", "highlights"]
 
-# Load blog posts (content/blog/*.md)
-posts = load_blog_posts(content_dir)
-namespaces = build_namespaces(posts)
+
+def load_sections(lang: str) -> dict:
+    """Render the page sections for a language, falling back to EN per file."""
+    sections = {}
+    for name in SECTIONS:
+        path = os.path.join(content_dir, f"{name}.md")
+        if LANGS[lang]:
+            translated = os.path.join(content_dir, LANGS[lang], f"{name}.md")
+            if os.path.exists(translated):
+                path = translated
+            else:
+                logger.warning("No %s translation of %s, using EN", lang, name)
+        sections[f"{name}_html"] = load_markdown(path)
+    return sections
+
+
+# Load blog posts: EN originals and RU translations, paired by slug
+en_posts = load_blog_posts(content_dir, "en")
+ru_posts = load_blog_posts(content_dir, "ru")
+posts_by_lang = {"en": en_posts, "ru": link_translations(en_posts, ru_posts)}
 
 # Cache-busting token for the stylesheet (built by `task build-css` before this script).
 css_version = asset_version("css/tailwind.css")
@@ -291,21 +350,6 @@ for vid, info in youtube:
 has_groups = any(len(items) > 0 for items in youtube_groups.values())
 logger.debug("has_groups=%s", has_groups)
 
-logger.debug("Rendering HTML with %d total videos", len(youtube))
-html = template.render(
-    youtube_links=youtube,
-    youtube_groups=youtube_groups,
-    has_groups=has_groups,
-    about_me_html=about_me_html,
-    experience_html=experience_html,
-    education_html=education_html,
-    skills_html=skills_html,
-    highlights_html=highlights_html,
-    posts=posts,
-    namespaces=namespaces,
-    css_version=css_version,
-)
-
 ci = bool(os.getenv("CI", False))
 
 
@@ -320,19 +364,49 @@ def write_html(out_path: Path, rendered: str):
     out_path.write_text(rendered, encoding="utf-8")
 
 
-logger.debug("Writing output to index.html")
-write_html(Path("index.html"), html)
-logger.info("Generation complete: index.html updated")
+with open("./post.html.j2", mode="r") as f:
+    post_template = Template(f.read())
 
-# Render individual blog post pages to blog/<slug>/index.html
-if posts:
-    logger.debug("Reading Jinja template from post.html.j2")
-    with open("./post.html.j2", mode="r") as f:
-        post_template = Template(f.read())
-    for post in posts:
-        logger.info("Rendering blog post: %s", post["slug"])
+for lang in LANGS:
+    base = lang_prefix(lang)
+    other = "ru" if lang == "en" else "en"
+    posts = posts_by_lang[lang]
+    logger.debug("Rendering %s HTML with %d total videos", lang.upper(), len(youtube))
+    html = template.render(
+        youtube_links=youtube,
+        youtube_groups=youtube_groups,
+        has_groups=has_groups,
+        posts=posts,
+        namespaces=build_namespaces(posts),
+        css_version=css_version,
+        lang=lang,
+        t=I18N[lang],
+        base=base,
+        alt_url=lang_prefix(other),
+        alternates={code: f"{BASE_URL}{lang_prefix(code)}" for code in LANGS},
+        base_url=BASE_URL,
+        **load_sections(lang),
+    )
+    out_dir = Path(LANGS[lang]) if LANGS[lang] else Path(".")
+    write_html(out_dir / "index.html", html)
+    logger.info("Generation complete: %s", out_dir / "index.html")
+
+    # Blog post pages: <prefix>/blog/<slug>/index.html, only for posts written
+    # in this language (untranslated EN posts in the RU listing link to EN).
+    own = [p for p in posts if p["lang"] == lang]
+    for post in own:
+        logger.info("Rendering %s blog post: %s", lang.upper(), post["slug"])
+        alternates = {lang: post["canonical"]}
+        if post["translated"]:
+            alternates[other] = f"{BASE_URL}{post['alt_url']}"
         post_html = post_template.render(
-            post=post, posts=posts, css_version=css_version
+            post=post,
+            posts=posts,
+            css_version=css_version,
+            lang=lang,
+            t=I18N[lang],
+            base=base,
+            alternates=alternates,
         )
-        write_html(Path("blog") / post["slug"] / "index.html", post_html)
-    logger.info("Rendered %d blog post page(s)", len(posts))
+        write_html(out_dir / "blog" / post["slug"] / "index.html", post_html)
+    logger.info("Rendered %d %s blog post page(s)", len(own), lang.upper())
