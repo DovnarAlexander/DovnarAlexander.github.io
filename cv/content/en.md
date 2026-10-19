@@ -1,18 +1,19 @@
 ---
 name: Alexander Dovnar
-title: DevOps & Cloud Architect
+title: Platform & DevOps Engineer · AWS, Kubernetes, Terraform · currently hands-on CTO
 location: Minsk, Belarus · Remote
 email: alex@alex-dovnar.in
 linkedin: linkedin.com/in/dovnaralex
 website: alex-dovnar.in
 summary: >
-  DevOps & Cloud Architect with 15 years in infrastructure, 10 of them building scalable,
-  secure platforms on AWS, Oracle Cloud (OCI), Azure, and GCP. Deep expertise in Infrastructure as Code (Terraform, Terragrunt,
-  Helm), Kubernetes, CI/CD, and observability. Equally effective as a hands-on engineer
-  and a technical lead — designing cloud architectures, launching 10+ production systems
-  end-to-end, optimizing cost, and mentoring engineers. Actively applies AI to engineering —
-  coding agents, MCP integrations, and agentic workflows. Co-author of "Cracking the
-  Kubernetes Interview" (Packt, 2025).
+  Platform and DevOps engineer with 15 years in infrastructure and 10 in AWS, Kubernetes
+  and Terraform. Since February 2026 I have been CTO of Naviteq, a 50-engineer DevOps
+  services company, and I still write infrastructure code every week: the company's
+  internal platform of Terraform/OpenTofu modules, Helm charts and CI/CD workflows is my
+  own work. Before that I led a team of 10 DevOps engineers, then the company's
+  ~30-engineer DevOps practice, staying tech lead on the largest projects such as
+  observability for ~20,000 gateways. Kubestronaut, co-author of "Cracking the Kubernetes
+  Interview" (Packt, 2025).
 skills:
   - group: Cloud
     detail: AWS (expert), Azure, GCP, Oracle Cloud, Yandex Cloud, VK Cloud
@@ -48,10 +49,11 @@ education:
 ### Chief Technology Officer — Naviteq Ltd
 *Feb 2026 – Present*
 
-- Lead technology for a DevOps and cloud services company with 50+ engineers; the Head of DevOps and team leads report through me.
-- Own technical pre-sales and solution architecture: high-level designs and estimations for cloud migrations and platform builds on AWS and Oracle Cloud (OCI).
-- Technical lead for AWS-to-OCI migrations; an OCI assessment for an ad-tech client projected a 55% cut in non-production cloud spend.
-- Stay hands-on: design and build the company's internal infrastructure platform (Terraform/OpenTofu modules, Helm charts, reusable CI/CD workflows).
+- Design and build the company's internal infrastructure platform hands-on: reusable Terraform/OpenTofu modules for AWS and OCI, hardened Helm charts, GitHub Actions workflows and GitOps with Argo CD.
+- Technical lead for AWS-to-OCI migrations: architecture, cost model and migration plan; an OCI assessment for an ad-tech client projected a 55% cut in non-production spend.
+- Write high-level designs and estimations for cloud migrations and platform builds on AWS and Oracle Cloud (OCI).
+- Set engineering standards across the company: architecture and code review, reference architectures and default tooling choices.
+- Scope: technology lead of a 50-engineer DevOps services company; the Head of DevOps and 7 team leads report through me.
 
 ### Head of DevOps — Naviteq Ltd
 *Apr 2024 – Jan 2026*

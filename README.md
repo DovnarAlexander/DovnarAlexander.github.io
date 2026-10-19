@@ -79,6 +79,7 @@ The two résumé PDFs in `uploads/` are **generated**, not hand-edited. Sources 
   text, standard section headers, no photo/columns/tables) used for both languages.
 - `cv/Dockerfile` — pins WeasyPrint and Cyrillic-capable fonts so the build is reproducible.
 
-To update a CV: edit the relevant `cv/content/<lang>.md`, then run `task build-cv` (requires only
+To update a CV: edit the relevant `cv/content/<source>.md`, then run `task build-cv` (requires only
 **Docker** — no host Python/font setup). It rewrites `uploads/DevOps-Alexander-Dovnar-EN.pdf` and
-`… RU.pdf`, which the site already links to. Debug HTML is written to `cv/build/` (git-ignored).
+`… RU.pdf`, which the site already links to. `cv/content/en-leadership.md` (CTO/VP roles) is built to
+`cv/build/Alexander-Dovnar-CV-Leadership.pdf`: git-ignored, not deployed, sent by hand. Debug HTML is written to `cv/build/` (git-ignored).

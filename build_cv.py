@@ -1,11 +1,11 @@
 #!env python3
-"""Build the CV PDFs (EN + RU) from cv/content/<lang>.md via WeasyPrint.
+"""Build the CV PDFs from cv/content/<source>.md via WeasyPrint.
 
 Each source file is Markdown with a YAML front-matter block. The front-matter
 holds the structured sections (contact, summary, skills, certifications,
 communities, languages, education); the Markdown body holds the Experience entries. One
 Jinja template + one print stylesheet render a single-column, ATS-friendly PDF
-per language.
+per source.
 """
 
 import logging
@@ -40,10 +40,13 @@ CV_DIR = ROOT / "cv"
 OUT_DIR = ROOT / "uploads"
 BUILD_DIR = CV_DIR / "build"
 
-# lang -> output filename (matches the links in index.html.j2)
-LANGS = {
-    "en": "DevOps-Alexander-Dovnar-EN.pdf",
-    "ru": "DevOps-Alexander-Dovnar-RU.pdf",
+# source -> (lang, output path). EN and RU are published from uploads/ and
+# linked in index.html.j2. The leadership variant goes to cv/build/, which is
+# git-ignored and not deployed: it is sent by hand, not served by the site.
+VARIANTS = {
+    "en": ("en", OUT_DIR / "DevOps-Alexander-Dovnar-EN.pdf"),
+    "ru": ("ru", OUT_DIR / "DevOps-Alexander-Dovnar-RU.pdf"),
+    "en-leadership": ("en", BUILD_DIR / "Alexander-Dovnar-CV-Leadership.pdf"),
 }
 
 FRONT_MATTER_RE = re.compile(r"^---\n(.*?)\n---\n(.*)$", re.DOTALL)
@@ -66,16 +69,15 @@ def main() -> None:
     BUILD_DIR.mkdir(parents=True, exist_ok=True)
     OUT_DIR.mkdir(parents=True, exist_ok=True)
 
-    for lang, out_name in LANGS.items():
-        meta, body_html = parse_source(CV_DIR / "content" / f"{lang}.md")
+    for source, (lang, out_path) in VARIANTS.items():
+        meta, body_html = parse_source(CV_DIR / "content" / f"{source}.md")
         html = template.render(lang=lang, css=css_text, body=body_html, **meta)
 
-        debug_html = BUILD_DIR / f"{lang}.html"
+        debug_html = BUILD_DIR / f"{source}.html"
         debug_html.write_text(html, encoding="utf-8")
 
-        out_path = OUT_DIR / out_name
         HTML(string=html, base_url=str(CV_DIR)).write_pdf(str(out_path))
-        logger.info("Built %s CV: %s", lang.upper(), out_path)
+        logger.info("Built %s CV: %s", source, out_path)
 
 
 if __name__ == "__main__":
