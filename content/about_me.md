@@ -1,6 +1,6 @@
 # About Me
 
-**DevOps & Cloud Architect** with 15 years in infrastructure, 10 of them building scalable platforms on AWS, Oracle Cloud (OCI), Azure and GCP. Co-author of [*Cracking the Kubernetes Interview*](https://www.packtpub.com/en-us/product/cracking-the-kubernetes-interview-9781835460030) (Packt, 2025).
+**CTO at Naviteq** and hands-on cloud & platform architect: 15 years in infrastructure, 10 of them building platforms on AWS, Oracle Cloud (OCI), Azure and GCP. Co-author of [*Cracking the Kubernetes Interview*](https://www.packtpub.com/en-us/product/cracking-the-kubernetes-interview-9781835460030) (Packt, 2025).
 
 **Expertise:** Infrastructure as Code (Terraform, Terragrunt, Helm), Kubernetes, CI/CD pipelines, monitoring & observability, and cloud architecture design.
 

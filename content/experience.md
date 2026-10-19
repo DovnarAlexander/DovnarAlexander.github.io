@@ -1,13 +1,24 @@
 # Experience
 
-## Tech Lead / Senior DevOps Engineer • Naviteq Ltd • Jan 2022 – Present
+## Chief Technology Officer • Naviteq Ltd • Feb 2026 – Present
 
-- Delivered 10+ client projects end-to-end, from architecture design to production.
-- Architected and deployed highly available, secure AWS infrastructure with cost optimization (saved up to 40%).
+- Lead technology for a DevOps services company with 50+ engineers and 20+ active clients across AWS, OCI and Azure; the Head of DevOps and 7 team leads report through me.
+- Run technical pre-sales and solution architecture; own the AWS and Oracle partner programs.
+- Technical lead for Oracle-funded AWS-to-OCI migrations; an OCI assessment for an ad-tech client cut projected non-production spend by 55%.
+- Built Runestra, the company's DevOps accelerator: 62 Terraform/OpenTofu modules, 42 Helm charts, 34 CI workflows; empty account to production in under an hour instead of 4–8 weeks.
+- Designed the management layer and engineer levels framework; own technical hiring and staffing.
+
+## DevOps Team Lead • Naviteq Ltd • Jan 2023 – Jan 2026
+
+- Led a team of DevOps engineers and acted as tech lead on the company's key accounts across fintech, ad-tech, security and SaaS.
+- Designed the observability migration from Prometheus to VictoriaMetrics for a global cybersecurity vendor's SASE platform: ~20,000 gateways across ~60 regions.
+- Built a cloud-agnostic Kubernetes platform for a security startup later acquired by GitLab.
+- Moved EKS clusters to Karpenter, raising node utilization from ~70% to 90%+.
+
+## Senior DevOps Engineer • Naviteq Ltd • Jan 2022 – Dec 2022
+
+- One of the company's first engineers: delivered client projects end-to-end and cut AWS costs by up to 40%.
 - Standardized reusable Terraform/Terragrunt templates and CI/CD pipelines across teams.
-- Operated Kubernetes clusters and authored Helm charts to streamline deployments.
-- Built monitoring and logging stacks with Prometheus, Grafana, Loki, and OpenSearch.
-- Mentored engineers through code reviews and architecture guidance.
 
 ## Senior DevOps Engineer • OneSoil • Aug 2021 – May 2022 (consulting)
 

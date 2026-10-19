@@ -12,12 +12,12 @@
   'en': {
     'summary': 'Summary', 'skills': 'Skills', 'experience': 'Experience',
     'certifications': 'Certifications', 'communities': 'Community & Public Activity',
-    'education': 'Education'
+    'education': 'Education', 'languages': 'Languages'
   },
   'ru': {
     'summary': 'О себе', 'skills': 'Навыки', 'experience': 'Опыт',
     'certifications': 'Сертификаты', 'communities': 'Публичная деятельность',
-    'education': 'Образование'
+    'education': 'Образование', 'languages': 'Языки'
   }
 } -%}
 {%- set labels = L[lang] -%}
@@ -70,6 +70,16 @@
     <h2>{{ labels.communities }}</h2>
     <ul>
       {% for c in communities %}<li>{{ c }}</li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  {% if languages %}
+  <section class="languages">
+    <h2>{{ labels.languages }}</h2>
+    <ul>
+      {% for l in languages %}<li>{{ l }}</li>
       {% endfor %}
     </ul>
   </section>

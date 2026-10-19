@@ -1,11 +1,11 @@
 #!env python3
-"""Build the CV PDFs (EN + RU) from cv/content/<lang>.md via WeasyPrint.
+"""Build the CV PDFs from cv/content/<variant>.md via WeasyPrint.
 
 Each source file is Markdown with a YAML front-matter block. The front-matter
 holds the structured sections (contact, summary, skills, certifications,
-communities, education); the Markdown body holds the Experience entries. One
+communities, languages, education); the Markdown body holds the Experience entries. One
 Jinja template + one print stylesheet render a single-column, ATS-friendly PDF
-per language.
+per variant.
 """
 
 import logging
@@ -40,10 +40,16 @@ CV_DIR = ROOT / "cv"
 OUT_DIR = ROOT / "uploads"
 BUILD_DIR = CV_DIR / "build"
 
-# lang -> output filename (matches the links in index.html.j2)
-LANGS = {
-    "en": "DevOps-Alexander-Dovnar-EN.pdf",
-    "ru": "DevOps-Alexander-Dovnar-RU.pdf",
+# source variant -> (lang, output filenames). The first filename is the one
+# index.html.j2 links to; the rest are older URLs kept alive for links already
+# shared (LinkedIn Featured, past applications).
+VARIANTS = {
+    "en-engineering": (
+        "en",
+        ["Alexander-Dovnar-CV-Engineering.pdf", "DevOps-Alexander-Dovnar-EN.pdf"],
+    ),
+    "en-leadership": ("en", ["Alexander-Dovnar-CV-Leadership.pdf"]),
+    "ru": ("ru", ["DevOps-Alexander-Dovnar-RU.pdf"]),
 }
 
 FRONT_MATTER_RE = re.compile(r"^---\n(.*?)\n---\n(.*)$", re.DOTALL)
@@ -66,16 +72,18 @@ def main() -> None:
     BUILD_DIR.mkdir(parents=True, exist_ok=True)
     OUT_DIR.mkdir(parents=True, exist_ok=True)
 
-    for lang, out_name in LANGS.items():
-        meta, body_html = parse_source(CV_DIR / "content" / f"{lang}.md")
+    for variant, (lang, out_names) in VARIANTS.items():
+        meta, body_html = parse_source(CV_DIR / "content" / f"{variant}.md")
         html = template.render(lang=lang, css=css_text, body=body_html, **meta)
 
-        debug_html = BUILD_DIR / f"{lang}.html"
+        debug_html = BUILD_DIR / f"{variant}.html"
         debug_html.write_text(html, encoding="utf-8")
 
-        out_path = OUT_DIR / out_name
-        HTML(string=html, base_url=str(CV_DIR)).write_pdf(str(out_path))
-        logger.info("Built %s CV: %s", lang.upper(), out_path)
+        pdf = HTML(string=html, base_url=str(CV_DIR)).write_pdf()
+        for out_name in out_names:
+            out_path = OUT_DIR / out_name
+            out_path.write_bytes(pdf)
+            logger.info("Built %s CV: %s", variant, out_path)
 
 
 if __name__ == "__main__":

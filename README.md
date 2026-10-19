@@ -21,7 +21,7 @@ task build
 ```bash
 task clean
 ```
-- Build the CV PDFs (English + Russian):
+- Build the CV PDFs (two English variants + Russian):
 ```bash
 task build-cv
 ```
@@ -70,15 +70,18 @@ live at its canonical URL on merge. Nothing is committed pre-built; HTML is a bu
 
 ## CV / résumé
 
-The two résumé PDFs in `uploads/` are **generated**, not hand-edited. Sources live in `cv/`:
+The résumé PDFs in `uploads/` are **generated**, not hand-edited. Sources live in `cv/`:
 
-- `cv/content/en.md`, `cv/content/ru.md` — each is Markdown with a YAML front-matter block.
+- `cv/content/en-engineering.md`, `cv/content/en-leadership.md`, `cv/content/ru.md` — each is Markdown with a YAML front-matter block.
   The front-matter holds the structured sections (contact, summary, skills, certifications,
-  communities, education); the Markdown body holds the Experience entries.
+  communities, languages, education); the Markdown body holds the Experience entries.
 - `cv/template.html.j2` + `cv/cv.css` — one single-column, ATS-friendly layout (real selectable
   text, standard section headers, no photo/columns/tables) used for both languages.
 - `cv/Dockerfile` — pins WeasyPrint and Cyrillic-capable fonts so the build is reproducible.
 
-To update a CV: edit the relevant `cv/content/<lang>.md`, then run `task build-cv` (requires only
-**Docker** — no host Python/font setup). It rewrites `uploads/DevOps-Alexander-Dovnar-EN.pdf` and
-`… RU.pdf`, which the site already links to. Debug HTML is written to `cv/build/` (git-ignored).
+To update a CV: edit the relevant `cv/content/<variant>.md`, then run `task build-cv` (requires only
+**Docker** — no host Python/font setup). Variants and their output files are listed in `VARIANTS` in
+`build_cv.py`: `Alexander-Dovnar-CV-Engineering.pdf` (staff/principal/lead engineering roles),
+`Alexander-Dovnar-CV-Leadership.pdf` (CTO/VP/Head roles) and `DevOps-Alexander-Dovnar-RU.pdf`. The
+engineering variant is also written to the old `DevOps-Alexander-Dovnar-EN.pdf` URL so links already
+shared keep working. Both EN variants share the same titles and dates and differ only in emphasis. Debug HTML is written to `cv/build/` (git-ignored).
