@@ -30,6 +30,30 @@ Notes:
 - Rendering will minify HTML automatically when `CI` is set in the environment.
 - Dependencies are declared in `pyproject.toml`; Task will run `uv sync` automatically.
 
+## Languages (EN / RU)
+
+The site is built twice: English at `/` and Russian at `/ru/`. Everything is static; there is no
+runtime machine translation.
+
+- UI strings (titles, nav, buttons, labels) live in `i18n.yml`, one block per language.
+- Page sections: `content/<section>.md` (EN) and `content/ru/<section>.md` (RU). A missing RU file
+  falls back to the EN one, with a warning in the build log.
+- Blog: a translation is `content/blog/<slug>.ru.md` next to the EN original, same `slug`. It renders
+  to `/ru/blog/<slug>/`. EN posts without a translation still appear in the RU list, marked `EN`,
+  and link to the English page.
+- Every page carries `hreflang` alternates. The `EN | RU` switch in the top bar opens the same page
+  in the other language and stores the choice in a `lang` cookie.
+- First visit: a Cloudflare redirect rule on `/` sends visitors from Russia and Belarus to `/ru/`
+  unless they already have a `lang` cookie (see below).
+
+**Cloudflare redirect rule** (Rules → Redirect Rules → Create rule, "Custom filter expression"):
+
+```
+(http.request.uri.path eq "/" and (http.cookie contains "lang=ru" or (ip.src.country in {"RU" "BY"} and not http.cookie contains "lang=")))
+```
+
+Then: Type *Static*, URL `https://alex-dovnar.in/ru/`, status code **302**, *Preserve query string* on.
+
 ## Blog
 
 Articles live as Markdown in `content/blog/<slug>.md` with a YAML front-matter block:

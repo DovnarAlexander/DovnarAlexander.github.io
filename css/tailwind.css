@@ -1197,6 +1197,20 @@
   .post-link:hover .post-title {
     color: var(--color-cyan);
   }
+  .post-lang {
+    margin-left: calc(var(--spacing) * 1);
+    border-radius: 0.25rem;
+    border-style: var(--tw-border-style);
+    border-width: 1px;
+    padding-inline: calc(var(--spacing) * 1);
+    vertical-align: middle;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    --tw-font-weight: var(--font-weight-medium);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-dim);
+    border-color: var(--color-border);
+  }
   .post-date {
     font-family: var(--font-mono);
     font-size: var(--text-xs);

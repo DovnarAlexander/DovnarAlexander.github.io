@@ -1,13 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ t.html_lang }}">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Alex Dovnar - Platform & DevOps Engineer</title>
+  <title>{{ t.title }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Alex Dovnar - Platform and DevOps engineer, currently hands-on CTO, with 15 years in infrastructure and 10 in cloud: AWS, OCI, Kubernetes, Terraform, CI/CD. Co-author of Cracking the Kubernetes Interview (Packt)." />
+  <meta name="description" content="{{ t.description }}" />
+  <link rel="canonical" href="{{ alternates[lang] }}" />
+  {% for code, url in alternates.items() %}<link rel="alternate" hreflang="{{ code }}" href="{{ url }}" />
+  {% endfor %}<link rel="alternate" hreflang="x-default" href="{{ alternates['en'] }}" />
   <meta name="keywords" content="devops, cloud, aws, kubernetes, terraform, architect, engineer" />
-    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="shortcut icon" href="/favicon.ico">
 
   <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,16 +18,16 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap">
 
   <!-- Styles -->
-    <link rel="stylesheet" href="css/tailwind.css?v={{ css_version }}" type="text/css">
-    <link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
-  <link rel="stylesheet" href="fonts/fontawesome-free/css/all.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/tailwind.css?v={{ css_version }}" type="text/css">
+    <link rel="stylesheet" href="/css/magnific-popup.css" type="text/css">
+  <link rel="stylesheet" href="/fonts/fontawesome-free/css/all.min.css" type="text/css">
   </head>
 
   <body class="min-h-dvh bg-bg font-sans text-fg">
 
   <!-- Context Bar -->
   <header class="ctx-bar">
-    <button class="ctx-burger" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="sidebar">
+    <button class="ctx-burger" id="nav-toggle" aria-label="{{ t.toggle_nav }}" aria-expanded="false" aria-controls="sidebar">
       <i class="fas fa-bars"></i>
     </button>
     <a href="#home" class="hidden font-mono text-base font-semibold text-k8s sm:inline">&gt; alex-dovnar</a>
@@ -32,8 +35,9 @@
     <span class="ctx-pill hidden sm:flex">ns:&nbsp;<b>default</b></span>
     <span class="ctx-pill hidden md:flex">ready&nbsp;▸</span>
     <nav class="ml-auto flex gap-2">
-      <a href="uploads/DevOps-Alexander-Dovnar-EN.pdf" target="_blank" rel="noopener" class="cv-btn">CV EN</a>
-      <a href="uploads/DevOps-Alexander-Dovnar-RU.pdf" target="_blank" rel="noopener" class="cv-btn">CV RU</a>
+      <a href="{{ alt_url }}" class="cv-btn lang-switch" data-lang="{{ 'ru' if lang == 'en' else 'en' }}" hreflang="{{ 'ru' if lang == 'en' else 'en' }}" title="{{ t.switch_title }}"><i class="fas fa-globe"></i>&nbsp;{{ t.switch_label }}</a>
+      {% for cv in t.cv_bar %}<a href="/uploads/{{ cv.file }}" target="_blank" rel="noopener" class="cv-btn">{{ cv.label }}</a>
+      {% endfor %}
     </nav>
   </header>
 
@@ -43,16 +47,16 @@
     <!-- Sidebar (resource nav) -->
     <aside id="sidebar"
       class="fixed bottom-0 left-0 top-12 z-40 w-60 -translate-x-full overflow-y-auto border-r border-border bg-panel transition-transform duration-200 lg:sticky lg:top-12 lg:h-[calc(100dvh-3rem)] lg:w-auto lg:translate-x-0">
-      <p class="nav-label">Resources</p>
+      <p class="nav-label">{{ t.nav_label }}</p>
       <nav class="flex flex-col pb-4">
-        <a href="#home" class="nav-item"><i class="fas fa-terminal"></i>home</a>
-        <a href="#about" class="nav-item"><i class="fas fa-id-card"></i>about</a>
-        <a href="#experience" class="nav-item"><i class="fas fa-briefcase"></i>experience<span class="nav-count">4</span></a>
-        <a href="#skills" class="nav-item"><i class="fas fa-layer-group"></i>skills</a>
-        <a href="#education" class="nav-item"><i class="fas fa-graduation-cap"></i>education</a>
-        <a href="#blog" class="nav-item"><i class="fas fa-rss"></i>blog<span class="nav-count">{{ posts|length if posts else 0 }}</span></a>
-        <a href="#videos" class="nav-item"><i class="fas fa-video"></i>talks<span class="nav-count">70+</span></a>
-        <a href="#contact" class="nav-item"><i class="fas fa-envelope"></i>contact</a>
+        <a href="#home" class="nav-item"><i class="fas fa-terminal"></i>{{ t.nav.home }}</a>
+        <a href="#about" class="nav-item"><i class="fas fa-id-card"></i>{{ t.nav.about }}</a>
+        <a href="#experience" class="nav-item"><i class="fas fa-briefcase"></i>{{ t.nav.experience }}<span class="nav-count">6</span></a>
+        <a href="#skills" class="nav-item"><i class="fas fa-layer-group"></i>{{ t.nav.skills }}</a>
+        <a href="#education" class="nav-item"><i class="fas fa-graduation-cap"></i>{{ t.nav.education }}</a>
+        <a href="#blog" class="nav-item"><i class="fas fa-rss"></i>{{ t.nav.blog }}<span class="nav-count">{{ posts|length if posts else 0 }}</span></a>
+        <a href="#videos" class="nav-item"><i class="fas fa-video"></i>{{ t.nav.talks }}<span class="nav-count">70+</span></a>
+        <a href="#contact" class="nav-item"><i class="fas fa-envelope"></i>{{ t.nav.contact }}</a>
       </nav>
     </aside>
     <div id="nav-backdrop" class="fixed inset-0 top-12 z-30 hidden bg-black/50 lg:hidden"></div>
@@ -62,7 +66,7 @@
 
       <!-- Highlights — mobile/tablet chip strip -->
       <div class="highlights-strip sticky top-12 z-30 bg-bg/90 backdrop-blur xl:hidden"
-           tabindex="0" role="region" aria-label="Certifications and communities">
+           tabindex="0" role="region" aria-label="{{ t.highlights_aria }}">
         <div class="chip-flow">{{ highlights_html | safe }}</div>
       </div>
 
@@ -71,10 +75,10 @@
         <div class="hero-panel">
           <div class="hero-prompt">&gt; whoami</div>
           <h1 class="hero-title">Alex Dovnar<span class="hero-cursor"></span></h1>
-          <p class="hero-subtitle">Platform &amp; DevOps Engineer · hands-on CTO</p>
+          <p class="hero-subtitle">{{ t.subtitle }}</p>
           <div class="hero-actions">
-            <a href="uploads/DevOps-Alexander-Dovnar-EN.pdf" class="hero-btn hero-btn-primary" target="_blank" rel="noopener">Download CV (EN)</a>
-            <a href="uploads/DevOps-Alexander-Dovnar-RU.pdf" class="hero-btn" target="_blank" rel="noopener">Скачать Резюме (RU)</a>
+            <a href="/uploads/{{ t.cv_primary.file }}" class="hero-btn hero-btn-primary" target="_blank" rel="noopener">{{ t.cv_primary.label }}</a>
+            <a href="/uploads/{{ t.cv_secondary.file }}" class="hero-btn" target="_blank" rel="noopener">{{ t.cv_secondary.label }}</a>
           </div>
           <div class="hero-social">
             <a href="https://www.linkedin.com/in/dovnaralex/" target="_blank" rel="noopener" title="LinkedIn">
@@ -134,21 +138,21 @@
           {% if posts %}
           {% if namespaces %}
           {% set ns_visible = 10 %}
-          <nav class="ns-filter" aria-label="Filter posts by namespace">
-            <a href="./#blog" class="ns-chip active" data-ns="" aria-pressed="true">all<span class="ns-count">{{ posts|length }}</span></a>
+          <nav class="ns-filter" aria-label="{{ t.ns_filter_aria }}">
+            <a href="./#blog" class="ns-chip active" data-ns="" aria-pressed="true">{{ t.ns_all }}<span class="ns-count">{{ posts|length }}</span></a>
             {% for ns in namespaces %}
             <a href="?ns={{ ns.slug }}#blog" class="ns-chip{% if loop.index > ns_visible %} ns-extra{% endif %}" data-ns="{{ ns.slug }}" title="{{ ns.label }}" aria-pressed="false">{{ ns.slug }}<span class="ns-count">{{ ns.count }}</span></a>
             {% endfor %}
             {% if namespaces|length > ns_visible %}
-            <button type="button" class="ns-more" id="ns-more" aria-expanded="false">+{{ namespaces|length - ns_visible }} more</button>
+            <button type="button" class="ns-more" id="ns-more" aria-expanded="false">+{{ namespaces|length - ns_visible }} {{ t.ns_more }}</button>
             {% endif %}
           </nav>
           {% endif %}
           <ul class="post-list" id="post-list">
             {% for post in posts %}
             <li class="post-item" data-ns="{{ post.tag_links|map(attribute='ns')|join(' ') }}">
-              <a href="{{ post.url }}" class="post-link">
-                <span class="post-title">{{ post.title }}</span>
+              <a href="{{ post.url }}" class="post-link"{% if post.en_only %} hreflang="en"{% endif %}>
+                <span class="post-title">{{ post.title }}{% if post.en_only %} <span class="post-lang" title="{{ t.en_only_title }}">{{ t.en_only }}</span>{% endif %}</span>
                 {% if post.date_human %}<span class="post-date">{{ post.date_human }}</span>{% endif %}
               </a>
               {% if post.excerpt %}<p class="post-excerpt">{{ post.excerpt }}</p>{% endif %}
@@ -156,10 +160,10 @@
             </li>
             {% endfor %}
           </ul>
-          <p class="empty-state hidden" id="post-empty">No resources found in this namespace.</p>
+          <p class="empty-state hidden" id="post-empty">{{ t.ns_empty }}</p>
           {% else %}
-          <p class="empty-state">No resources found in default namespace.</p>
-          <p class="mt-2 text-sm text-dim">Articles on DevOps, Cloud Architecture &amp; best practices — coming soon.</p>
+          <p class="empty-state">{{ t.blog_empty }}</p>
+          <p class="mt-2 text-sm text-dim">{{ t.blog_soon }}</p>
           {% endif %}
         </div>
       </section>
@@ -174,16 +178,16 @@
           <!-- Video Filters -->
           <ul class="portfolio-filters">
             <li class="active">
-              <a class="filter" data-group="all">All</a>
+              <a class="filter" data-group="all">{{ t.video_all }}</a>
             </li>
             <li>
-              <a class="filter" data-group="youtube-videos">YouTube Videos</a>
+              <a class="filter" data-group="youtube-videos">{{ t.video_youtube }}</a>
             </li>
             <li>
               <a class="filter" data-group="devops-kitchen">DevOps Kitchen Talks</a>
             </li>
             <li>
-              <a class="filter" data-group="public-talks">Public talks</a>
+              <a class="filter" data-group="public-talks">{{ t.video_groups['Public talks'] }}</a>
             </li>
           </ul>
 
@@ -201,7 +205,7 @@
                     </div>
                     <i class="fas fa-video"></i>
                     <h4 class="name">{{ info["title"] }}</h4>
-                    <span class="category">{{ group_name }}</span>
+                    <span class="category">{{ t.video_groups.get(group_name, group_name) }}</span>
                   </figure>
                 {% endfor %}
               {% endfor %}
@@ -214,7 +218,7 @@
                   </div>
                   <i class="fas fa-video"></i>
                   <h4 class="name">{{ info["title"] }}</h4>
-                  <span class="category">YouTube Videos</span>
+                  <span class="category">{{ t.video_youtube }}</span>
                 </figure>
               {% endfor %}
             {% endif %}
@@ -231,8 +235,8 @@
           <div class="contact-info">
             <div class="contact-item"><strong>Email:</strong> <a href="mailto:alex@alex-dovnar.in">alex@alex-dovnar.in</a></div>
             <div class="contact-item"><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/dovnaralex/" target="_blank" rel="noopener">/in/dovnaralex</a></div>
-            <div class="contact-item"><strong>Location:</strong> Minsk, Belarus</div>
-            <div class="contact-item mt-4 text-dim">© 2025 Alex Dovnar. All rights reserved.</div>
+            <div class="contact-item"><strong>{{ t.contact_location_label }}:</strong> {{ t.contact_location }}</div>
+            <div class="contact-item mt-4 text-dim">© 2025 Alex Dovnar. {{ t.rights }}</div>
           </div>
         </div>
       </section>
@@ -254,11 +258,17 @@
   </div><!-- /.grid -->
 
   <!-- Scripts -->
-    <script src="js/jquery.min.js"></script>
-    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.magnific-popup.min.js"></script>
 
   <script>
     $(document).ready(function () {
+      // Remember an explicit language choice; the Cloudflare redirect rule on /
+      // reads this cookie before falling back to the visitor's country.
+      $('.lang-switch').on('click', function () {
+        document.cookie = 'lang=' + this.dataset.lang + '; path=/; max-age=31536000; SameSite=Lax';
+      });
+
       // Open highlight links in a new tab
       $('.chip-flow a, .highlights-panel a').attr('target', '_blank').attr('rel', 'noopener noreferrer');
 

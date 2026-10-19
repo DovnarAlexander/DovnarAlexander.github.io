@@ -398,6 +398,11 @@
   .post-link:hover .post-title {
     color: var(--color-cyan);
   }
+  .post-lang {
+    @apply ml-1 rounded border px-1 align-middle font-mono text-[10px] font-medium;
+    color: var(--color-dim);
+    border-color: var(--color-border);
+  }
   .post-date {
     @apply font-mono text-xs;
     color: var(--color-dim);
