@@ -13,11 +13,12 @@
 - Ran the DevOps practice of ~30 engineers through team leads: staffing across client projects, hiring, performance and career growth.
 - Owned engineering standards and architecture review across client projects; stayed hands-on as tech lead on the largest engagements.
 - Designed the observability migration from Prometheus to VictoriaMetrics for a global cybersecurity vendor's SASE platform: ~20,000 gateways across ~60 production regions.
-- Replaced a multi-day take-home assignment with a one-hour live technical interview; started and ran the internal tech-talk program (23 sessions).
+- Started and ran the internal tech-talk program (23 sessions).
 
 ## DevOps Team Lead • Naviteq Ltd • Dec 2021 – Mar 2024
 
 - One of the company's first engineers. Led a team of 10 DevOps engineers: hiring, onboarding, 1:1s, performance reviews and day-to-day technical direction.
+- Together with the Head of DevOps, replaced a multi-day take-home assignment with a one-hour live technical interview.
 - Tech lead on the company's key client projects; delivered 10+ projects end-to-end.
 - Built a cloud-agnostic Kubernetes platform from scratch for a security startup.
 - Moved EKS clusters to Karpenter, raising node utilization from ~70% to 90%+.

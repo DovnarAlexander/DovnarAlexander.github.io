@@ -35,8 +35,8 @@ certifications:
   - "Kubestronaut (CNCF, 2025), все пять сертификатов действуют: Certified Kubernetes Administrator (CKA, 2025–2027), Certified Kubernetes Security Specialist (CKS, 2025–2027), Certified Kubernetes Application Developer (CKAD), KCNA, KCSA"
   - "Ранее: AWS Certified Solutions Architect – Professional (2023–2026), AWS Certified Security – Specialty (2022–2025), HashiCorp Certified: Terraform Associate, Cisco CCNA"
 communities:
-  - "Соавтор книги «Cracking the Kubernetes Interview» (Packt, 2025, 560 страниц; с Виктором Ведмичем и Викторией Семаан)"
-  - "Спикер: DevOpsDays Kazakhstan 2024 (доклад и воркшоп), AWS Community Day Almaty 2025 (воркшоп по оптимизации затрат на EKS), DKT Conf 2026 (соорганизатор и спикер)"
+  - "Соавтор книги «Cracking the Kubernetes Interview» (Packt, 2025; с В. Ведмичем и В. Семаан)"
+  - "Спикер: DevOpsDays KZ 2024, AWS Community Day Almaty 2025, DKT Conf 2026 (соорганизатор)"
   - "DevOps Kitchen Talks — ведущий (с 2020; 100+ выпусков, 300k+ просмотров)"
   - AWS Community Builder (с 2021); Terragrunt Ambassador (с 2025)
   - "Slurm.io — автор и тренер курсов DevOps/SRE (CI/CD, Kubernetes, Terraform)"
@@ -61,12 +61,13 @@ education:
 - Руководил DevOps-практикой (~30 инженеров) через тимлидов: стаффинг на клиентские проекты, найм, performance review и развитие инженеров.
 - Отвечал за инженерные стандарты и архитектурное ревью на клиентских проектах; оставался техлидом на крупнейших проектах.
 - Спроектировал миграцию мониторинга с Prometheus на VictoriaMetrics для SASE-платформы международного вендора кибербезопасности: ~20 000 шлюзов в ~60 продакшн-регионах.
-- Заменил многодневное тестовое задание часовым live-интервью; запустил и вёл внутренние техтоки (23 сессии).
+- Запустил и вёл внутренние техтоки (23 сессии).
 
 ### Тимлид DevOps — Naviteq Ltd
 *Декабрь 2021 – март 2024*
 
 - Один из первых инженеров компании. Руководил командой из 10 DevOps-инженеров: найм, онбординг, 1:1, performance review, техническое руководство.
+- Вместе с руководителем DevOps-направления заменил многодневное тестовое задание часовым live-интервью.
 - Техлид на ключевых клиентских проектах; 10+ проектов под ключ: архитектура, деплой, эксплуатация.
 - С нуля построил cloud-agnostic Kubernetes-платформу для security-стартапа.
 - Перевёл EKS-кластеры с Cluster Autoscaler на Karpenter: утилизация нод выросла с ~70% до 90%+.
