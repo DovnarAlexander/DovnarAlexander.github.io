@@ -3,7 +3,7 @@
 
 Each source file is Markdown with a YAML front-matter block. The front-matter
 holds the structured sections (contact, summary, skills, certifications,
-communities, education); the Markdown body holds the Experience entries. One
+communities, languages, education); the Markdown body holds the Experience entries. One
 Jinja template + one print stylesheet render a single-column, ATS-friendly PDF
 per language.
 """
