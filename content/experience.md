@@ -2,10 +2,11 @@
 
 ## Chief Technology Officer • Naviteq Ltd • Feb 2026 – Present
 
-- Lead technology for a DevOps and cloud services company with 50+ engineers; the Head of DevOps and team leads report through me.
-- Own technical pre-sales and solution architecture: high-level designs and estimations for cloud migrations and platform builds on AWS and Oracle Cloud (OCI).
-- Technical lead for AWS-to-OCI migrations; an OCI assessment for an ad-tech client projected a 55% cut in non-production cloud spend.
-- Stay hands-on: design and build the company's internal infrastructure platform (Terraform/OpenTofu modules, Helm charts, reusable CI/CD workflows).
+- Design and build the company's internal infrastructure platform hands-on: reusable Terraform/OpenTofu modules for AWS and OCI, hardened Helm charts, GitHub Actions workflows and GitOps with Argo CD.
+- Technical lead for AWS-to-OCI migrations: architecture, cost model and migration plan; an OCI assessment for an ad-tech client projected a 55% cut in non-production spend.
+- Write high-level designs and estimations for cloud migrations and platform builds on AWS and Oracle Cloud (OCI).
+- Set engineering standards across the company: architecture and code review, reference architectures and default tooling choices.
+- Scope: technology lead of a 50-engineer DevOps services company; the Head of DevOps and 7 team leads report through me.
 
 ## Head of DevOps • Naviteq Ltd • Apr 2024 – Jan 2026
 
