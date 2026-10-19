@@ -3,15 +3,18 @@ name: Alexander Dovnar
 title: DevOps & Cloud Architect
 location: Minsk, Belarus
 email: alex@alex-dovnar.in
-linkedin: linkedin.com/in/aliaksandrdounar
+linkedin: linkedin.com/in/dovnaralex
 website: alex-dovnar.in
+keywords: DevOps, Cloud Architect, Platform Engineering, AWS, OCI, Kubernetes, Terraform, OpenTofu, Terragrunt, Helm, SRE, Technical Leadership
 summary: >
-  DevOps & Cloud Architect with 10+ years building scalable, secure infrastructure on
-  AWS, Azure, and GCP. Deep expertise in Infrastructure as Code (Terraform, Terragrunt,
-  Helm), Kubernetes, CI/CD, and observability. Equally effective as a hands-on engineer
-  and a technical lead — designing cloud architectures, launching 10+ production systems
-  end-to-end, optimizing cost, and mentoring engineers. Actively applies AI to engineering —
-  coding agents, MCP integrations, and agentic workflows.
+  DevOps & Cloud Architect with 15 years in infrastructure, 10 of them building scalable,
+  secure platforms on Amazon Web Services (AWS), Oracle Cloud Infrastructure (OCI), Azure
+  and GCP. Deep expertise in Infrastructure as Code (Terraform, OpenTofu, Terragrunt, Helm),
+  Kubernetes, CI/CD and observability. Equally effective as a hands-on engineer and a
+  technical lead: designing cloud architectures, launching 10+ production systems
+  end-to-end, optimizing cost and mentoring engineers. Co-author of "Cracking the Kubernetes
+  Interview" (Packt, 2025). Actively applies AI to engineering: coding agents, MCP
+  integrations and agentic workflows.
 skills:
   - group: Cloud
     detail: AWS (expert), Azure, GCP, Oracle Cloud, Yandex Cloud, VK Cloud
@@ -38,7 +41,9 @@ certifications:
   - "HashiCorp Certified: Terraform Associate"
   - Cisco CCNA
 communities:
-  - "DevOps Kitchen Talks — co-host (2020–present); 70+ episodes, 300k+ views"
+  - "Co-author, \"Cracking the Kubernetes Interview\" (Packt, 2025, 560 pages; with Viktor Vedmich and Viktoria Semaan)"
+  - "Speaker: DevOpsDays Kazakhstan 2024 (talk and workshop), AWS Community Day Almaty 2025 (EKS cost-optimization workshop), DKT Conf 2026 (co-organizer and speaker)"
+  - "DevOps Kitchen Talks — co-host (2020–present); 100+ episodes, 300k+ views"
   - AWS Community Builder (2023–present)
   - Terragrunt Ambassador (2025–present)
   - "Slurm.io — author & trainer for DevOps/SRE courses (CI/CD, Kubernetes, Terraform)"
@@ -50,6 +55,10 @@ education:
 *Jan 2022 – Present*
 
 - Delivered 10+ client projects end-to-end, from architecture design to production.
+- Built Runestra, the company's DevOps accelerator, as sole developer, then grew it into a two-engineer product: 62 Terraform/OpenTofu modules for AWS and OCI, 42 hardened Helm charts and 34 reusable GitHub Actions workflows. A new client environment goes from an empty account to production in under an hour instead of 4–8 weeks.
+- Designed the observability migration from Prometheus to VictoriaMetrics for a global cybersecurity vendor's SASE platform: ~20,000 gateways across ~60 production regions.
+- Built a cloud-agnostic Kubernetes platform from scratch for a security startup later acquired by GitLab.
+- Moved EKS clusters from Cluster Autoscaler to Karpenter, raising node utilization from ~70% to 90%+.
 - Architected and deployed highly available, secure AWS infrastructure with cost optimization (saved up to 40%).
 - Standardized reusable Terraform/Terragrunt templates and CI/CD pipelines across teams.
 - Operated Kubernetes clusters and authored Helm charts to streamline deployments.

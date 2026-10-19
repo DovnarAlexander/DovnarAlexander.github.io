@@ -3,6 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <title>{{ name }} — {{ title }}</title>
+  <meta name="author" content="{{ name }}" />
+  {% if keywords %}<meta name="keywords" content="{{ keywords }}" />{% endif %}
   <style>{{ css | safe }}</style>
 </head>
 <body>

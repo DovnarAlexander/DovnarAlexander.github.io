@@ -8,8 +8,18 @@
 - [**Certified Kubernetes Security Specialist** (2025 - 2027)](https://www.credly.com/earner/earned/badge/11b49fbb-ff64-4500-ba00-bad94c91bc1a)
 - [**Certified Kubernetes Administrator** (2025 - 2027)](https://www.credly.com/earner/earned/badge/59856979-01a6-46b4-a370-1a6916b19e7b)
 
+## 📘 Book
+
+- [**Cracking the Kubernetes Interview** (Packt, 2025)](https://www.packtpub.com/en-us/product/cracking-the-kubernetes-interview-9781835460030) — co-author
+
+## 🎤 Talks
+
+- **DevOpsDays Kazakhstan 2024** — talk and workshop
+- **AWS Community Day Almaty 2025** — EKS cost-optimization workshop
+- **DKT Conf 2026** — co-organizer and speaker
+
 ## 🌟 Communities
 
-- [**DevOps Kitchen Talks co-host** (2020 - Present)](https://www.youtube.com/c/DevOpsKitchenTalks) — 70+ episodes, 300k+ views
+- [**DevOps Kitchen Talks co-host** (2020 - Present)](https://www.youtube.com/c/DevOpsKitchenTalks) — 100+ episodes, 300k+ views
 - [**AWS Community Builder** (2023 - Present)](https://builder.aws.com/community/@justdevops)
 - [**Terragrunt Ambassador** (2025 - Present)](https://terragrunt.gruntwork.io/terragrunt-ambassador)
