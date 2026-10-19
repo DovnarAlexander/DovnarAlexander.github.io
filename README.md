@@ -74,7 +74,7 @@ The two résumé PDFs in `uploads/` are **generated**, not hand-edited. Sources 
 
 - `cv/content/en.md`, `cv/content/ru.md` — each is Markdown with a YAML front-matter block.
   The front-matter holds the structured sections (contact, summary, skills, certifications,
-  communities, education); the Markdown body holds the Experience entries.
+  communities, languages, education); the Markdown body holds the Experience entries.
 - `cv/template.html.j2` + `cv/cv.css` — one single-column, ATS-friendly layout (real selectable
   text, standard section headers, no photo/columns/tables) used for both languages.
 - `cv/Dockerfile` — pins WeasyPrint and Cyrillic-capable fonts so the build is reproducible.
